@@ -30,3 +30,28 @@ Feature: Cadastro e manutenção de métodos de pagamento (inserir, remover, atu
         And vê uma mensagem que indica que a operação foi realizada com sucesso
         And vê os métodos de pagamento "Apple Pay"
         And "Google Pay"
+
+    Scenario: Tentativa de adição de método de pagamento com informações incompletas
+        Given a usuária "Maria" está na página de "Métodos de Pagamento"
+        And possui somente o método de pagamento "Cartão de Crédito ELO"
+        When a usuária "Maria" adiciona o método de pagamento "Cartão de Crédito VISA" com "número do cartão" "12345", "validade" "09/10/2026", "CVV" "-", "nome do titular" "MARIA SILVA"
+        Then a usuária "Maria" permanece na página de "Métodos de Pagamento"
+        And vê uma mensagem que indica a impossibilidade de adicionar o método de pagamento "Cartão de Crédito VISA" pois o "CVV" está incompleto
+        And vê somente o método de pagamento "Cartão de Crédito ELO"
+
+    Scenario: Tentativa de atualização de método de pagamento (GUI)
+        Given a usuária "Maria" está na página de "Métodos de Pagamento"
+        And possui somente o método de pagamento "Cartão de Crédito VISA"
+        When a usuária "Maria" atualiza "nome do titular" do método de pagamento
+        "Cartão de Crédito VISA" para "-"
+        Then a usuária "Maria" permanece na página de "Métodos de Pagamento"
+        And vê uma mensagem que indica a impossibilidade de altualizar o método
+        de pagamento "Cartão de Crédito VISA", pois "nome do titular" inserido é inválido
+
+    Scenario: Tentativa de atualização de método de pagamento (serviço)
+        Given a usuária "Maria" está cadastrada no sistema
+        And possui somente o método de pagamento "Cartão de Crédito VISA"
+        When a usuária "Maria" atualiza o método de pagamento
+        "Cartão de Crédito VISA" de maneira inválida
+        Then o sistema não realiza a atualização do método de
+        pagamento "Cartão de Crédito VISA", o qual continua armazenado no sistema
