@@ -1,6 +1,6 @@
 Exibir o histórico de compras dos últimos 10 dias: Exibir uma lista com os pedidos e as respectivas informações de um período de tempo igual a 10 dias
 
-Scenario: Visualizar os pedidos feitos nos últimos 10 dias
+Scenario 1: Visualizar os pedidos feitos nos últimos 10 dias
 Given Eu estou na página "Meus Pedidos"
 And É exibido o pedido "09072023" com data "09/07/2023" com Status "Em produção" e valor total "R$104,10"
 And É exibido o pedido "05052023" com data "05/05/2023" com Status "Cancelado" e valor total "R$83,92"
@@ -10,7 +10,7 @@ When Eu solicito a exibição dos pedidos feitos nos "últimos 10 dias"
 Then Eu continuo na página "Meus Pedidos"
 And É exibido o pedido "09072023" com data "09/07/2023" com Status "Cancelado" e valor total "R$104,10"
 
-Scenario: Visualizar um pedido em uma data inválida
+Scenario 2: Visualizar um pedido em uma data inválida
 Given Eu estou na página "Meus Pedidos"
 And É exibido o pedido "08062023" com data "08/06/2023" com Status "Em produção" e valor total "R$104,10"
 And É exibido o pedido "12092022" com data "12/09/2022" com Status "Fnalizado" e valor total "43,22"
