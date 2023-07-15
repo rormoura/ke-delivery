@@ -2,12 +2,17 @@ Com o objetivo de Acompanhar meus gastos no aplicativo
 Sendo a cliente "Clara"
 Eu quero ser capaz de visualizar os pedidos feitos no aplicativo
 
-Scenario: Visualizar os pedidos feitos nos últimos 10 dias
-Given Eu estou na página "Meus Pedidos"
-And É exibido o pedido "09072023" com data "09/07/2023" com Status "Em produção" e valor total "R$104,10"
-And É exibido o pedido "05052023" com data "05/05/2023" com Status "Cancelado" e valor total "R$83,92"
-And É exibido o pedido "03032023" com data "03/03/2023" com Status "Fnalizado" e valor total "R$57,33"
-And Hoje é dia "10/07/2023"
-When Eu solicito a exibição dos pedidos feitos nos "últimos 10 dias"
-Then Eu continuo na página "Meus Pedidos"
-And É exibido o pedido "09072023" com data "09/07/2023" com Status "Cancelado" e valor total "R$104,10"
+Com o objetivo de evitar gastos desnecessários
+Sendo a cliente "Maria"
+Eu quero ser capaz de cancelar um pedido que não desejo mais
+
+Scenario: Cancelar o pedido "090720231430"
+Given Eu estou na página do pedido "090720231430"
+And O pedido atual tem o Status "Em Produção" e Valor Total "R$104,10"
+And O item "Poke" tem quantidade definida para "2 Unidades" com valor  unitário de "R$30,10" e total "R$60,20"
+And O item "Sashimi" tem quantidade definida para "1 Unidade" com valor unitário de "R$43,90" e total "R$43,90"
+When Eu cancelo o pedido
+Then Eu continuo na página do pedido "090720231430"
+And o status do pedido "090720231430" é alterado para "Cancelado"
+And Uma notificação de cancelamento é enviada ao restaurante
+
