@@ -11,7 +11,7 @@ And O item "Pão de Alho" tem quantidade definida para "5 Unidades" com valor  un
 When Adiciono a observação "Sem Cebola"
 And Confirmo a observação
 Then Eu continuo na página do pedido "15122023"
-And "Observações do pedido" é alterado para "Sem Cebola"
+And Observações do pedido é alterado para "Sem Cebola"
 And Uma notificação de observação é enviada ao restaurante
 
 Scenario: Adiconar comentário "Adicione 3 molhos da casa" em um pedido já concluído
