@@ -1,0 +1,1 @@
+Cancelar um pedido: Uma opção na tela de pedidos que permite cancelar o pedido e avisa ao restaurante e ao entregador

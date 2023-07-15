@@ -1,0 +1,1 @@
+Exibir o histórico de compras dos últimos 10 dias: Exibir uma lista com os pedidos e as respectivas informações de um período de tempo igual a 10 dias

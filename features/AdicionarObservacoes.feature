@@ -1,0 +1,1 @@
+Adicionar observações sobre o pedido: Uma opção que permite que o cliente envie observações para o restaurante sobre o pedido. Ex.: Remover cebola

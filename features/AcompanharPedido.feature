@@ -1,0 +1,1 @@
+Acompanhar o estado de um pedido: Tela com informações sobre um pedido em específico, informando qual o status, qual o valor, os itens, etc.
