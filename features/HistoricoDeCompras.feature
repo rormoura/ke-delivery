@@ -9,3 +9,16 @@ And Hoje é dia "10/07/2023"
 When Eu solicito a exibição dos pedidos feitos nos "últimos 10 dias"
 Then Eu continuo na página "Meus Pedidos"
 And É exibido o pedido "09072023" com data "09/07/2023" com Status "Cancelado" e valor total "R$104,10"
+
+Scenario: Visualizar um pedido em uma data inválida
+Given Eu estou na página "Meus Pedidos"
+And É exibido o pedido "08062023" com data "08/06/2023" com Status "Em produção" e valor total "R$104,10"
+And É exibido o pedido "12092022" com data "12/09/2022" com Status "Fnalizado" e valor total "43,22"
+And Hoje é dia "10/07/2023"
+When Eu solicito a exibição dos pedidos feitos na data "15/03/2024"
+Then Eu continuo na página "Meus Pedidos"
+And É exibido uma mensagem de erro informando que a data é inválida
+And É exibido uma mensagem de erro informando que a data é inválida
+And O seletor de datas está definido como "Todos os pedidos"
+And É exibido o pedido "08062023" com data "08/06/2023" com Status "Em produção" e valor total "R$104,10"
+And É exibido o pedido "12092022" com data "12/09/2022" com Status "Fnalizado" e valor total "43,22"
