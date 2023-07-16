@@ -403,8 +403,4 @@ FodyWeavers.xsd
 # JetBrains Rider
 *.sln.iml
 /.vs/ke-delivery/v17/.wsuo
-<<<<<<< HEAD
 /.vs
-=======
-/.vs/slnx.sqlite
->>>>>>> a8e1ba4 (<chore(*): Edit Vs Files)
