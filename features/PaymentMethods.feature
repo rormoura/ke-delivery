@@ -39,7 +39,7 @@ Feature: Cadastro e manutenção de métodos de pagamento (inserir, remover, atu
         And vê uma mensagem que indica a impossibilidade de adicionar o método de pagamento "Cartão de Crédito VISA" pois o "CVV" está incompleto
         And vê somente o método de pagamento "Cartão de Crédito ELO"
 
-    Scenario: Tentativa de atualização de método de pagamento (GUI)
+    Scenario: (GUI) Tentativa de atualização de método de pagamento
         Given a usuária "Maria" está na página de "Métodos de Pagamento"
         And possui somente o método de pagamento "Cartão de Crédito VISA"
         When a usuária "Maria" atualiza "nome do titular" do método de pagamento
