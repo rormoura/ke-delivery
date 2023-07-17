@@ -55,4 +55,5 @@ Feature: Cadastro e manutenção de métodos de pagamento (inserir, remover, atu
         "Cartão de Crédito VISA" de maneira inválida
         Then o sistema não realiza a atualização do método de
         pagamento "Cartão de Crédito VISA", o qual continua armazenado no sistema
+        And only a test step
         And adding a test step at the last scenario
