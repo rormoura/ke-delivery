@@ -28,7 +28,7 @@ Feature: Cadastro e manutenção de promoções (inserir, remover, atualizar)
         And vê uma mensagem que indica que a operação foi realizada com sucesso
         And vê que não possui nenhuma promoção
 
-    Scenario: (serviço) Remoção de promoção realizada com sucesso
+    Scenario: Remoção de promoção realizada com sucesso (serviço)
         Given o restaurante "Churras do Lucas" está cadastrado no sistema
         And o restaurante "Churras do Lucas" possui somente a promoção "40TAO", a qual aplica "40%" de desconto
         When o restaurante "Churras do Lucas" remove a promoção "40TAO"
