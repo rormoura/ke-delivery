@@ -48,7 +48,7 @@ Feature: Cadastro e manutenção de métodos de pagamento (inserir, remover, atu
         And vê uma mensagem que indica a impossibilidade de altualizar o método
         de pagamento "Cartão de Crédito VISA", pois "nome do titular" inserido é inválido
 
-    Scenario: Tentativa de atualização de método de pagamento (serviço)
+    Scenario: (serviço) Tentativa de atualização de método de pagamento
         Given a usuária "Maria" está cadastrada no sistema
         And possui somente o método de pagamento "Cartão de Crédito VISA"
         When a usuária "Maria" atualiza o método de pagamento
