@@ -6,26 +6,26 @@ class CashPaymentMethodRepository extends BaseRepository<CashPaymentMethodEntity
     super('cash');
   }
 
-  public async getTests(): Promise<CashPaymentMethodEntity[]> {
+  public async getCashPaymentMethods(): Promise<CashPaymentMethodEntity[]> {
     return await this.findAll();
   }
 
-  public async getTest(id: string): Promise<CashPaymentMethodEntity | null> {
+  public async getCashPaymentMethod(id: string): Promise<CashPaymentMethodEntity | null> {
     return await this.findOne((item) => item.id === id);
   }
 
-  public async createTest(data: CashPaymentMethodEntity): Promise<CashPaymentMethodEntity> {
+  public async createCashPaymentMethod(data: CashPaymentMethodEntity): Promise<CashPaymentMethodEntity> {
     return await this.add(data);
   }
 
-  public async updateTest(
+  public async updateCashPaymentMethod(
     id: string,
     data: CashPaymentMethodEntity
   ): Promise<CashPaymentMethodEntity | null> {
     return await this.update((item) => item.id === id, data);
   }
 
-  public async deleteTest(id: string): Promise<void> {
+  public async deleteCashPaymentMethod(id: string): Promise<void> {
     await this.delete((item) => item.id !== id);
   }
 }

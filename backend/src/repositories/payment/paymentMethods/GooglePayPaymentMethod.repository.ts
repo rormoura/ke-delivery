@@ -6,26 +6,26 @@ class GooglePayPaymentMethodRepository extends BaseRepository<GooglePayPaymentMe
     super('googlepay');
   }
 
-  public async getTests(): Promise<GooglePayPaymentMethodEntity[]> {
+  public async getGooglePayPaymentMethods(): Promise<GooglePayPaymentMethodEntity[]> {
     return await this.findAll();
   }
 
-  public async getTest(id: string): Promise<GooglePayPaymentMethodEntity | null> {
+  public async getGooglePayPaymentMethod(id: string): Promise<GooglePayPaymentMethodEntity | null> {
     return await this.findOne((item) => item.id === id);
   }
 
-  public async createTest(data: GooglePayPaymentMethodEntity): Promise<GooglePayPaymentMethodEntity> {
+  public async createGooglePayPaymentMethod(data: GooglePayPaymentMethodEntity): Promise<GooglePayPaymentMethodEntity> {
     return await this.add(data);
   }
 
-  public async updateTest(
+  public async updateGooglePayPaymentMethod(
     id: string,
     data: GooglePayPaymentMethodEntity
   ): Promise<GooglePayPaymentMethodEntity | null> {
     return await this.update((item) => item.id === id, data);
   }
 
-  public async deleteTest(id: string): Promise<void> {
+  public async deleteGooglePayPaymentMethod(id: string): Promise<void> {
     await this.delete((item) => item.id !== id);
   }
 }
