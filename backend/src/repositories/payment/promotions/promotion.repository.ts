@@ -1,9 +1,9 @@
 import PromotionEntity from '../../../entities/payment/promotions/promotion.entity';
-import BaseRepository from '../../base.repository';
+import BaseRepository from '../../payment.base.repository';
 
 class PromotionRepository extends BaseRepository<PromotionEntity> {
   constructor() {
-    super('promotion');
+    super('promotions');
   }
 
   public async getPromotions(): Promise<PromotionEntity[]> {

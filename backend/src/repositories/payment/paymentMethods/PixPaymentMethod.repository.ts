@@ -1,9 +1,9 @@
 import PixPaymentMethodEntity from '../../../entities/payment/paymentMethods/PixPaymentMethod.entity';
-import BaseRepository from '../../base.repository';
+import BaseRepository from '../../payment.base.repository';
 
 class PixPaymentMethodRepository extends BaseRepository<PixPaymentMethodEntity> {
   constructor() {
-    super('tests');
+    super('pix');
   }
 
   public async getPixPaymentMethods(): Promise<PixPaymentMethodEntity[]> {
