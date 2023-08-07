@@ -10,8 +10,8 @@ class PixPaymentMethodRepository extends BaseRepository<PixPaymentMethodEntity> 
     return await this.findAll();
   }
 
-  public async getPixPaymentMethod(id: string): Promise<PixPaymentMethodEntity | null> {
-    return await this.findOne((item) => item.id === id);
+  public async getPixPaymentMethod(name: string): Promise<PixPaymentMethodEntity | null> {
+    return await this.findOne((item) => item.name === name);
   }
 
   public async createPixPaymentMethod(data: PixPaymentMethodEntity): Promise<PixPaymentMethodEntity> {
@@ -19,14 +19,14 @@ class PixPaymentMethodRepository extends BaseRepository<PixPaymentMethodEntity> 
   }
 
   public async updatePixPaymentMethod(
-    id: string,
+    name: string,
     data: PixPaymentMethodEntity
   ): Promise<PixPaymentMethodEntity | null> {
-    return await this.update((item) => item.id === id, data);
+    return await this.update((item) => item.name === name, data);
   }
 
-  public async deletePixPaymentMethod(id: string): Promise<void> {
-    await this.delete((item) => item.id !== id);
+  public async deletePixPaymentMethod(name: string): Promise<void> {
+    await this.delete((item) => item.name !== name);
   }
 }
 

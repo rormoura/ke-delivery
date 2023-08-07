@@ -24,8 +24,8 @@ class PixPaymentMethodService {
     return pixPaymentMethodModel;
   }
 
-  public async getPixPaymentMethod(id: string): Promise<PixPaymentMethodModel> {
-    const PixPaymentMethodEntity = await this.PixPaymentMethodRepository.getPixPaymentMethod(id);
+  public async getPixPaymentMethod(name: string): Promise<PixPaymentMethodModel> {
+    const PixPaymentMethodEntity = await this.PixPaymentMethodRepository.getPixPaymentMethod(name);
 
     if (!PixPaymentMethodEntity) {
       throw new HttpNotFoundError({
@@ -46,8 +46,8 @@ class PixPaymentMethodService {
     return pixPaymentMethodModel;
   }
 
-  public async updatePixPaymentMethod(id: string, data: PixPaymentMethodEntity): Promise<PixPaymentMethodModel> {
-    const PixPaymentMethodEntity = await this.PixPaymentMethodRepository.updatePixPaymentMethod(id, data);
+  public async updatePixPaymentMethod(name: string, data: PixPaymentMethodEntity): Promise<PixPaymentMethodModel> {
+    const PixPaymentMethodEntity = await this.PixPaymentMethodRepository.updatePixPaymentMethod(name, data);
 
     if (!PixPaymentMethodEntity) {
       throw new HttpNotFoundError({
@@ -61,8 +61,8 @@ class PixPaymentMethodService {
     return pixPaymentMethodModel;
   }
 
-  public async deletePixPaymentMethod(id: string): Promise<void> {
-    await this.PixPaymentMethodRepository.deletePixPaymentMethod(id);
+  public async deletePixPaymentMethod(name: string): Promise<void> {
+    await this.PixPaymentMethodRepository.deletePixPaymentMethod(name);
   }
 }
 

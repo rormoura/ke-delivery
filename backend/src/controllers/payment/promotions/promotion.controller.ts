@@ -19,16 +19,16 @@ class PromotionController {
       this.getPromotions(req, res)
     );
 
-    this.router.get(`${this.prefix}/:id`, (req: Request, res: Response) =>
+    this.router.get(`${this.prefix}/:name`, (req: Request, res: Response) =>
       this.getPromotion(req, res)
     );
     this.router.post(this.prefix, (req: Request, res: Response) =>
       this.createPromotion(req, res)
     );
-    this.router.put(`${this.prefix}/:id`, (req: Request, res: Response) =>
+    this.router.put(`${this.prefix}/:name`, (req: Request, res: Response) =>
       this.updatePromotion(req, res)
     );
-    this.router.delete(`${this.prefix}/:id`, (req: Request, res: Response) =>
+    this.router.delete(`${this.prefix}/:name`, (req: Request, res: Response) =>
       this.deletePromotion(req, res)
     );
   }
@@ -43,7 +43,7 @@ class PromotionController {
   }
 
   private async getPromotion(req: Request, res: Response) {
-    const promotion = await this.promotionService.getPromotion(req.params.id);
+    const promotion = await this.promotionService.getPromotion(req.params.name);
 
     return new SuccessResult({
       msg: Result.transformRequestOnMsg(req),
@@ -62,7 +62,7 @@ class PromotionController {
 
   private async updatePromotion(req: Request, res: Response) {
     const promotion = await this.promotionService.updatePromotion(
-      req.params.id,
+      req.params.name,
       new PromotionEntity(req.body)
     );
 
@@ -73,7 +73,7 @@ class PromotionController {
   }
 
   private async deletePromotion(req: Request, res: Response) {
-    await this.promotionService.deletePromotion(req.params.id);
+    await this.promotionService.deletePromotion(req.params.name);
 
     return new SuccessResult({
       msg: Result.transformRequestOnMsg(req),

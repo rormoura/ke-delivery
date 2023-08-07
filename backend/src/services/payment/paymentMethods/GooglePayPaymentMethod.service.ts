@@ -24,8 +24,8 @@ class GooglePayPaymentMethodService {
     return googlePayPaymentMethodModel;
   }
 
-  public async getGooglePayPaymentMethod(id: string): Promise<GooglePayPaymentMethodModel> {
-    const GooglePayPaymentMethodEntity = await this.GooglePayPaymentMethodRepository.getGooglePayPaymentMethod(id);
+  public async getGooglePayPaymentMethod(name: string): Promise<GooglePayPaymentMethodModel> {
+    const GooglePayPaymentMethodEntity = await this.GooglePayPaymentMethodRepository.getGooglePayPaymentMethod(name);
 
     if (!GooglePayPaymentMethodEntity) {
       throw new HttpNotFoundError({
@@ -46,8 +46,8 @@ class GooglePayPaymentMethodService {
     return googlePayPaymentMethodModel;
   }
 
-  public async updateGooglePayPaymentMethod(id: string, data: GooglePayPaymentMethodEntity): Promise<GooglePayPaymentMethodModel> {
-    const GooglePayPaymentMethodEntity = await this.GooglePayPaymentMethodRepository.updateGooglePayPaymentMethod(id, data);
+  public async updateGooglePayPaymentMethod(name: string, data: GooglePayPaymentMethodEntity): Promise<GooglePayPaymentMethodModel> {
+    const GooglePayPaymentMethodEntity = await this.GooglePayPaymentMethodRepository.updateGooglePayPaymentMethod(name, data);
 
     if (!GooglePayPaymentMethodEntity) {
       throw new HttpNotFoundError({
@@ -61,8 +61,8 @@ class GooglePayPaymentMethodService {
     return googlePayPaymentMethodModel;
   }
 
-  public async deleteGooglePayPaymentMethod(id: string): Promise<void> {
-    await this.GooglePayPaymentMethodRepository.deleteGooglePayPaymentMethod(id);
+  public async deleteGooglePayPaymentMethod(name: string): Promise<void> {
+    await this.GooglePayPaymentMethodRepository.deleteGooglePayPaymentMethod(name);
   }
 }
 

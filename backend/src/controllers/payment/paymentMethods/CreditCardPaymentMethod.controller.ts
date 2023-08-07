@@ -19,16 +19,16 @@ class CreditCardPaymentMethodController {
       this.getCreditCardPaymentMethods(req, res)
     );
 
-    this.router.get(`${this.prefix}/:id`, (req: Request, res: Response) =>
+    this.router.get(`${this.prefix}/:name`, (req: Request, res: Response) =>
       this.getCreditCardPaymentMethod(req, res)
     );
     this.router.post(this.prefix, (req: Request, res: Response) =>
       this.createCreditCardPaymentMethod(req, res)
     );
-    this.router.put(`${this.prefix}/:id`, (req: Request, res: Response) =>
+    this.router.put(`${this.prefix}/:name`, (req: Request, res: Response) =>
       this.updateCreditCardPaymentMethod(req, res)
     );
-    this.router.delete(`${this.prefix}/:id`, (req: Request, res: Response) =>
+    this.router.delete(`${this.prefix}/:name`, (req: Request, res: Response) =>
       this.deleteCreditCardPaymentMethod(req, res)
     );
   }
@@ -43,7 +43,7 @@ class CreditCardPaymentMethodController {
   }
 
   private async getCreditCardPaymentMethod(req: Request, res: Response) {
-    const creditCardPaymentMethod = await this.creditCardPaymentMethodService.getCreditCardPaymentMethod(req.params.id);
+    const creditCardPaymentMethod = await this.creditCardPaymentMethodService.getCreditCardPaymentMethod(req.params.name);
 
     return new SuccessResult({
       msg: Result.transformRequestOnMsg(req),
@@ -62,7 +62,7 @@ class CreditCardPaymentMethodController {
 
   private async updateCreditCardPaymentMethod(req: Request, res: Response) {
     const creditCardPaymentMethod = await this.creditCardPaymentMethodService.updateCreditCardPaymentMethod(
-      req.params.id,
+      req.params.name,
       new CreditCardPaymentMethodEntity(req.body)
     );
 
@@ -73,7 +73,7 @@ class CreditCardPaymentMethodController {
   }
 
   private async deleteCreditCardPaymentMethod(req: Request, res: Response) {
-    await this.creditCardPaymentMethodService.deleteCreditCardPaymentMethod(req.params.id);
+    await this.creditCardPaymentMethodService.deleteCreditCardPaymentMethod(req.params.name);
 
     return new SuccessResult({
       msg: Result.transformRequestOnMsg(req),

@@ -19,16 +19,16 @@ class GooglePayPaymentMethodController {
       this.getGooglePayPaymentMethods(req, res)
     );
 
-    this.router.get(`${this.prefix}/:id`, (req: Request, res: Response) =>
+    this.router.get(`${this.prefix}/:name`, (req: Request, res: Response) =>
       this.getGooglePayPaymentMethod(req, res)
     );
     this.router.post(this.prefix, (req: Request, res: Response) =>
       this.createGooglePayPaymentMethod(req, res)
     );
-    this.router.put(`${this.prefix}/:id`, (req: Request, res: Response) =>
+    this.router.put(`${this.prefix}/:name`, (req: Request, res: Response) =>
       this.updateGooglePayPaymentMethod(req, res)
     );
-    this.router.delete(`${this.prefix}/:id`, (req: Request, res: Response) =>
+    this.router.delete(`${this.prefix}/:name`, (req: Request, res: Response) =>
       this.deleteGooglePayPaymentMethod(req, res)
     );
   }
@@ -43,7 +43,7 @@ class GooglePayPaymentMethodController {
   }
 
   private async getGooglePayPaymentMethod(req: Request, res: Response) {
-    const googlePayPaymentMethod = await this.googlePayPaymentMethodService.getGooglePayPaymentMethod(req.params.id);
+    const googlePayPaymentMethod = await this.googlePayPaymentMethodService.getGooglePayPaymentMethod(req.params.name);
 
     return new SuccessResult({
       msg: Result.transformRequestOnMsg(req),
@@ -62,7 +62,7 @@ class GooglePayPaymentMethodController {
 
   private async updateGooglePayPaymentMethod(req: Request, res: Response) {
     const googlePayPaymentMethod = await this.googlePayPaymentMethodService.updateGooglePayPaymentMethod(
-      req.params.id,
+      req.params.name,
       new GooglePayPaymentMethodEntity(req.body)
     );
 
@@ -73,7 +73,7 @@ class GooglePayPaymentMethodController {
   }
 
   private async deleteGooglePayPaymentMethod(req: Request, res: Response) {
-    await this.googlePayPaymentMethodService.deleteGooglePayPaymentMethod(req.params.id);
+    await this.googlePayPaymentMethodService.deleteGooglePayPaymentMethod(req.params.name);
 
     return new SuccessResult({
       msg: Result.transformRequestOnMsg(req),

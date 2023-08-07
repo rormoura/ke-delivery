@@ -24,8 +24,8 @@ class CreditCardPaymentMethodService {
     return creditCardPaymentMethodModel;
   }
 
-  public async getCreditCardPaymentMethod(id: string): Promise<CreditCardPaymentMethodModel> {
-    const CreditCardPaymentMethodEntity = await this.CreditCardPaymentMethodRepository.getCreditCardPaymentMethod(id);
+  public async getCreditCardPaymentMethod(name: string): Promise<CreditCardPaymentMethodModel> {
+    const CreditCardPaymentMethodEntity = await this.CreditCardPaymentMethodRepository.getCreditCardPaymentMethod(name);
 
     if (!CreditCardPaymentMethodEntity) {
       throw new HttpNotFoundError({
@@ -46,8 +46,8 @@ class CreditCardPaymentMethodService {
     return creditCardPaymentMethodModel;
   }
 
-  public async updateCreditCardPaymentMethod(id: string, data: CreditCardPaymentMethodEntity): Promise<CreditCardPaymentMethodModel> {
-    const CreditCardPaymentMethodEntity = await this.CreditCardPaymentMethodRepository.updateCreditCardPaymentMethod(id, data);
+  public async updateCreditCardPaymentMethod(name: string, data: CreditCardPaymentMethodEntity): Promise<CreditCardPaymentMethodModel> {
+    const CreditCardPaymentMethodEntity = await this.CreditCardPaymentMethodRepository.updateCreditCardPaymentMethod(name, data);
 
     if (!CreditCardPaymentMethodEntity) {
       throw new HttpNotFoundError({
@@ -61,8 +61,8 @@ class CreditCardPaymentMethodService {
     return creditCardPaymentMethodModel;
   }
 
-  public async deleteCreditCardPaymentMethod(id: string): Promise<void> {
-    await this.CreditCardPaymentMethodRepository.deleteCreditCardPaymentMethod(id);
+  public async deleteCreditCardPaymentMethod(name: string): Promise<void> {
+    await this.CreditCardPaymentMethodRepository.deleteCreditCardPaymentMethod(name);
   }
 }
 

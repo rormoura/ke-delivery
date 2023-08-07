@@ -19,16 +19,16 @@ class PixPaymentMethodController {
       this.getPixPaymentMethods(req, res)
     );
 
-    this.router.get(`${this.prefix}/:id`, (req: Request, res: Response) =>
+    this.router.get(`${this.prefix}/:name`, (req: Request, res: Response) =>
       this.getPixPaymentMethod(req, res)
     );
     this.router.post(this.prefix, (req: Request, res: Response) =>
       this.createPixPaymentMethod(req, res)
     );
-    this.router.put(`${this.prefix}/:id`, (req: Request, res: Response) =>
+    this.router.put(`${this.prefix}/:name`, (req: Request, res: Response) =>
       this.updatePixPaymentMethod(req, res)
     );
-    this.router.delete(`${this.prefix}/:id`, (req: Request, res: Response) =>
+    this.router.delete(`${this.prefix}/:name`, (req: Request, res: Response) =>
       this.deletePixPaymentMethod(req, res)
     );
   }
@@ -43,7 +43,7 @@ class PixPaymentMethodController {
   }
 
   private async getPixPaymentMethod(req: Request, res: Response) {
-    const pixPaymentMethod = await this.pixPaymentMethodService.getPixPaymentMethod(req.params.id);
+    const pixPaymentMethod = await this.pixPaymentMethodService.getPixPaymentMethod(req.params.name);
 
     return new SuccessResult({
       msg: Result.transformRequestOnMsg(req),
@@ -62,7 +62,7 @@ class PixPaymentMethodController {
 
   private async updatePixPaymentMethod(req: Request, res: Response) {
     const pixPaymentMethod = await this.pixPaymentMethodService.updatePixPaymentMethod(
-      req.params.id,
+      req.params.name,
       new PixPaymentMethodEntity(req.body)
     );
 
@@ -73,7 +73,7 @@ class PixPaymentMethodController {
   }
 
   private async deletePixPaymentMethod(req: Request, res: Response) {
-    await this.pixPaymentMethodService.deletePixPaymentMethod(req.params.id);
+    await this.pixPaymentMethodService.deletePixPaymentMethod(req.params.name);
 
     return new SuccessResult({
       msg: Result.transformRequestOnMsg(req),

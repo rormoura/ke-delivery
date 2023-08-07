@@ -19,16 +19,16 @@ class CashPaymentMethodController {
       this.getCashPaymentMethods(req, res)
     );
 
-    this.router.get(`${this.prefix}/:id`, (req: Request, res: Response) =>
+    this.router.get(`${this.prefix}/:name`, (req: Request, res: Response) =>
       this.getCashPaymentMethod(req, res)
     );
     this.router.post(this.prefix, (req: Request, res: Response) =>
       this.createCashPaymentMethod(req, res)
     );
-    this.router.put(`${this.prefix}/:id`, (req: Request, res: Response) =>
+    this.router.put(`${this.prefix}/:name`, (req: Request, res: Response) =>
       this.updateCashPaymentMethod(req, res)
     );
-    this.router.delete(`${this.prefix}/:id`, (req: Request, res: Response) =>
+    this.router.delete(`${this.prefix}/:name`, (req: Request, res: Response) =>
       this.deleteCashPaymentMethod(req, res)
     );
   }
@@ -43,7 +43,7 @@ class CashPaymentMethodController {
   }
 
   private async getCashPaymentMethod(req: Request, res: Response) {
-    const cashPaymentMethod = await this.cashPaymentMethodService.getCashPaymentMethod(req.params.id);
+    const cashPaymentMethod = await this.cashPaymentMethodService.getCashPaymentMethod(req.params.name);
 
     return new SuccessResult({
       msg: Result.transformRequestOnMsg(req),
@@ -62,7 +62,7 @@ class CashPaymentMethodController {
 
   private async updateCashPaymentMethod(req: Request, res: Response) {
     const cashPaymentMethod = await this.cashPaymentMethodService.updateCashPaymentMethod(
-      req.params.id,
+      req.params.name,
       new CashPaymentMethodEntity(req.body)
     );
 
@@ -73,7 +73,7 @@ class CashPaymentMethodController {
   }
 
   private async deleteCashPaymentMethod(req: Request, res: Response) {
-    await this.cashPaymentMethodService.deleteCashPaymentMethod(req.params.id);
+    await this.cashPaymentMethodService.deleteCashPaymentMethod(req.params.name);
 
     return new SuccessResult({
       msg: Result.transformRequestOnMsg(req),

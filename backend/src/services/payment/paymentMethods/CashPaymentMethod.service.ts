@@ -24,8 +24,8 @@ class CashPaymentMethodService {
     return cashPaymentMethodModel;
   }
 
-  public async getCashPaymentMethod(id: string): Promise<CashPaymentMethodModel> {
-    const CashPaymentMethodEntity = await this.CashPaymentMethodRepository.getCashPaymentMethod(id);
+  public async getCashPaymentMethod(name: string): Promise<CashPaymentMethodModel> {
+    const CashPaymentMethodEntity = await this.CashPaymentMethodRepository.getCashPaymentMethod(name);
 
     if (!CashPaymentMethodEntity) {
       throw new HttpNotFoundError({
@@ -46,8 +46,8 @@ class CashPaymentMethodService {
     return cashPaymentMethodModel;
   }
 
-  public async updateCashPaymentMethod(id: string, data: CashPaymentMethodEntity): Promise<CashPaymentMethodModel> {
-    const CashPaymentMethodEntity = await this.CashPaymentMethodRepository.updateCashPaymentMethod(id, data);
+  public async updateCashPaymentMethod(name: string, data: CashPaymentMethodEntity): Promise<CashPaymentMethodModel> {
+    const CashPaymentMethodEntity = await this.CashPaymentMethodRepository.updateCashPaymentMethod(name, data);
 
     if (!CashPaymentMethodEntity) {
       throw new HttpNotFoundError({
@@ -61,8 +61,8 @@ class CashPaymentMethodService {
     return cashPaymentMethodModel;
   }
 
-  public async deleteCashPaymentMethod(id: string): Promise<void> {
-    await this.CashPaymentMethodRepository.deleteCashPaymentMethod(id);
+  public async deleteCashPaymentMethod(name: string): Promise<void> {
+    await this.CashPaymentMethodRepository.deleteCashPaymentMethod(name);
   }
 }
 

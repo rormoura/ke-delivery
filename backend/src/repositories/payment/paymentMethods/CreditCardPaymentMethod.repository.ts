@@ -10,8 +10,8 @@ class CreditCardPaymentMethodRepository extends BaseRepository<CreditCardPayment
     return await this.findAll();
   }
 
-  public async getCreditCardPaymentMethod(id: string): Promise<CreditCardPaymentMethodEntity | null> {
-    return await this.findOne((item) => item.id === id);
+  public async getCreditCardPaymentMethod(name: string): Promise<CreditCardPaymentMethodEntity | null> {
+    return await this.findOne((item) => item.name === name);
   }
 
   public async createCreditCardPaymentMethod(data: CreditCardPaymentMethodEntity): Promise<CreditCardPaymentMethodEntity> {
@@ -19,14 +19,14 @@ class CreditCardPaymentMethodRepository extends BaseRepository<CreditCardPayment
   }
 
   public async updateCreditCardPaymentMethod(
-    id: string,
+    name: string,
     data: CreditCardPaymentMethodEntity
   ): Promise<CreditCardPaymentMethodEntity | null> {
-    return await this.update((item) => item.id === id, data);
+    return await this.update((item) => item.name === name, data);
   }
 
-  public async deleteCreditCardPaymentMethod(id: string): Promise<void> {
-    await this.delete((item) => item.id !== id);
+  public async deleteCreditCardPaymentMethod(name: string): Promise<void> {
+    await this.delete((item) => item.name !== name);
   }
 }
 
