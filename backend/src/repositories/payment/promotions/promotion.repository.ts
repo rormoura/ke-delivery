@@ -10,8 +10,8 @@ class PromotionRepository extends BaseRepository<PromotionEntity> {
     return await this.findAll();
   }
 
-  public async getPromotion(id: string): Promise<PromotionEntity | null> {
-    return await this.findOne((item) => item.id === id);
+  public async getPromotion(name: string): Promise<PromotionEntity | null> {
+    return await this.findOne((item) => item.name === name);
   }
 
   public async createPromotion(data: PromotionEntity): Promise<PromotionEntity> {
@@ -19,14 +19,14 @@ class PromotionRepository extends BaseRepository<PromotionEntity> {
   }
 
   public async updatePromotion(
-    id: string,
+    name: string,
     data: PromotionEntity
   ): Promise<PromotionEntity | null> {
-    return await this.update((item) => item.id === id, data);
+    return await this.update((item) => item.name === name, data);
   }
 
-  public async deletePromotion(id: string): Promise<void> {
-    await this.delete((item) => item.id !== id);
+  public async deletePromotion(name: string): Promise<void> {
+    await this.delete((item) => item.name !== name);
   }
 }
 
