@@ -1,10 +1,11 @@
 import PixPaymentMethodEntity from '../../../entities/payment/paymentMethods/PixPaymentMethod.entity';
 import PixPaymentMethodModel from '../../../models/payment/paymentMethods/PixPaymentMethod.model';
 import PixPaymentMethodRepository from '../../../repositories/payment/paymentMethods/PixPaymentMethod.repository';
-import { HttpNotFoundError } from '../../../utils/errors/http.error';
+import { HttpNotFoundError, HttpForbiddenError } from '../../../utils/errors/http.error';
 
 class PixPaymentMethodServiceMessageCode {
   public static readonly PixPaymentMethod_not_found = 'PixPaymentMethod_not_found';
+  public static readonly PixPaymentMethod_incomplete = 'PixPaymentMethod_incomplete';
 }
 
 class PixPaymentMethodService {
@@ -40,6 +41,13 @@ class PixPaymentMethodService {
   }
 
   public async createPixPaymentMethod(data: PixPaymentMethodEntity): Promise<PixPaymentMethodModel> {
+    if(data.name === ''){
+      throw new HttpForbiddenError({
+        msg: 'Pix payment method incomplete',
+        msgCode: PixPaymentMethodServiceMessageCode.PixPaymentMethod_incomplete,
+      });
+    }
+
     const PixPaymentMethodEntity = await this.PixPaymentMethodRepository.createPixPaymentMethod(data);
     const pixPaymentMethodModel = new PixPaymentMethodModel(PixPaymentMethodEntity);
 
@@ -47,6 +55,13 @@ class PixPaymentMethodService {
   }
 
   public async updatePixPaymentMethod(name: string, data: PixPaymentMethodEntity): Promise<PixPaymentMethodModel> {
+    if(data.name === ''){
+      throw new HttpForbiddenError({
+        msg: 'Pix payment method incomplete',
+        msgCode: PixPaymentMethodServiceMessageCode.PixPaymentMethod_incomplete,
+      });
+    }
+
     const PixPaymentMethodEntity = await this.PixPaymentMethodRepository.updatePixPaymentMethod(name, data);
 
     if (!PixPaymentMethodEntity) {

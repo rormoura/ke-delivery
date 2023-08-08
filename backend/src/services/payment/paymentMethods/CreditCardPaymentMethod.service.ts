@@ -1,10 +1,11 @@
 import CreditCardPaymentMethodEntity from '../../../entities/payment/paymentMethods/CreditCardPaymentMethod.entity';
 import CreditCardPaymentMethodModel from '../../../models/payment/paymentMethods/CreditCardPaymentMethod.model';
 import CreditCardPaymentMethodRepository from '../../../repositories/payment/paymentMethods/CreditCardPaymentMethod.repository';
-import { HttpNotFoundError } from '../../../utils/errors/http.error';
+import { HttpNotFoundError, HttpForbiddenError } from '../../../utils/errors/http.error';
 
 class CreditCardPaymentMethodServiceMessageCode {
   public static readonly CreditCardPaymentMethod_not_found = 'CreditCardPaymentMethod_not_found';
+  public static readonly CreditCardPaymentMethod_incomplete = 'CreditCardPaymentMethod_incomplete';
 }
 
 class CreditCardPaymentMethodService {
@@ -40,6 +41,13 @@ class CreditCardPaymentMethodService {
   }
 
   public async createCreditCardPaymentMethod(data: CreditCardPaymentMethodEntity): Promise<CreditCardPaymentMethodModel> {
+    if(data.name === '' || data.cardHolderName === '' || data.cardNumber === '' || data.expirationDate === '' || data.cvv === ''){
+      throw new HttpForbiddenError({
+        msg: 'Credit Card payment method incomplete',
+        msgCode: CreditCardPaymentMethodServiceMessageCode.CreditCardPaymentMethod_incomplete,
+      });
+    }
+
     const CreditCardPaymentMethodEntity = await this.CreditCardPaymentMethodRepository.createCreditCardPaymentMethod(data);
     const creditCardPaymentMethodModel = new CreditCardPaymentMethodModel(CreditCardPaymentMethodEntity);
 
@@ -47,6 +55,13 @@ class CreditCardPaymentMethodService {
   }
 
   public async updateCreditCardPaymentMethod(name: string, data: CreditCardPaymentMethodEntity): Promise<CreditCardPaymentMethodModel> {
+    if(data.name === '' || data.cardHolderName === '' || data.cardNumber === '' || data.expirationDate === '' || data.cvv === ''){
+      throw new HttpForbiddenError({
+        msg: 'Credit Card payment method incomplete',
+        msgCode: CreditCardPaymentMethodServiceMessageCode.CreditCardPaymentMethod_incomplete,
+      });
+    }
+    
     const CreditCardPaymentMethodEntity = await this.CreditCardPaymentMethodRepository.updateCreditCardPaymentMethod(name, data);
 
     if (!CreditCardPaymentMethodEntity) {

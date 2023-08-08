@@ -76,6 +76,6 @@ Feature: Cadastro e manutenção de métodos de pagamento (inserir, remover, atu
     Scenario: Tentativa de atualização de método de pagamento (serviço)
         Given a usuária "Maria" está armazenada no sistema
         And o sistema contém somente "1" método de pagamento de "Maria": "Cartão de Crédito VISA", com "número do cartão"="12345", "validade"="09/10/2026", "CVV"="111", "nome do titular"="MARIA SILVA"
-        When a usuária "Maria" atualiza o método de pagamento "Cartão de Crédito VISA" de maneira inválida
+        When a usuária "Maria" atualiza o método de pagamento "Cartão de Crédito VISA" de maneira incompleta
         Then a usuária "Maria" permanece armazenada no sistema
         And o sistema contém somente "1" método de pagamento de "Maria": "Cartão de Crédito VISA", com "número do cartão"="12345", "validade"="09/10/2026", "CVV"="111", "nome do titular"="MARIA SILVA"

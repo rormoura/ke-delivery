@@ -1,10 +1,11 @@
 import CashPaymentMethodEntity from '../../../entities/payment/paymentMethods/CashPaymentMethod.entity';
 import CashPaymentMethodModel from '../../../models/payment/paymentMethods/CashPaymentMethod.model';
 import CashPaymentMethodRepository from '../../../repositories/payment/paymentMethods/CashPaymentMethod.repository';
-import { HttpNotFoundError } from '../../../utils/errors/http.error';
+import { HttpNotFoundError, HttpForbiddenError } from '../../../utils/errors/http.error';
 
 class CashPaymentMethodServiceMessageCode {
   public static readonly CashPaymentMethod_not_found = 'CashPaymentMethod_not_found';
+  public static readonly CashPaymentMethod_incomplete = 'CashPaymentMethod_incomplete';
 }
 
 class CashPaymentMethodService {
@@ -40,6 +41,13 @@ class CashPaymentMethodService {
   }
 
   public async createCashPaymentMethod(data: CashPaymentMethodEntity): Promise<CashPaymentMethodModel> {
+    if(data.name === ''){
+      throw new HttpForbiddenError({
+        msg: 'CashPaymentMethod incomplete',
+        msgCode: CashPaymentMethodServiceMessageCode.CashPaymentMethod_incomplete,
+      });
+    }
+
     const CashPaymentMethodEntity = await this.CashPaymentMethodRepository.createCashPaymentMethod(data);
     const cashPaymentMethodModel = new CashPaymentMethodModel(CashPaymentMethodEntity);
 
@@ -47,6 +55,13 @@ class CashPaymentMethodService {
   }
 
   public async updateCashPaymentMethod(name: string, data: CashPaymentMethodEntity): Promise<CashPaymentMethodModel> {
+    if(data.name === ''){
+      throw new HttpForbiddenError({
+        msg: 'CashPaymentMethod incomplete',
+        msgCode: CashPaymentMethodServiceMessageCode.CashPaymentMethod_incomplete,
+      });
+    }
+
     const CashPaymentMethodEntity = await this.CashPaymentMethodRepository.updateCashPaymentMethod(name, data);
 
     if (!CashPaymentMethodEntity) {
