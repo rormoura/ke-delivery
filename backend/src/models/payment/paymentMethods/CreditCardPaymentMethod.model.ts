@@ -6,6 +6,7 @@ export default class CreditCardPaymentMethodModel extends BaseModel {
   cardHolderName: string;
   expirationDate: string;
   cvv: string;
+  default: string;
 
   constructor(data: CreditCardPaymentMethodModel) {
     super(data.id || '');
@@ -14,5 +15,6 @@ export default class CreditCardPaymentMethodModel extends BaseModel {
     this.cardHolderName = data.cardHolderName;
     this.expirationDate = data.expirationDate;
     this.cvv = data.cvv;
+    this.default = "yes";
   }
 }

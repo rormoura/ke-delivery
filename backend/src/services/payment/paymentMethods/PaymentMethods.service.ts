@@ -13,6 +13,10 @@ import GooglePayPaymentMethodRepository from '../../../repositories/payment/paym
 import PaymentMethodsRepository from '../../../repositories/payment.base.repository';
 import { HttpNotFoundError } from '../../../utils/errors/http.error';
 
+class PaymentMethodsServiceMessageCode {
+  public static readonly PaymentMethod_not_found = 'PaymentMethod_not_found';
+}
+
 class PaymentMethodsService {
   private cashPaymentMethodRepository: CashPaymentMethodRepository;
   private creditCardPaymentMethodRepository: CreditCardPaymentMethodRepository;
@@ -38,7 +42,83 @@ class PaymentMethodsService {
     const GooglePayPaymentMethodEntity = await this.googlePayPaymentMethodRepository.getGooglePayPaymentMethods();
 
     return CashPaymentMethodEntity.concat(CreditCardPaymentMethodEntity).concat(PixPaymentMethodEntity).concat(GooglePayPaymentMethodEntity);
+  }
 
+  public async getPaymentMethod(name: string): Promise<any | null> {
+    const cashPaymentMethod = await this.cashPaymentMethodRepository.getCashPaymentMethod(name)
+    const creditCardPaymentMethod = await this.creditCardPaymentMethodRepository.getCreditCardPaymentMethod(name)
+    const pixPaymentMethod = await this.pixPaymentMethodRepository.getPixPaymentMethod(name)
+    const googlePayPaymentMethod = await this.googlePayPaymentMethodRepository.getGooglePayPaymentMethod(name)
+
+    if(cashPaymentMethod){
+      return cashPaymentMethod;
+    }
+    else if (creditCardPaymentMethod){
+      return creditCardPaymentMethod;
+    }
+    else if(pixPaymentMethod){
+      return pixPaymentMethod;
+    }
+    else if(googlePayPaymentMethod){
+      return googlePayPaymentMethod;
+    }
+
+    throw new HttpNotFoundError({
+      msg: 'There is no '+name+' payment method',
+      msgCode: PaymentMethodsServiceMessageCode.PaymentMethod_not_found,
+    });
+
+  }
+
+  public async getDefaultPaymentMethod(): Promise<any | null> {
+    const allPaymentMethods = await this.getPaymentMethods();
+
+    return allPaymentMethods.find(paymentMethod => paymentMethod.default === "yes");
+  }
+
+  private async getPaymentMethodType(name: string): Promise<string> {
+    let paymentMethodType = 'cash'
+
+    if(!(await this.cashPaymentMethodRepository.getCashPaymentMethod(name))){
+      paymentMethodType = 'creditCard'
+      if(!(await this.creditCardPaymentMethodRepository.getCreditCardPaymentMethod(name))){
+        paymentMethodType = 'pix'
+        if(!(await this.pixPaymentMethodRepository.getPixPaymentMethod(name))){
+          paymentMethodType = 'googlePay'
+          if(!(await this.googlePayPaymentMethodRepository.getGooglePayPaymentMethod(name))){
+            paymentMethodType = 'none'
+          }
+        }
+      }
+    }
+
+    return paymentMethodType;
+
+  }
+
+  public async updateDefaultPaymentMethod(name: string): Promise<any>{
+    const oldDefaultPaymentMethod = await this.getDefaultPaymentMethod();
+    const newDefaultPaymentMethod = await this.getPaymentMethod(name);
+    newDefaultPaymentMethod.default = "yes"
+    oldDefaultPaymentMethod.default = "no"
+
+    if(!(await this.cashPaymentMethodRepository.updateCashPaymentMethod(newDefaultPaymentMethod.name, newDefaultPaymentMethod))){
+      if(!(await this.creditCardPaymentMethodRepository.updateCreditCardPaymentMethod(newDefaultPaymentMethod.name, newDefaultPaymentMethod))){
+        if(!(await this.pixPaymentMethodRepository.updatePixPaymentMethod(newDefaultPaymentMethod.name, newDefaultPaymentMethod))){
+          await this.googlePayPaymentMethodRepository.updateGooglePayPaymentMethod(newDefaultPaymentMethod.name, newDefaultPaymentMethod)
+        }
+      }
+    }
+
+    if(!(await this.cashPaymentMethodRepository.updateCashPaymentMethod(oldDefaultPaymentMethod.name, oldDefaultPaymentMethod))){
+      if(!(await this.creditCardPaymentMethodRepository.updateCreditCardPaymentMethod(oldDefaultPaymentMethod.name, oldDefaultPaymentMethod))){
+        if(!(await this.pixPaymentMethodRepository.updatePixPaymentMethod(oldDefaultPaymentMethod.name, oldDefaultPaymentMethod))){
+          await this.googlePayPaymentMethodRepository.updateGooglePayPaymentMethod(oldDefaultPaymentMethod.name, oldDefaultPaymentMethod)
+        }
+      }
+    }
+
+    return newDefaultPaymentMethod;
   }
 
 }

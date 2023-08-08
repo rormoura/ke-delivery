@@ -24,25 +24,29 @@ export default class Database {
           cardHolderName: 'MARIA SILVA',
           cardNumber: '123',
           expirationDate: '31/02/2026',
-          cvv:'882'
+          cvv:'882',
+          default: "yes"
         }),
       ],
       cash: [
         new CashPaymentMethodEntity({
           id: '1',
           name: 'dinheiro',
+          default: "no"
         }),
       ],
       googlepay: [
         new GooglePayPaymentMethodEntity({
           id: '1',
           name: 'Google Pay',
+          default: "no"
         }),
       ],
       pix: [
         new PixPaymentMethodEntity({
           id: '1',
           name: 'Pix',
+          default: "no"
         }),
       ],
     };

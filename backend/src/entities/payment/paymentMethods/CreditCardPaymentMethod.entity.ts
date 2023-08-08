@@ -6,6 +6,7 @@ export default class CreditCardPaymentMethodEntity extends BaseEntity {
   cardHolderName: string;
   expirationDate: string;
   cvv: string;
+  default: string;
 
   constructor(data: CreditCardPaymentMethodEntity) {
     super(data.id || '');
@@ -14,5 +15,6 @@ export default class CreditCardPaymentMethodEntity extends BaseEntity {
     this.cardHolderName = data.cardHolderName;
     this.expirationDate = data.expirationDate;
     this.cvv = data.cvv;
+    this.default = "yes";
   }
 }
