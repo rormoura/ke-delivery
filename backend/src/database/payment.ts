@@ -25,7 +25,7 @@ export default class Database {
           cardNumber: '123',
           expirationDate: '31/02/2026',
           cvv:'882',
-          default: "yes"
+          default: "no"
         }),
       ],
       cash: [

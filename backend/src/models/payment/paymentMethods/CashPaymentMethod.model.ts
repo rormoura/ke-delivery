@@ -7,6 +7,6 @@ export default class CashPaymentMethodModel extends BaseModel {
   constructor(data: CashPaymentMethodModel) {
     super(data.id || '');
     this.name = data.name;
-    this.default = "no";
+    this.default = data.default;
   }
 }

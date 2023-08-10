@@ -7,6 +7,6 @@ export default class PixPaymentMethodModel extends BaseModel {
   constructor(data: PixPaymentMethodModel) {
     super(data.id || '');
     this.name = data.name;
-    this.default = "no";
+    this.default = data.default;
   }
 }

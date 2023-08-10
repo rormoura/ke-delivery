@@ -7,6 +7,6 @@ export default class GooglePayPaymentMethodModel extends BaseModel {
   constructor(data: GooglePayPaymentMethodModel) {
     super(data.id || '');
     this.name = data.name;
-    this.default = "no";
+    this.default = data.default;
   }
 }
