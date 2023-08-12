@@ -37,18 +37,18 @@ Feature: Cadastro e manutenção de métodos de pagamento (inserir, remover, atu
 
     Scenario: Adição do método de pagamento realizada com sucesso (GUI)
         Given a usuária "Maria" está na página de "Métodos de Pagamento"
-        And possui somente o método de pagamento "Apple Pay"
+        And possui somente o método de pagamento "Pix"
         When a usuária "Maria" adiciona o método de pagamento "Google Pay"
         Then a usuária "Maria" permanece na página de "Métodos de Pagamento"
         And vê uma mensagem que indica que a operação foi realizada com sucesso
-        And vê os métodos de pagamento "Apple Pay", "Google Pay"
+        And vê os métodos de pagamento "Pix", "Google Pay"
 
     Scenario: Adição do método de pagamento realizada com sucesso (serviço)
         Given a usuária "Maria" está armazenada no sistema
-        And o sistema contém somente "1" método de pagamento de "Maria": "Apple Pay"
+        And o sistema contém somente "1" método de pagamento de "Maria": "Pix"
         When a usuária "Maria" adiciona o método de pagamento "Google Pay"
         Then a usuária "Maria" permanece armazenada no sistema
-        And o sistema contém somente "2" métodos de pagamento de "Maria": "Apple Pay", "Google Pay"
+        And o sistema contém somente "2" métodos de pagamento de "Maria": "Pix", "Google Pay"
 
     Scenario: Tentativa de adição de método de pagamento com informações incompletas (GUI)
         Given a usuária "Maria" está na página de "Métodos de Pagamento"
