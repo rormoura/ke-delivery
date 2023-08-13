@@ -34,7 +34,7 @@ Feature: Alterações no Pedido
 
 	Scenario 4 : Adiconar comentário "Adicione 3 molhos da casa" em um pedido já concluído (GUI)
 		Given Eu estou na página do pedido "10052023"
-		And O pedido atual tem o Status "Finalizado" e Valor Total "R$22,90"
+		And O pedido atual tem o Status "FinalizadoCapriche no tomate" e Valor Total "R$22,90"
 		And O item "Pizza de Marguerita G" tem quantidade definida para "1 Unidades" com valor  unitário de "R$33,00" e total "R$33,00"
 		And "Observações do pedido" tem valor ""
 		When Adiciono a observação "Sem Cebola"
@@ -44,7 +44,13 @@ Feature: Alterações no Pedido
 		And "Observações do pedido" exibe ""
 
 	Scenario 5: Adiconar comentário "Remova os picles" no pedido "0001" (SERVICE)
-        Given PedidosService retorna um pedido com id "999999"
-        When uma requisição "PUT" for enviada para "/pedidos/999999"
+        Given PedidosService contém um pedido com id "0001"
+        When uma requisição "PUT/0001/:obs:" for enviada para "/pedidos/0001/:obs" com o corpo da requisição sendo um JSON com a observação "Remova os picles"
+        Then o status da resposta deve ser "200"
+        And o JSON da resposta deve ser "Remova os picles"
+		
+	Scenario 6: Adiconar comentário "Capriche no tomate" no pedido "9999" (SERVICE)
+        Given PedidosService contém um pedido com id "0001"
+        When uma requisição "PUT/9999/:obs:" for enviada para "/pedidos/9999/:obs" com o corpo da requisição sendo um JSON com a observação "Capriche no tomate"
         Then o status da resposta deve ser "404"
         And o JSON da resposta deve ser "Pedido não encontrado"
