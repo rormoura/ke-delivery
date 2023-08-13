@@ -32,7 +32,7 @@ Feature: Alterações no Pedido
 		And Observações do pedido é alterado para "Sem Cebola"
 		And Uma notificação de observação é enviada ao restaurante
 
-	Scenario: Adiconar comentário "Adicione 3 molhos da casa" em um pedido já concluído (GUI)
+	Scenario 4 : Adiconar comentário "Adicione 3 molhos da casa" em um pedido já concluído (GUI)
 		Given Eu estou na página do pedido "10052023"
 		And O pedido atual tem o Status "Finalizado" e Valor Total "R$22,90"
 		And O item "Pizza de Marguerita G" tem quantidade definida para "1 Unidades" com valor  unitário de "R$33,00" e total "R$33,00"
@@ -42,3 +42,9 @@ Feature: Alterações no Pedido
 		Then Eu continuo na página do pedido "10052023"
 		And Uma mensagem de erro é exibida informando que não é possível adicionar observações
 		And "Observações do pedido" exibe ""
+
+	Scenario 5: Adiconar comentário "Remova os picles" no pedido "0001" (SERVICE)
+        Given PedidosService retorna um pedido com id "999999"
+        When uma requisição "PUT" for enviada para "/pedidos/999999"
+        Then o status da resposta deve ser "404"
+        And o JSON da resposta deve ser "Pedido não encontrado"

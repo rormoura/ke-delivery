@@ -39,7 +39,7 @@ Feature: Histórico de pedidos
 
     Scenario 3: Obter todos os pedidos feitos (SERVICE)
         Given PedidosService retorna uma lista de itens
-        When uma requisição "Get" for enviada para "/pedidos"
+        When uma requisição "GET" for enviada para "/pedidos"
         Then o status da resposta deve ser "200"
         And o JSON da resposta deve ser uma lista de itens
         And o pedido "09072023" com data "09/07/2023" com Status "Em produção" e valor total "R$104,10" está na lista
@@ -48,7 +48,7 @@ Feature: Histórico de pedidos
 
     Scenario 4: Obter pedido "15122023" (SERVICE)
         Given PedidosService retorna um pedido com id "15122023"
-        When uma requisição "Get" for enviada para "/pedidos/15122023"
+        When uma requisição "GET" for enviada para "/pedidos/15122023"
         Then o status da resposta deve ser "200"
         And o JSON da resposta deve conter o id "15122023"
         And a resposta deve conter o item "Macarronada" com quantidade definida para "1 Unidades" com valor  unitário de "R$43,14" e total "R$43,14"
@@ -63,6 +63,6 @@ Feature: Histórico de pedidos
 
     Scenario 5: Obter pedido com código inválido(SERVICE)
         Given PedidosService retorna um pedido com id "999999"
-        When uma requisição "Get" for enviada para "/pedidos/999999"
+        When uma requisição "GET" for enviada para "/pedidos/999999"
         Then o status da resposta deve ser "404"
         And o JSON da resposta deve ser "Pedido não encontrado"
