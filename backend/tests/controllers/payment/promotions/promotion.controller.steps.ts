@@ -5,6 +5,7 @@ import { di } from '../../../../src/di';
 import PromotionRepository from '../../../../src/repositories/payment/promotions/promotion.repository';
 import PromotionEntity from '../../../../src/entities/payment/promotions/promotion.entity';
 
+
 const feature = loadFeature('tests/features/payment/Promotions.feature');
 const request = supertest(app);
 defineFeature(feature, (test) => {
@@ -18,6 +19,9 @@ defineFeature(feature, (test) => {
   beforeEach(() => {
     mockPromotionRepository = di.getRepository<PromotionRepository>(PromotionRepository);
   });
+  afterEach(async () => {
+    (await mockPromotionRepository.getPromotions()).forEach(async promotion => {await mockPromotionRepository.deletePromotion(promotion.name);})
+  })
   test('Adição de promoção realizada com sucesso (serviço)', ({ given, when, then, and }) => {
     given(/^o restaurante "Churras do Lucas" está armazenado no sistema$/, () => {});
     and(/o sistema contém somente 1 promoção do "Churras do Lucas": "(.*)", a qual aplica "(.*)" de desconto/,
@@ -88,7 +92,6 @@ defineFeature(feature, (test) => {
         given(/^o restaurante "Churras do Lucas" está armazenado no sistema$/, () => {});
         and(/o sistema contém somente 1 promoção do "Churras do Lucas": "(.*)", a qual aplica "(.*)" de desconto/,
         async (name, discount) => {
-            (await mockPromotionRepository.getPromotions()).forEach(async promotion => {await mockPromotionRepository.deletePromotion(promotion.name);})
             mockPromotionEntity = await mockPromotionRepository.createPromotion(new PromotionEntity({
                 "id": "1",
                 "name": name,
@@ -115,7 +118,6 @@ defineFeature(feature, (test) => {
         given(/^o restaurante "Churras do Lucas" está armazenado no sistema$/, () => {});
         and(/o sistema contém somente 1 promoção do "Churras do Lucas": "(.*)", a qual aplica "(.*)" de desconto/,
         async (name, discount) => {
-            (await mockPromotionRepository.getPromotions()).forEach(async promotion => {await mockPromotionRepository.deletePromotion(promotion.name);})
             mockPromotionEntity = await mockPromotionRepository.createPromotion(new PromotionEntity({
                 "id": "1",
                 "name": name,
@@ -143,6 +145,4 @@ defineFeature(feature, (test) => {
             && promotion.name == name
             && promotion.discount == discount)).toEqual(JSON.parse(responsePUT.text).data);
         });
-    });
-
-});
+    });});
