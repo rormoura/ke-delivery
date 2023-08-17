@@ -44,27 +44,27 @@ Feature: Alterações no Pedido
 		And "Observações do pedido" exibe ""
 
 	Scenario: Adiconar comentário "Remova os picles" no pedido "0001" (SERVICE)
-        Given PedidosService contém um pedido com id "0001" 
+    Given PedidosService contém um pedido com id "0001" 
 		And o pedido "0001" é composto por item = {nome = "Pizza de Marguerita G", quantidade = "1", VUnit = "R$33,00", VTot = "R$33,00"}
 		And o pedido tem ValorTotal = "R$33,00"
 		And o pedido tem Data = "22/05/2007"
 		And o pedido tem Observacoes = ""
-        When uma requisição "PUT/0001" for enviada para "/pedidos/0001" com o corpo da requisição sendo um JSON com a observação "Remova os picles"
-        Then o status da resposta deve ser "200"
-        And o JSON da resposta deve ter id "0001"
+    When uma requisição "PUT/0001" for enviada para "/pedidos/0001" com o corpo da requisição sendo um JSON com a observação "Remova os picles"
+    Then o status da resposta deve ser "200"
+    And o JSON da resposta deve ter id "0001"
 		And o pedido "0001" é composto por item = {nome = "Pizza de Marguerita G", quantidade = "1", VUnit = "R$33,00", VTot = "R$33,00"}
 		And o pedido tem ValorTotal = "R$33,00"
 		And o pedido tem Data = "22/05/2007"
 		And o pedido tem Observacoes = "Remova os picles"
 		
 	Scenario: Adiconar comentário "Capriche no tomate" em um pedido inexistente (SERVICE)
-        Given PedidosService contém um pedido com id "5435"
-        When uma requisição "PUT/9999/:" for enviada para "/pedidos/9999/" com o corpo da requisição sendo um JSON com a observação "Capriche no tomate"
-        Then o status da resposta deve ser "404"
-        And o JSON da resposta deve ser "Pedido não encontrado"
+    Given PedidosService contém um pedido com id "5435"
+    When uma requisição "PUT/9999/:" for enviada para "/pedidos/9999/" com o corpo da requisição sendo um JSON com a observação "Capriche no tomate"
+    Then o status da resposta deve ser "404"
+    And o JSON da resposta deve ser "Pedido não encontrado"
 
 	Scenario: Cancelar pedido com id "6000" (SERVICE)
-        Given PedidosService retorna um pedido com id "6000"
-        When uma requisição "PATCH" for enviada para "/pedidos/6000" com o corpo JSON contendo "Status do pedido = Cancelado"
-        Then o status da resposta deve ser "200"
-        And o JSON da resposta deve ser "Pedido cancelado"
+    Given PedidosService retorna um pedido com id "6000"
+    When uma requisição "PATCH" for enviada para "/pedidos/6000" com o corpo JSON contendo "Status do pedido = Cancelado"
+    Then o status da resposta deve ser "200"
+    And o JSON da resposta deve ser "Pedido cancelado"
