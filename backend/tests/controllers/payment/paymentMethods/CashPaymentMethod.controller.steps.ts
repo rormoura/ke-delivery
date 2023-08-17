@@ -24,9 +24,7 @@ defineFeature(feature, (test) => {
   });
 
   test('Remoção de método de pagamento realizada com sucesso (serviço)', ({ given, when, then, and }) => {
-    given(/^a usuária "Maria" está armazenada no sistema$/, () => {});
-
-    and(/o sistema contém somente 1 método de pagamento de "Maria": "(.*)"/, async (CashPaymentMethod) => {
+    given(/o sistema contém somente 1 método de pagamento: "(.*)"/, async (CashPaymentMethod) => {
       const newCashPaymentMethod = await mockCashRepository.createCashPaymentMethod(new CashPaymentMethodEntity({
         "id": "1",
         "name": CashPaymentMethod,
@@ -35,15 +33,16 @@ defineFeature(feature, (test) => {
     });
 
     when(
-      /^a usuária "Maria" remove o método de pagamento "(.*)"$/,
-      async (PaymentMethod) => {
-        response = await request.delete('/api/paymentMethods/cash/'+PaymentMethod+'/');
+      /^uma requisição DELETE for enviada para "(.*)"$/,
+      async (url) => {
+        response = await request.delete(url);
       }
     );
 
-    then(/^a usuária "Maria" permanece armazenada no sistema$/, () => {});
-
-    and(/^o sistema não contém métodos de pagamento de "Maria"$/, async () => {
+    then(/^o status da resposta deve ser "(.*)"$/, (statusCode) => {
+      expect(response.status).toBe(parseInt(statusCode, 10));
+  });
+    and(/^o sistema não contém métodos de pagamento$/, async () => {
       const response = await request.get('/api/paymentMethods/');
       const existingPaymentMethods = JSON.parse(response.text).data;
       expect(existingPaymentMethods).toEqual([])
