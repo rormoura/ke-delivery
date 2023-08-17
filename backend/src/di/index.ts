@@ -13,6 +13,8 @@ import PaymentMethodsService from '../services/payment/paymentMethods/PaymentMet
 import TestService from '../services/test.service';
 import TestRepository from '../repositories/test.repository';
 import OtherRepository from '../repositories/other.repository';
+import DeliverymanRepository from '../repositories/deliverymans/deliveryman.repository';
+import DeliverymanService from '../services/deliverymans/deliveryman.service';
 import Injector from './injector';
 
 export const di = new Injector();
@@ -20,6 +22,7 @@ export const di = new Injector();
 // Test
 di.registerRepository(TestRepository, new TestRepository());
 di.registerRepository(OtherRepository, new OtherRepository());
+di.registerRepository(DeliverymanRepository, new DeliverymanRepository())
 di.registerService(
   TestService,
   new TestService(
@@ -71,5 +74,11 @@ di.registerService(
     di.getRepository(CreditCardPaymentMethodRepository),
     di.getRepository(PixPaymentMethodRepository),
     di.getRepository(GooglePayPaymentMethodRepository)
+  )
+);
+di.registerService(
+  DeliverymanService,
+  new DeliverymanService(
+    di.getRepository(DeliverymanRepository)
   )
 );
