@@ -1,11 +1,15 @@
-import TestEntity from '../entities/test.entity';
+import DeliverymanEntity from "../entities/deliverymans/deliveryman.entity";
+import RatingEntity from "../entities/deliverymans/rating.entity";
 
 export default class Database {
   data: { [key: string]: any[] };
   private static instance: Database;
 
   private constructor() {
-    this.data = {};
+    this.data = {
+      deliverymans: [],
+      rating: [],
+    };
   }
 
   static getInstance() {
@@ -21,10 +25,13 @@ export default class Database {
 
   static seed() {
     Database.getInstance().data = {
-      tests: [
-        new TestEntity({
-          id: '89ecc32a-aec7-4b71-adfd-03287e4ca74f',
-          name: 'Test Seed',
+        deliverymans: [
+        new DeliverymanEntity({
+          id: '1',
+          name: 'Ana Santana',
+          email: 'aninha@getMaxListeners.com',
+          numOrders: 0,
+          numRates: 0
         }),
       ],
     };

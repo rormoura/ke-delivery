@@ -10,8 +10,8 @@ class DeliverymanRepository extends BaseRepository<DeliverymanEntity> {
     return await this.findAll();
   }
 
-  public async getDeliveryman(name: string): Promise<DeliverymanEntity | null> {
-    return await this.findOne((item) => item.name === name);
+  public async getDeliveryman(id: string): Promise<DeliverymanEntity | null> {
+    return await this.findOne((item) => item.id === id);
   }
 
   public async createDeliveryman(data: DeliverymanEntity): Promise<DeliverymanEntity> {
@@ -19,14 +19,14 @@ class DeliverymanRepository extends BaseRepository<DeliverymanEntity> {
   }
 
   public async updateDeliveryman(
-    name: string,
+    id: string,
     data: DeliverymanEntity
   ): Promise<DeliverymanEntity | null> {
-    return await this.update((item) => item.name === name, data);
+    return await this.update((item) => item.id === id, data);
   }
 
-  public async deleteDeliveryman(name: string): Promise<void> {
-    await this.delete((item) => item.name !== name);
+  public async deleteDeliveryman(id: string): Promise<void> {
+    await this.delete((item) => item.id !== id);
   }
 }
 

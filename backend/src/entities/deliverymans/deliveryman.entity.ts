@@ -11,7 +11,7 @@ export default class DeliverymanEntity extends BaseEntity {
     super(data.id || '');
     this.name = data.name;
     this.email = data.email;
-    this.numOrders = 0;
-    this.numRates = 0;
+    this.numOrders = data.numOrders;
+    this.numRates = data.numRates;
   }
 }

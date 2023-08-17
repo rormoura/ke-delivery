@@ -25,8 +25,8 @@ class DeliverymanService {
     return deliverymanModel;
   }
 
-  public async getDeliveryman(name: string): Promise<DeliverymanModel> {
-    const DeliverymanEntity = await this.DeliverymanRepository.getDeliveryman(name);
+  public async getDeliveryman(id: string): Promise<DeliverymanModel> {
+    const DeliverymanEntity = await this.DeliverymanRepository.getDeliveryman(id);
 
     if (!DeliverymanEntity) {
       throw new HttpNotFoundError({
@@ -40,14 +40,14 @@ class DeliverymanService {
     return deliverymanModel;
   }
 
-  public async getDeliverymanWithoutError(name: string): Promise<DeliverymanEntity | null> {
-    const DeliverymanEntity = await this.DeliverymanRepository.getDeliveryman(name);
+  public async getDeliverymanWithoutError(id: string): Promise<DeliverymanEntity | null> {
+    const DeliverymanEntity = await this.DeliverymanRepository.getDeliveryman(id);
 
     return DeliverymanEntity;
   }
 
   public async createDeliveryman(data: DeliverymanEntity): Promise<DeliverymanModel> {
-    const DeliverymanEntityAlreadyExists = await this.getDeliverymanWithoutError(data.name)
+    const DeliverymanEntityAlreadyExists = await this.getDeliverymanWithoutError(data.id)
     if (DeliverymanEntityAlreadyExists) {
       throw new HttpForbiddenError({
         msg: 'Deliveryman already exists',
@@ -61,8 +61,8 @@ class DeliverymanService {
     return deliverymanModel;
   }
 
-  public async updateDeliveryman(name: string, data: DeliverymanEntity): Promise<DeliverymanModel> {
-    const DeliverymanEntity = await this.DeliverymanRepository.updateDeliveryman(name, data);
+  public async updateDeliveryman(id: string, data: DeliverymanEntity): Promise<DeliverymanModel> {
+    const DeliverymanEntity = await this.DeliverymanRepository.updateDeliveryman(id, data);
 
     if (!DeliverymanEntity) {
       throw new HttpNotFoundError({
@@ -76,8 +76,8 @@ class DeliverymanService {
     return deliverymanModel;
   }
 
-  public async deleteDeliveryman(name: string): Promise<void> {
-    await this.DeliverymanRepository.deleteDeliveryman(name);
+  public async deleteDeliveryman(id: string): Promise<void> {
+    await this.DeliverymanRepository.deleteDeliveryman(id);
   }
 }
 
