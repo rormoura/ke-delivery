@@ -22,8 +22,7 @@ defineFeature(feature, (test) => {
     jest.resetAllMocks();
   });
   test('Tentativa de adição de método de pagamento com informações incompletas (serviço)', ({ given, when, then, and }) => {
-    given(/^a usuária "Maria" está armazenada no sistema$/, () => {});
-    and(/o sistema contém somente 1 método de pagamento de "Maria": "(.*)"/,
+    given(/o sistema contém somente 1 método de pagamento: "(.*)"/,
     async (PaymentMethod) => {
       mockGooglePayPaymentMethodEntity = await mockGooglePayPaymentMethodRepository.createGooglePayPaymentMethod(new GooglePayPaymentMethodEntity({
         "id": "1",
@@ -32,25 +31,25 @@ defineFeature(feature, (test) => {
       }))
     });
     when(
-      /^a usuária "Maria" adiciona o método de pagamento "(.*)" de maneira incompleta$/,
-      async (PaymentMethod) => {
+      /^uma requisição POST for enviada para "(.*)" com o corpo da requisição sendo um JSON com name="(.*)", cardHolderName="(.*)", cardNumber="(.*)", expirationDate="(.*)", cvv="(.*)", default="(.*)"$/,
+      async (name, cardHolderName, cardNumber, expirationDate, cvv, Default) => {
         responsePOST = await request.post('/api/paymentMethods/creditCard/').send({
-            "id": "2",
-            "name": PaymentMethod,
-            "cardHolderName": "MARIA SILVA",
-            "cardNumber": "",
-            "expirationDate": "30/05/2032",
-            "cvv": "101",
-            "default": "no"
+            "name": name,
+            "cardHolderName": cardHolderName,
+            "cardNumber": cardNumber,
+            "expirationDate": expirationDate,
+            "cvv": cvv,
+            "default": Default
         });
     });
-    then(/^a usuária "Maria" permanece armazenada no sistema$/, () => {});
-    and(/^o sistema contém somente 1 método de pagamento de "Maria": "(.*)"$/,
+    then(/^o status da resposta deve ser "(.*)"$/, (statusCode) => {
+      expect(responsePOST.status).toBe(parseInt(statusCode, 10));
+  });
+    and(/^o sistema contém somente 1 método de pagamento: "(.*)"$/,
     async (PaymentMethod) => {
             expect(JSON.parse(responsePOST.text).msg).toBe("Credit Card payment method incomplete");
             responseGET = await request.get('/api/paymentMethods/');
             const existingPaymentMethods = responseGET.body.data;
-            expect(responseGET.status).toBe(200)
             expect(existingPaymentMethods).toEqual([mockGooglePayPaymentMethodEntity])
         });
 });});

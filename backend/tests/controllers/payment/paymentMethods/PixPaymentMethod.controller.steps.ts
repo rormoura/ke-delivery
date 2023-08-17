@@ -22,8 +22,7 @@ defineFeature(feature, (test) => {
     jest.resetAllMocks();
   });
   test('Adição do método de pagamento realizada com sucesso (serviço)', ({ given, when, then, and }) => {
-    given(/^a usuária "Maria" está armazenada no sistema$/, () => {});
-    and(/o sistema contém somente 1 método de pagamento de "Maria": "(.*)"/,
+    given(/o sistema contém somente 1 método de pagamento: "(.*)"/,
     async (PaymentMethod) => {
       mockPixPaymentMethodEntity = await mockPixPaymentMethodRepository.createPixPaymentMethod(new PixPaymentMethodEntity({
         "id": "1",
@@ -32,21 +31,22 @@ defineFeature(feature, (test) => {
       }))
     });
     when(
-      /^a usuária "Maria" adiciona o método de pagamento "(.*)"$/,
-      async (PaymentMethod) => {
-        responsePOST = await request.post('/api/paymentMethods/googlePay/').send({
+      /^uma requisição POST for enviada para "(.*)" com o corpo da requisição sendo um JSON com name="(.*)", default="(.*)"$/,
+      async (url, name, Default) => {
+        responsePOST = await request.post(url).send({
           "id": "2",
-            "name": PaymentMethod,
-            "default": "no"
+            "name": name,
+            "default": Default
         });
       }
     );
-    then(/^a usuária "Maria" permanece armazenada no sistema$/, () => {});
-    and(/^o sistema contém somente 2 métodos de pagamento de "Maria": "(.*)", "(.*)"$/,
+    then(/^o status da resposta deve ser "(.*)"$/, (statusCode) => {
+      expect(responsePOST.status).toBe(parseInt(statusCode, 10));
+  });
+    and(/^o sistema contém somente 2 métodos de pagamento: "(.*)", "(.*)"$/,
     async (PaymentMethod1, PaymentMethod2) => {
       response = await request.get('/api/paymentMethods/');
       const existingPaymentMethods = response.body.data;
-      expect(response.status).toBe(200)
       expect(existingPaymentMethods.find((method: {name: string}) => method.name == PaymentMethod1)).toEqual(mockPixPaymentMethodEntity)
       expect(existingPaymentMethods.find((method: {name: string}) => method.name == PaymentMethod2)).toEqual(responsePOST.body.data)
       expect(existingPaymentMethods.length).toEqual(2);

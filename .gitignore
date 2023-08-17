@@ -404,3 +404,7 @@ FodyWeavers.xsd
 *.sln.iml
 /.vs/ke-delivery/v17/.wsuo
 /.vs
+
+#package json
+package.json
+package-lock.json

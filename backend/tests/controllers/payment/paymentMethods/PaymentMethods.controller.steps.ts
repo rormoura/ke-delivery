@@ -26,9 +26,7 @@ defineFeature(feature, (test) => {
     jest.resetAllMocks();
   });
   test('Modificação do método de pagamento padrão realizada com sucesso (serviço)', ({ given, when, then, and }) => {
-    given(/^a usuária "Maria" está armazenada no sistema$/, () => {});
-
-    and(/o sistema contém somente 2 métodos de pagamento de "Maria": "(.*)", "(.*)", este último é o método de pagamento padrão/,
+    given(/o sistema contém somente 2 métodos de pagamento: "(.*)", "(.*)", este último é o método de pagamento padrão/,
     async (PaymentMethod1, PaymentMethod2) => {
       mockGooglePayPaymentMethodEntity = await mockGooglePayPaymentMethodRepository.createGooglePayPaymentMethod(new GooglePayPaymentMethodEntity({
         "id": "1",
@@ -47,18 +45,19 @@ defineFeature(feature, (test) => {
       await request.put('/api/paymentMethods/default'+PaymentMethod2);
     });
     when(
-      /^a usuária "Maria" escolhe "(.*)" como o novo método de pagamento padrão$/,
-      async (PaymentMethod) => {
-        await request.put('/api/paymentMethods/default/'+PaymentMethod);
+      /^uma requisição PUT for enviada para "(.*)"$/,
+      async (url) => {
+        response = await request.put(url);
       }
     );
-    then(/^a usuária "Maria" permanece armazenada no sistema$/, () => {});
-    and(/^o sistema contém somente 2 métodos de pagamento de "Maria": "(.*)", "(.*)", este último é o método de pagamento padrão$/,
+    then(/^o status da resposta deve ser "(.*)"$/, (statusCode) => {
+      expect(response.status).toBe(parseInt(statusCode, 10));
+  });
+    and(/^o sistema contém somente 2 métodos de pagamento: "(.*)", "(.*)", este último é o método de pagamento padrão$/,
     async (PaymentMethod1, PaymentMethod2) => {
       mockCreditCardPaymentMethodEntity.default = "yes";
       response = await request.get('/api/paymentMethods/');
       const existingPaymentMethods = response.body.data;
-      expect(response.status).toBe(200)
       expect(existingPaymentMethods.find((method: {name: string}) => method.name == PaymentMethod2)).toEqual(mockCreditCardPaymentMethodEntity)
       expect(existingPaymentMethods.find((method: {name: string}) => method.name == PaymentMethod1)).toEqual(mockGooglePayPaymentMethodEntity)
 });});});

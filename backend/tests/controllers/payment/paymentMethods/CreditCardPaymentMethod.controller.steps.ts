@@ -22,8 +22,7 @@ defineFeature(feature, (test) => {
     jest.resetAllMocks();
   });
   test('Tentativa de atualização de método de pagamento (serviço)', ({ given, when, then, and }) => {
-    given(/^a usuária "Maria" está armazenada no sistema$/, () => {});
-    and(/o sistema contém somente 1 método de pagamento de "Maria": "(.*)", com "número do cartão"="(.*)", "validade"="(.*)", "CVV"="(.*)", "nome do titular"="(.*)"/,
+    given(/o sistema contém somente 1 método de pagamento: "(.*)", com cardNumber="(.*)", expirationDate="(.*)", cvv="(.*)", cardHolderName="(.*)"/,
     async (name, cardNumber, expirationDate, cvv, cardHolderName) => {
       mockCreditCardPaymentMethodEntity = await mockCreditCardPaymentMethodRepository.createCreditCardPaymentMethod(new CreditCardPaymentMethodEntity({
         "id": "1",
@@ -36,25 +35,24 @@ defineFeature(feature, (test) => {
       }))
     });
     when(
-      /^a usuária "Maria" atualiza o método de pagamento "(.*)" de maneira incompleta$/,
-      async (name) => {
-        responsePUT = await request.put('/api/paymentMethods/creditCard/'+name).send({
-            "id": mockCreditCardPaymentMethodEntity.id,
+      /^uma requisição UPDATE for enviada para "(.*)" com o corpo da requisição sendo um JSON com name="(.*)", cardHolderName="(.*)", cardNumber="(.*)", expirationDate="(.*)", cvv="(.*)", default="(.*)"$/,
+      async (url, name, cardHolderName, cardNumber, expirationDate, cvv, Default) => {
+        responsePUT = await request.put(url).send({
             "name": name,
-            "cardHolderName": mockCreditCardPaymentMethodEntity.cardHolderName,
-            "cardNumber": mockCreditCardPaymentMethodEntity.cardNumber,
-            "expirationDate": mockCreditCardPaymentMethodEntity.expirationDate,
-            "cvv": "",
-            "default": "no"
+            "cardHolderName": cardHolderName,
+            "cardNumber": cardNumber,
+            "expirationDate": expirationDate,
+            "cvv": cvv,
+            "default": Default
         });
     });
-    then(/^a usuária "Maria" permanece armazenada no sistema$/, () => {});
-    and(/^o sistema contém somente 1 método de pagamento de "Maria": "(.*)", com "número do cartão"="(.*)", "validade"="(.*)", "CVV"="(.*)", "nome do titular"="(.*)"$/,
+    then(/^o status da resposta deve ser "(.*)"$/, (statusCode) => {
+      expect(responsePUT.status).toBe(parseInt(statusCode, 10));
+  });
+    and(/^o sistema contém somente 1 método de pagamento: "(.*)", com cardNumber="(.*)", expirationDate="(.*)", cvv="(.*)", cardHolderName="(.*)"$/,
     async (name, cardNumber, expirationDate, cvv, cardHolderName) => {
-            expect(JSON.parse(responsePUT.text).msg).toBe("Credit Card payment method incomplete");
             responseGET = await request.get('/api/paymentMethods/');
             const existingPaymentMethods = responseGET.body.data;
-            expect(responseGET.status).toBe(200)
             expect(existingPaymentMethods).toEqual([{
                 "id": mockCreditCardPaymentMethodEntity.id,
                 "name": name,
