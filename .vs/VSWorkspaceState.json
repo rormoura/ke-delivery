@@ -1,8 +1,16 @@
 {
   "ExpandedNodes": [
     "",
-    "\\features"
+    "\\backend",
+    "\\backend\\docs",
+    "\\backend\\src",
+    "\\backend\\src\\controllers",
+    "\\backend\\tests",
+    "\\backend\\tests\\controllers",
+    "\\backend\\tests\\features",
+    "\\backend\\tests\\services",
+    "\\backend\\tests\\utils"
   ],
-  "SelectedNode": "\\features\\HistoricoDeCompras.feature",
+  "SelectedNode": "\\backend\\tests\\features\\HistoricoDePedidos.feature",
   "PreviewInSolutionExplorer": false
 }
