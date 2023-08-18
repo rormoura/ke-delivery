@@ -30,7 +30,7 @@ export default class Database {
           Data: new Date(2017, 4, 4, 17, 23, 42, 11),
           Endereco: "Avenida José Pinheiro, 358, Casa, Iputinga, Recife, Pernambuco, Brasil",
           id: '1',
-          itens: "{nome = 'Tofu', quantidade = '2', VUnit = 'R$10,00', VTot = 'R$20,00'}",
+          Itens: "{nome = 'Tofu', quantidade = '2', VUnit = 'R$10,00', VTot = 'R$20,00'}",
           MetodoDePagamento: "Dinheiro",
           Observacoes: "Sem cebolas",
           Status: "Finalizado",
