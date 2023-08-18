@@ -16,6 +16,8 @@ import PaymentMethodsController from '../controllers/payment/paymentMethods/Paym
 import PaymentMethodsService from '../services/payment/paymentMethods/PaymentMethods.service';
 import DeliverymanController from '../controllers/deliverymans/deliveryman.controller';
 import DeliverymanService from '../services/deliverymans/deliveryman.service';
+import PedidoController from '../controllers/Pedidos/pedido.controller';
+import PedidoService from '../services/Pedidos/pedido.service';
 
 const router = Router();
 const prefix = '/api';
@@ -53,4 +55,7 @@ export default (app: Express) => {
     prefix,
     new DeliverymanController(router, di.getService(DeliverymanService)).router
   )
+  app.use(
+    new PedidoController(router, di.getService(PedidoService)).router
+  );
 };
