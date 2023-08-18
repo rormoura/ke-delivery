@@ -10,6 +10,8 @@ import PixPaymentMethodService from '../services/payment/paymentMethods/PixPayme
 import GooglePayPaymentMethodService from '../services/payment/paymentMethods/GooglePayPaymentMethod.service';
 import PromotionService from '../services/payment/promotions/promotion.service';
 import PaymentMethodsService from '../services/payment/paymentMethods/PaymentMethods.service'
+import PedidosRepository from '../repositories/Pedidos/pedido.repository';
+import PedidosService from '../services/Pedidos/pedido.service';
 import TestService from '../services/test.service';
 import TestRepository from '../repositories/test.repository';
 import OtherRepository from '../repositories/other.repository';
@@ -80,5 +82,14 @@ di.registerService(
   DeliverymanService,
   new DeliverymanService(
     di.getRepository(DeliverymanRepository)
+  )
+);
+
+//Pedidos
+di.registerRepository(PedidosRepository, new PedidosRepository());
+di.registerService(
+  PedidosService,
+  new PedidosService(
+    di.getRepository(PedidosRepository),
   )
 );
