@@ -1,0 +1,73 @@
+import RestaurantEntity from '../entities/restaurant.entity';
+import RestaurantModel from '../models/restaurant.model';
+import OtherRepository from '../repositories/other.repository';
+import RestaurantRepository from '../repositories/restaurant.repository';
+import { HttpNotFoundError } from '../utils/errors/http.error';
+
+class RestaurantServiceMessageCode {
+  public static readonly account_not_found = 'account_not_found';
+}
+
+class RestaurantService {
+  private restaurantRepository: RestaurantRepository;
+  private otherRepository: OtherRepository;
+
+  constructor(
+    restaurantRepository: RestaurantRepository,
+    otherRepository: OtherRepository
+  ) {
+    this.restaurantRepository = restaurantRepository;
+    this.otherRepository = otherRepository;
+  }
+
+  public async getRestaurants(): Promise<RestaurantModel[]> {
+    const restaurantsEntity = await this.restaurantRepository.getRestaurants();
+
+    const restaurantsModel = restaurantsEntity.map((restaurant) => new RestaurantModel(restaurant));
+
+    return restaurantsModel;
+  }
+
+  public async getRestaurant(id: string): Promise<RestaurantModel> {
+    const restaurantEntity = await this.restaurantRepository.getRestaurant(id);
+
+    if (!restaurantEntity) {
+      throw new HttpNotFoundError({
+        msg: 'Account not found',
+        msgCode: RestaurantServiceMessageCode.account_not_found,
+      });
+    }
+
+    const restaurantModel = new RestaurantModel(restaurantEntity);
+
+    return restaurantModel;
+  }
+
+  public async createRestaurant(data: RestaurantEntity): Promise<RestaurantModel> {
+    const restaurantEntity = await this.restaurantRepository.createRestaurant(data);
+    const restaurantModel = new RestaurantModel(restaurantEntity);
+
+    return restaurantModel;
+  }
+
+  public async updateRestaurant(id: string, data: RestaurantEntity): Promise<RestaurantModel> {
+    const restaurantEntity = await this.restaurantRepository.updateRestaurant(id, data);
+
+    if (!restaurantEntity) {
+      throw new HttpNotFoundError({
+        msg: 'Account not found',
+        msgCode: RestaurantServiceMessageCode.account_not_found,
+      });
+    }
+
+    const restaurantModel = new RestaurantModel(restaurantEntity);
+
+    return restaurantModel;
+  }
+
+  public async deleteRestaurant(id: string): Promise<void> {
+    await this.restaurantRepository.deleteRestaurant(id);
+  }
+}
+
+export default RestaurantService;
