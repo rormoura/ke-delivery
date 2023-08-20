@@ -1,10 +1,11 @@
 import BaseEntity from "../base.entity";
 
 export default class DeliverymanEntity extends BaseEntity {
+  id: string;
   name: string;
   email: string;
-  numOrders: number;
-  numRates: number;
+  numOrders: string;
+  numRates: string;
 
 
   constructor(data: DeliverymanEntity) {
