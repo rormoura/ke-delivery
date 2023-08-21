@@ -9,7 +9,7 @@ describe('TestController', () => {
   let mockTestRepository: TestRepository;
 
   let mockTestEntity: TestEntity = new TestEntity({
-    id: '123',
+    name: '123',
     name: 'test',
   });
 
@@ -22,7 +22,7 @@ describe('TestController', () => {
       mockTestEntity
     );
 
-    const response = await request.get(`/api/tests/${createdTestEntity.id}`);
+    const response = await request.get(`/api/tests/${createdTestEntity.name}`);
 
     expect(response.status).toBe(200);
     expect(response.body.data).toEqual(createdTestEntity);
@@ -53,7 +53,7 @@ describe('TestController', () => {
     );
 
     const response = await request
-      .put(`/api/tests/${createdTestEntity.id}`)
+      .put(`/api/tests/${createdTestEntity.name}`)
       .send({
         name: 'test2',
       });
@@ -71,10 +71,10 @@ describe('TestController', () => {
       mockTestEntity
     );
 
-    const response = await request.delete(`/api/tests/${createdTestEntity.id}`);
+    const response = await request.delete(`/api/tests/${createdTestEntity.name}`);
 
     const deletedTestEntity = await mockTestRepository.getTest(
-      createdTestEntity.id
+      createdTestEntity.name
     );
     expect(response.status).toBe(200);
     expect(deletedTestEntity).toBeNull();
