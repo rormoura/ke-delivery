@@ -2,15 +2,15 @@
   "ExpandedNodes": [
     "",
     "\\backend",
-    "\\backend\\docs",
     "\\backend\\src",
     "\\backend\\src\\controllers",
-    "\\backend\\tests",
-    "\\backend\\tests\\controllers",
-    "\\backend\\tests\\features",
-    "\\backend\\tests\\services",
-    "\\backend\\tests\\utils"
+    "\\backend\\src\\controllers\\Pedidos",
+    "\\backend\\src\\database",
+    "\\backend\\src\\entities\\Pedidos",
+    "\\backend\\src\\models",
+    "\\backend\\src\\services\\Pedidos",
+    "\\features"
   ],
-  "SelectedNode": "\\backend\\tests\\features\\HistoricoDePedidos.feature",
+  "SelectedNode": "\\backend\\src\\controllers\\Pedidos\\pedido.controller.ts",
   "PreviewInSolutionExplorer": false
 }

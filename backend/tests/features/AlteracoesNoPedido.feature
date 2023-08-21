@@ -43,28 +43,20 @@ Feature: Alterações no Pedido
 		And Uma mensagem de erro é exibida informando que não é possível adicionar observações
 		And "Observações do pedido" exibe ""
 
-	Scenario: Adiconar comentário "Remova os picles" no pedido "0001" (SERVICE)
-    Given PedidosService contém um pedido com id "0001" 
-		And o pedido "0001" é composto por item = {nome = "Pizza de Marguerita G", quantidade = "1", VUnit = "R$33,00", VTot = "R$33,00"}
-		And o pedido tem ValorTotal = "R$33,00"
-		And o pedido tem Data = "22/05/2007"
-		And o pedido tem Observacoes = ""
-    When uma requisição "PUT/0001" for enviada para "/pedidos/0001" com o corpo da requisição sendo um JSON com a observação "Remova os picles"
-    Then o status da resposta deve ser "200"
-    And o JSON da resposta deve ter id "0001"
-		And o pedido "0001" é composto por item = {nome = "Pizza de Marguerita G", quantidade = "1", VUnit = "R$33,00", VTot = "R$33,00"}
-		And o pedido tem ValorTotal = "R$33,00"
-		And o pedido tem Data = "22/05/2007"
-		And o pedido tem Observacoes = "Remova os picles"
+  @runThis
+	Scenario: Adiconar comentário em um pedido existente (SERVICE)
+    Given Pedidos contém um pedido com JSON contendo id = "6000", CPF_Cliente = "222.555.312.11", CPF_Entregador = "644.132.162.23", CNPJ_Restaurante = "22.543.654/0001-00", Data = "15/09/2022", Endereco = "Rua das Quedas, 333, Váezea, Recife, Pernambuco, Brasil", Itens = "{nome = "Pizza de Marguerita G", quantidade = "1", VUnit = "R$33,00", VTot = "R$33,00"}", MetodoDePagamento = "Cartão de Crédito VISA", Observacoes = "Nenhuma", Status = "Em preparo" e ValorTotal = "R$40,00"
+    When uma requisição PUT for enviada para "/api/pedidos/6000" com o corpo da requisição JSON contendo id = "6000", CPF_Cliente = "222.555.312.11", CPF_Entregador = "644.132.162.23", CNPJ_Restaurante = "22.543.654/0001-00", Data = "15/09/2022", Endereco = "Rua das Quedas, 333, Váezea, Recife, Pernambuco, Brasil", Itens = "{nome = "Pizza de Marguerita G", quantidade = "1", VUnit = "R$33,00", VTot = "R$33,00"}", MetodoDePagamento = "Cartão de Crédito VISA", Observacoes = "Remova os picles", Status = "Em preparo" e ValorTotal = "R$40,00"
+    Then o status da resposta deve ser "200" e o JSON da resposta deverá conter Observacoes = "Remova os picles"
 		
-	Scenario: Adiconar comentário "Capriche no tomate" em um pedido inexistente (SERVICE)
-    Given PedidosService contém um pedido com id "5435"
-    When uma requisição "PUT/9999/:" for enviada para "/pedidos/9999/" com o corpo da requisição sendo um JSON com a observação "Capriche no tomate"
-    Then o status da resposta deve ser "404"
-    And o JSON da resposta deve ser "Pedido não encontrado"
+  @runThis
+	Scenario:Cancelar pedido (SERVICE)
+    Given Pedidos contém um pedido com JSON contendo id = "6000", CPF_Cliente = "222.555.312.11", CPF_Entregador = "644.132.162.23", CNPJ_Restaurante = "22.543.654/0001-00", Data = "15/09/2022", Endereco = "Rua das Quedas, 333, Váezea, Recife, Pernambuco, Brasil", Itens = "{nome = 'Café', quantidade = '4', VUnit = 'R$10,00',VTot = 'R$40,00'}", MetodoDePagamento = "Dinheiro", Observacoes = "Nenhuma", Status = "Em preparo" e ValorTotal = "R$40,00"
+    When uma requisição de alteração for enviada para "/api/pedidos/6000" com o corpo JSON contendo id = "6000", CPF_Cliente = "222.555.312.11", CPF_Entregador = "644.132.162.23", CNPJ_Restaurante = "22.543.654/0001-00", Data = "15/09/2022", Endereco = "Rua das Quedas, 333, Váezea, Recife, Pernambuco, Brasil", Itens = "{nome = 'Café', quantidade = '4', VUnit = 'R$10,00',VTot = 'R$40,00'}", MetodoDePagamento = "Dinheiro", Observacoes = "Nenhuma", Status = "Cancelado" e ValorTotal = "R$40,00"
+    Then o status da resposta deve ser "200" e o JSON da resposta deve conter Status = "Cancelado"
 
-	Scenario: Cancelar pedido com id "6000" (SERVICE)
-    Given PedidosService retorna um pedido com id "6000"
-    When uma requisição "PATCH" for enviada para "/pedidos/6000" com o corpo JSON contendo "Status do pedido = Cancelado"
-    Then o status da resposta deve ser "200"
-    And o JSON da resposta deve ser "Pedido cancelado"
+  @runThis
+	Scenario: Adiconar comentário em um pedido inexistente(SERVICE)
+    Given PedidosService contém um pedido com id = "5435", CPF_Cliente = "111.222.312.11", CPF_Entregador = "333.444.162.23", CNPJ_Restaurante = "33.543.654/0001-00", Data = "22/09/2022", Endereco = "Avenida das Quedas, 666, Váezea, Recife, Pernambuco, Brasil", Itens = "{nome = 'Queijo', quantidade = '4', VUnit = 'R$10,00',VTot = 'R$40,00'}", MetodoDePagamento = "Dinheiro", Observacoes = "Nenhuma", Status = "Em preparo" e ValorTotal = "R$40,00"
+    When uma requisição PUT for enviada para "/api/pedidos/9999/" com o corpo JSON contendo id = "5435", CPF_Cliente = "111.222.312.11", CPF_Entregador = "333.444.162.23", CNPJ_Restaurante = "33.543.654/0001-00", Data = "22/09/2022", Endereco = "Avenida das Quedas, 666, Váezea, Recife, Pernambuco, Brasil", Itens = "{nome = 'Queijo', quantidade = '4', VUnit = 'R$10,00',VTot = 'R$40,00'}", MetodoDePagamento = "Dinheiro", Observacoes = "Capriche no tomate", Status = "Em preparo" e ValorTotal = "R$40,00"
+    Then o status da resposta deve ser "404" e o JSON da resposta deve ser "Pedido não encontrado"
