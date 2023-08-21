@@ -24,12 +24,13 @@ export default class Database {
     Database.getInstance().data = {
       pedidos: [
         new PedidoEntity({
+          id: "1",
           CNPJ_Restaurante: "12.345.678/0001-00",
           CPF_Cliente: "111.098.098.72",
           CPF_Entregador: "222.567.251.72",
           Data: new Date(2017, 4, 4, 17, 23, 42, 11),
           Endereco: "Avenida José Pinheiro, 358, Casa, Iputinga, Recife, Pernambuco, Brasil",
-          id: '1',
+          name: '1',
           Itens: "{nome = 'Tofu', quantidade = '2', VUnit = 'R$10,00', VTot = 'R$20,00'}",
           MetodoDePagamento: "Dinheiro",
           Observacoes: "Sem cebolas",

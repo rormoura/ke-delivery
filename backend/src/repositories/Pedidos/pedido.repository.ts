@@ -11,7 +11,7 @@ class PedidoRepository extends BaseRepository<PedidoEntity> {
   }
 
   public async getPedido(id: string): Promise<PedidoEntity | null> {
-    return await this.findOne((item) => item.id === id);
+    return await this.findOne((item) => item.name === id);
   }
 
   public async createPedido(data: PedidoEntity): Promise<PedidoEntity> {
@@ -22,11 +22,11 @@ class PedidoRepository extends BaseRepository<PedidoEntity> {
     id: string,
     data: PedidoEntity
   ): Promise<PedidoEntity | null> {
-    return await this.update((item) => item.id === id, data);
+    return await this.update((item) => item.name === id, data);
   }
 
   public async deletePedido(id: string): Promise<void> {
-    await this.delete((item) => item.id !== id);
+    await this.delete((item) => item.name !== id);
   }
 }
 
