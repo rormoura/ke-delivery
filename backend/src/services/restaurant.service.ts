@@ -2,10 +2,11 @@ import RestaurantEntity from '../entities/restaurant.entity';
 import RestaurantModel from '../models/restaurant.model';
 import OtherRepository from '../repositories/other.repository';
 import RestaurantRepository from '../repositories/restaurant.repository';
-import { HttpNotFoundError } from '../utils/errors/http.error';
+import { HttpForbiddenError, HttpNotFoundError } from '../utils/errors/http.error';
 
 class RestaurantServiceMessageCode {
   public static readonly account_not_found = 'account_not_found';
+  public static readonly restaurant_already_exists = 'restaurant_already_exists';
 }
 
 class RestaurantService {
@@ -23,7 +24,7 @@ class RestaurantService {
   public async getRestaurants(): Promise<RestaurantModel[]> {
     const restaurantsEntity = await this.restaurantRepository.getRestaurants();
 
-    const restaurantsModel = restaurantsEntity.map((restaurant) => new RestaurantModel(restaurant));
+    const restaurantsModel = restaurantsEntity.map((RestaurantEntity) => new RestaurantModel(RestaurantEntity));
 
     return restaurantsModel;
   }
@@ -42,8 +43,22 @@ class RestaurantService {
 
     return restaurantModel;
   }
+  public async getRestaurantWithoutError(restaurantName: string): Promise<RestaurantEntity | null> {
+    const RestaurantEntity = await this.restaurantRepository.getRestaurant(restaurantName)
+
+    return RestaurantEntity;
+  }
 
   public async createRestaurant(data: RestaurantEntity): Promise<RestaurantModel> {
+    const RestaurantAlreadyExists = await this.getRestaurantWithoutError(data.restaurantName)
+    
+    if(RestaurantAlreadyExists) {
+      throw new HttpForbiddenError({
+        msg: 'Restaurant already exists',
+        msgCode:RestaurantServiceMessageCode.restaurant_already_exists,
+      })
+    }
+
     const restaurantEntity = await this.restaurantRepository.createRestaurant(data);
     const restaurantModel = new RestaurantModel(restaurantEntity);
 
