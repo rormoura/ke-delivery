@@ -1,7 +1,6 @@
 import BaseModel from './base.model';
 
 export default class RestaurantModel extends BaseModel {
-  pageName: string;
   typeBusiness: string;
   responsibleName: string;
   responsibleCPF: string;
@@ -17,7 +16,6 @@ export default class RestaurantModel extends BaseModel {
 
   constructor(data: RestaurantModel) {
     super(data.id || '');  // PRIMARY GENERATED COLUMN
-    this.pageName = data.pageName;
     this.typeBusiness = data.typeBusiness;
     this.responsibleName = data.responsibleName;
     this.email = data.email;
