@@ -120,33 +120,46 @@ defineFeature(feature, (test) => {
       })
   });
 
+
+
   //@runThis
   //Scenario: Adiconar comentário em um pedido existente(SERVICE)
-  //  Given Pedidos contém um pedido com JSON contendo id = "6000", CPF_Cliente = "222.555.312.11", CPF_Entregador = "644.132.162.23",
-  //CNPJ_Restaurante = "22.543.654/0001-00", Data = "15/09/2022", Endereco = "Rua das Quedas, 333, Váezea, Recife, Pernambuco, Brasil",
-  //Itens = "{nome = "Pizza de Marguerita G", quantidade = "1", VUnit = "R$33,00", VTot = "R$33,00"}, MetodoDePagamento = "Cartão de Crédito VISA",
-  //Observacoes = "Nenhuma", Status = "Em preparo" e ValorTotal = "R$40,00"
-
-  //  When uma requisição PUT for enviada para "api/pedidos/6000" com o corpo da requisição JSON contendo id = "6000", CPF_Cliente = "222.555.312.11",
-  //CPF_Entregador = "644.132.162.23", CNPJ_Restaurante = "22.543.654/0001-00", Data = "15/09/2022", Endereco = "Rua das Quedas, 333, Váezea, Recife,
-  //Pernambuco, Brasil", Itens = "{ nome = "Pizza de Marguerita G", quantidade = "1", VUnit = "R$33,00", VTot = "R$33,00" }, MetodoDePagamento = "Cartão de Crédito VISA",
-  //Observacoes = "Remova os picles", Status = "Em preparo" e ValorTotal = "R$40,00"   
-
+  //  Given Pedidos contém um pedido com JSON contendo id = "6000", CPF_Cliente = "222.555.312.11", CPF_Entregador = "644.132.162.23", CNPJ_Restaurante = "22.543.654/0001-00", Data = "15/09/2022", Endereco = "Rua das Quedas, 333, Váezea, Recife, Pernambuco, Brasil", Itens = "{nome = "Pizza de Marguerita G", quantidade = "1", VUnit = "R$33,00", VTot = "R$33,00"}, MetodoDePagamento = "Cartão de Crédito VISA",  Observacoes = "Nenhuma", Status = "Em preparo" e ValorTotal = "R$40,00"
+  //  When uma requisição PUT for enviada para "api/pedidos/6000" com o corpo da requisição JSON contendo id = "6000", CPF_Cliente = "222.555.312.11", CPF_Entregador = "644.132.162.23", CNPJ_Restaurante = "22.543.654/0001-00", Data = "15/09/2022", Endereco = "Rua das Quedas, 333, Váezea, Recife, Pernambuco, Brasil", Itens = "{nome = "Pizza de Marguerita G", quantidade = "1", VUnit = "R$33,00", VTot = "R$33,00"}, MetodoDePagamento = "Cartão de Crédito VISA", Observacoes = "Remova os picles", Status = "Em preparo" e ValorTotal = "R$40,00"   
   //  Then o status da resposta deve ser "200" e o JSON da resposta deverá conter Observacoes = "Remova os picles"
 
   test('Adiconar comentário em um pedido existente (SERVICE)', ({ given, when, then, and }) => {
-    given(/^Pedidos contém um pedido com JSON contendo id = "(.*)", CPF_Cliente = "(.*)", CPF_Entregador = "(.*)", CNPJ_Restaurante = "(.*)",Data = "(.*)", Endereco = "(.*)", Itens = "(.*)", MetodoDePagamento = "(.*)", Observacoes = "(.*)", Status = "(.*)" e ValorTotal = "(.*)" /,
+    given(/^Pedidos contém um pedido com JSON contendo id = "(.*)", CPF_Cliente = "(.*)", CPF_Entregador = "(.*)", CNPJ_Restaurante = "(.*)", Data = "(.*)", Endereco = "(.*)", Itens = "(.*)", MetodoDePagamento = "(.*)", Observacoes = "(.*)", Status = "(.*)" e ValorTotal = "(.*)"/,
       async (name, CPF_Cliente, CPF_Entregador, CNPJ_Restaurante, Data, Endereco, Itens, MetodoDePagamento, Observacoes, Status, ValorTotal) => {
         mockPedidoEntity = await mockPedidoRepository.createPedido(new PedidoEntity({
-          "id": "1", "name": name, "CPF_Cliente": CPF_Cliente, "CPF_Entregador": CPF_Entregador,"CNPJ_Restaurante": CNPJ_Restaurante, "Data": Data, "Endereco": Endereco, "Itens": Itens,
-          "MetodoDePagamento": MetodoDePagamento, "Observacoes": Observacoes,"Status": Status, "ValorTotal": ValorTotal
+          "id": "1",
+          "name": name,
+          "CPF_Cliente": CPF_Cliente,
+          "CPF_Entregador": CPF_Entregador,
+          "CNPJ_Restaurante": CNPJ_Restaurante,
+          "Data": Data,
+          "Endereco": Endereco,
+          "Itens": Itens,
+          "MetodoDePagamento": MetodoDePagamento,
+          "Observacoes": Observacoes,
+          "Status": Status,
+          "ValorTotal": ValorTotal
         }));
       });
     when(/^uma requisição PUT for enviada para "(.*)" com o corpo da requisição JSON contendo id = "(.*)", CPF_Cliente = "(.*)", CPF_Entregador = "(.*)", CNPJ_Restaurante = "(.*)", Data = "(.*)", Endereco = "(.*)", Itens = "(.*)", MetodoDePagamento = "(.*)", Observacoes = "(.*)", Status = "(.*)" e ValorTotal = "(.*)"/,
       async (URL, id, CPF_Cliente, CPF_Entregador, CNPJ_Restaurante, Data, Endereco, Itens, MetodoDePagamento, Observacoes, Status, ValorTotal) => {
         response = await request.put(URL).send({
-          "name": id, "CPF_Cliente": CPF_Cliente, "CPF_Entregador": CPF_Entregador, "CNPJ_Restaurante": CNPJ_Restaurante, "Data": Data, "Endereco": Endereco,
-          "Itens": Itens, "MetodoDePagamento": MetodoDePagamento, "Observacoes": Observacoes, "Status": Status, "ValorTotal": ValorTotal
+          "name": id,
+          "CPF_Cliente": CPF_Cliente,
+          "CPF_Entregador": CPF_Entregador,
+          "CNPJ_Restaurante": CNPJ_Restaurante,
+          "Data": Data,
+          "Endereco": Endereco,
+          "Itens": Itens,
+          "MetodoDePagamento": MetodoDePagamento,
+          "Observacoes": Observacoes,
+          "Status": Status,
+          "ValorTotal": ValorTotal
         });
       });
     then(/^o status da resposta deve ser "(.*)" e o JSON da resposta deverá conter Observacoes = "(.*)"/,
