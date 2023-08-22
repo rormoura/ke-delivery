@@ -34,11 +34,11 @@ class DeliverymanController {
   }
 
   private async getDeliverymans(req: Request, res: Response) {
-    const tests = await this.deliverymanService.getDeliverymans();
+    const entregadores = await this.deliverymanService.getDeliverymans();
 
     return new SuccessResult({
       msg: Result.transformRequestOnMsg(req),
-      data: tests,
+      data: entregadores,
     }).handle(res);
   }
 

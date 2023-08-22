@@ -7,7 +7,7 @@ export default class Database {
 
   private constructor() {
     this.data = {
-      deliverymans: [],
+      entregadores: [],
       rating: [],
     };
   }
@@ -25,13 +25,13 @@ export default class Database {
 
   static seed() {
     Database.getInstance().data = {
-        deliverymans: [
+        entregadores: [
         new DeliverymanEntity({
           id: '1',
           name: 'Ana Santana',
           email: 'aninha@getMaxListeners.com',
-          numOrders: 0,
-          numRates: 0
+          numOrders: "0",
+          numRates: "0"
         }),
       ],
     };
