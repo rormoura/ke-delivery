@@ -409,3 +409,4 @@ FodyWeavers.xsd
 package.json
 package-lock.json
 node_modules
+/.vs/VSWorkspaceState.json
