@@ -96,9 +96,10 @@ di.registerService(
     di.getRepository(PedidosRepository)
   )
   );
+
 di.registerService(
-    RestaurantService,
-    new RestaurantService(
-      di.getRepository(RestaurantRepository)
+  RestaurantService,
+  new RestaurantService(
+    di.getRepository(RestaurantRepository)
   )
-  );
+);
