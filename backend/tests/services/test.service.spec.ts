@@ -11,7 +11,7 @@ describe('TestService', () => {
   let service: TestService;
 
   let mockTestEntity: TestEntity = new TestEntity({
-    name: '123',
+    id: '123',
     name: 'test',
   });
 
