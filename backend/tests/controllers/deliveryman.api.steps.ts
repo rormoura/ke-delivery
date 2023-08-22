@@ -58,7 +58,7 @@ defineFeature(feature, (test) => {
   
       and(/^o JSON da resposta deve conter o entregador com o campo "(.*)" preenchido com "(.*)", "(.*)" preenchido com "(.*)", "(.*)" preenchido com "(.*)", "(.*)" preenchido com "(.*)" e "(.*)" preenchido com "(.*)" e o entregador com o campo "(.*)" preenchido com "(.*)", "(.*)" preenchido com "(.*)", "(.*)" preenchido com "(.*)", "(.*)" preenchido com "(.*)" e "(.*)" preenchido com "(.*)"$/, 
         (id, idValue, name, nameValue, email, emailValue, numOrders, numOrdersValue, numRates, numRatesValue, id2, idValue2, name2, nameValue2, email2, emailValue2, numOrders2, numOrdersValue2, numRates2, numRatesValue2) => {
-          expect(response.body.data).toEqual([{"email": "aninha@getMaxListeners.com", "id": "1", "name": "Ana Santana", "numOrders": "0", "numRates": "0"}, {"email": emailValue, "id": idValue, "name": nameValue, "numOrders": numOrdersValue, "numRates": numRatesValue}, {"email": emailValue2, "id": idValue2, "name": nameValue2, "numOrders": numOrdersValue2, "numRates": numRatesValue2}]);;
+          expect(response.body.data).toEqual([{"email": emailValue, "id": idValue, "name": nameValue, "numOrders": numOrdersValue, "numRates": numRatesValue}, {"email": emailValue2, "id": idValue2, "name": nameValue2, "numOrders": numOrdersValue2, "numRates": numRatesValue2}]);;
         }
       );
     });
