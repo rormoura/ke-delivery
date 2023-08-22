@@ -25,15 +25,7 @@ export default class Database {
 
   static seed() {
     Database.getInstance().data = {
-        entregadores: [
-        new DeliverymanEntity({
-          id: '1',
-          name: 'Ana Santana',
-          email: 'aninha@getMaxListeners.com',
-          numOrders: "0",
-          numRates: "0"
-        }),
-      ],
+        entregadores: [],
     };
   }
 }
