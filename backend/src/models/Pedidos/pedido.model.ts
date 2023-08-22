@@ -6,7 +6,7 @@ export default class PedidoEntity extends BaseEntity {
   CPF_Entregador: string;
   Data: Date;
   Endereco: string;
-  id: string;
+  name: string;
   Itens: string;
   MetodoDePagamento: string;
   Observacoes: string;
