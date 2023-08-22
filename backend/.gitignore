@@ -34,3 +34,7 @@ lib/
 
 # Deploy
 .vercel
+
+# Package json
+package.json
+yarn.lock

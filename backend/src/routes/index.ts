@@ -18,6 +18,8 @@ import DeliverymanController from '../controllers/deliverymans/deliveryman.contr
 import DeliverymanService from '../services/deliverymans/deliveryman.service';
 import PedidoController from '../controllers/Pedidos/pedido.controller';
 import PedidoService from '../services/Pedidos/pedido.service';
+import RestaurantController from '../controllers/restaurant.controller';
+import RestaurantService from '../services/restaurant.service';
 
 const router = Router();
 const prefix = '/api';
@@ -54,8 +56,13 @@ export default (app: Express) => {
   app.use(
     prefix,
     new DeliverymanController(router, di.getService(DeliverymanService)).router
-  )
+  );
   app.use(
+    prefix,
     new PedidoController(router, di.getService(PedidoService)).router
   );
+  app.use(
+    prefix,
+    new RestaurantController(router, di.getService(RestaurantService)).router
+  )
 };
