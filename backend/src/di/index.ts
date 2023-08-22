@@ -20,6 +20,8 @@ import DeliverymanService from '../services/deliverymans/deliveryman.service';
 import RestaurantRepository from '../repositories/restaurant.repository';
 import RestaurantService from '../services/restaurant.service';
 import Injector from './injector';
+import CustomerRepository from '../repositories/customers/customer.repository';
+import CustomerService from '../services/customers/customer.service';
 
 export const di = new Injector();
 
@@ -28,6 +30,8 @@ di.registerRepository(TestRepository, new TestRepository());
 di.registerRepository(OtherRepository, new OtherRepository());
 di.registerRepository(DeliverymanRepository, new DeliverymanRepository());
 di.registerRepository(RestaurantRepository, new RestaurantRepository());
+di.registerRepository(CustomerRepository, new CustomerRepository());
+
 di.registerService(
   TestService,
   new TestService(
@@ -101,5 +105,12 @@ di.registerService(
   RestaurantService,
   new RestaurantService(
     di.getRepository(RestaurantRepository)
+  )
+);
+
+di.registerService(
+  CustomerService,
+  new CustomerService(
+    di.getRepository(CustomerRepository)
   )
 );

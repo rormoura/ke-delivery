@@ -20,6 +20,10 @@ import PedidoController from '../controllers/Pedidos/pedido.controller';
 import PedidoService from '../services/Pedidos/pedido.service';
 import RestaurantController from '../controllers/restaurant.controller';
 import RestaurantService from '../services/restaurant.service';
+import CustomerController from '../controllers/Customers/customer.controller';
+import CustomerService from '../services/customers/customer.service';
+
+
 
 const router = Router();
 const prefix = '/api';
@@ -64,5 +68,9 @@ export default (app: Express) => {
   app.use(
     prefix,
     new RestaurantController(router, di.getService(RestaurantService)).router
-  )
+  );
+  app.use(
+    prefix,
+    new CustomerController(router, di.getService(CustomerService)).router
+  );
 };
