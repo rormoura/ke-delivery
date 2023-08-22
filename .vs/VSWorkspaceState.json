@@ -1,8 +1,25 @@
 {
   "ExpandedNodes": [
     "",
+<<<<<<< HEAD
     "\\features"
   ],
   "SelectedNode": "\\.gitignore",
+=======
+    "\\backend",
+    "\\backend\\src",
+    "\\backend\\src\\controllers",
+    "\\backend\\src\\controllers\\Pedidos",
+    "\\backend\\src\\database",
+    "\\backend\\src\\entities\\Pedidos",
+    "\\backend\\src\\models",
+    "\\backend\\src\\services\\Pedidos",
+    "\\features"
+  ],
+  "SelectedNode": "\\backend\\src\\controllers\\Pedidos\\pedido.controller.ts",
+<<<<<<< HEAD
+>>>>>>> 3491a5804c822b7fa85f2f471eaa19de7027b059
+=======
+>>>>>>> 3491a5804c822b7fa85f2f471eaa19de7027b059
   "PreviewInSolutionExplorer": false
 }
