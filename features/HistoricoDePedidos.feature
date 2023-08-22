@@ -39,20 +39,30 @@ Feature: Histórico de pedidos
 
     Scenario: Obter todos os pedidos feitos (SERVICE)
         Given PedidosService retorna uma lista de itens
-        When uma requisição "GET" for enviada para "/pedidos"
+        When uma requisição "GET" for enviada para "/api/pedidos"
         Then o status da resposta deve ser "200"
         And o JSON da resposta deve ser uma lista de itens
         And o pedido "09072023" com data "09/07/2023" com Status "Em produção" e valor total "R$104,10" está na lista
         And o pedido "05052023" com data "05/05/2023" com Status "Cancelado" e valor total "R$83,92" está na lista
         And o pedido "03032023" com data "03/03/2023" com Status "Finalizado" e valor total "R$57,33" está na lista
 
-    Scenario: Obter pedido existente (SERVICE)
-        Given PedidosService retorna uma lista de pedidos
+    Scenario: Obter pedido "15122023" (SERVICE)
+        Given PedidosService retorna um pedido com id "15122023"
         When uma requisição "GET" for enviada para "/api/pedidos/15122023"
-        Then o status da resposta deve ser "200" e o JSON da resposta deve ser id = "15122023", CPF_Cliente = "111.442.412.54", CPF_Entregador = "567.223.123.55", CNPJ_Restaurante = "66.324.165/0005-00", Data = "15/12/2023", Endereco = "Rua das Labutas, 876, Váezea, Recife, Pernambuco, Brasil", Itens = "{nome = "Macarronada", quantidade = "1", VUnit = "R$43,14", VTot = "R$43,14"}", MetodoDePagamento = "Cartão de Crédito VISA", Observacoes = "Com molho extra", Status = "Finalizado" e ValorTotal = "R$43,14"
+        Then o status da resposta deve ser "200"
+        And o JSON da resposta deve conter o id "15122023"
+        And o JSON da resposta deve conter o item "Macarronada" com quantidade definida para "1 Unidades" com valor  unitário de "R$43,14" e total "R$43,14"
+        And o JSON da resposta deve conter o Status "Finalizado"
+        And o JSON da resposta deve conter a data "15/12/2023"
+        And o JSON da resposta deve conter a observação "Com molho extra"
+        And o JSON da resposta deve conter valor total "R$43,14"
+        And o JSON da resposta deve conter método de pagamento "Cartão de crédito VISA"
+        And o JSON da resposta deve conter endereço "Casa da Torre"
+        And o JSON da resposta deve conter entregue por "Carlos"
+        And o JSON da resposta deve conter feito por "Mama Mia Massas"
 
-    @runThis
-    Scenario: Obter pedido com código inválido (SERVICE)
-        Given Pedidos contém um único pedido com JSON contendo id = "6000", CPF_Cliente = "222.555.312.11", CPF_Entregador = "644.132.162.23", CNPJ_Restaurante = "22.543.654/0001-00", Data = "15/09/2022", Endereco = "Rua das Quedas, 333, Váezea, Recife, Pernambuco, Brasil", Itens = "{nome = "Pizza de Marguerita G", quantidade = "1", VUnit = "R$33,00", VTot = "R$33,00"}", MetodoDePagamento = "Cartão de Crédito VISA", Observacoes = "Nenhuma", Status = "Em preparo" e ValorTotal = "R$40,00"
+    Scenario: Obter pedido com código inválido(SERVICE)
+        Given PedidosService retorna um pedido com id "999999"
         When uma requisição "GET" for enviada para "/api/pedidos/999999"
-        Then o status da resposta deve ser "404" e o JSON da resposta deve ser "Pedido não encontrado"
+        Then o status da resposta deve ser "404"
+        And o JSON da resposta deve ser "Pedido não encontrado"

@@ -6,7 +6,7 @@ export default class PedidoEntity extends BaseEntity {
   CPF_Entregador: string;
   Data: Date;
   Endereco: string;
-  id: string;
+  name: string;
   Itens: string;
   MetodoDePagamento: string;
   Observacoes: string;
@@ -15,6 +15,7 @@ export default class PedidoEntity extends BaseEntity {
 
   constructor(data: PedidoEntity) {
     super(data.id || '');
+    this.name = data.name;
     this.CNPJ_Restaurante = data.CNPJ_Restaurante;
     this.CPF_Cliente = data.CPF_Cliente;
     this.CPF_Entregador = data.CPF_Entregador;

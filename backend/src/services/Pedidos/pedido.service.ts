@@ -47,7 +47,7 @@ class PedidoService {
   }
 
   public async createPedido(data: PedidoEntity): Promise<PedidoModel> {
-    const PedidoEntityAlreadyExists = await this.getPedidoWithoutError(data.id)
+    const PedidoEntityAlreadyExists = await this.getPedidoWithoutError(data.name)
     if (PedidoEntityAlreadyExists) {
       throw new HttpForbiddenError({
         msg: 'Pedido already exists',

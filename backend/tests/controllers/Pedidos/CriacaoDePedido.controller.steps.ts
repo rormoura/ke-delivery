@@ -18,13 +18,14 @@ defineFeature(feature, (test) => {
     mockPedidoRepository = di.getRepository<PedidoRepository>(PedidoRepository);
   });
   afterEach(async () => {
-    (await mockPedidoRepository.getPedidos()).forEach(async pedido => { await mockPedidoRepository.deletePedido(pedido.id); })
+    (await mockPedidoRepository.getPedidos()).forEach(async pedido => { await mockPedidoRepository.deletePedido(pedido.name); })
   })
   test('Finalizar compra (Service)', ({ given, when, then, and }) => {
     given(/^Pedidos contém um pedido com JSON contendo id = "(.*)", CPF_Cliente = "(.*)", CPF_Entregador = "(.*)", CNPJ_Restaurante = "(.*)", Data = "(.*)", Endereco = "(.*)", Itens = "(.*)", MetodoDePagamento = "(.*)", Observacoes = "(.*)", Status = "(.*)" e ValorTotal = "(.*)"/,
-    async (id, CPF_Cliente, CPF_Entregador, CNPJ_Restaurante, Data, Endereco, Itens, MetodoDePagamento, Observacoes, Status, ValorTotal) => {
+    async (name, CPF_Cliente, CPF_Entregador, CNPJ_Restaurante, Data, Endereco, Itens, MetodoDePagamento, Observacoes, Status, ValorTotal) => {
         mockPedidoEntity = await mockPedidoRepository.createPedido(new PedidoEntity({
-            "id": id,
+            "id": "1", 
+            "name": name,
             "CPF_Cliente": CPF_Cliente,
             "CPF_Entregador": CPF_Entregador,
             "CNPJ_Restaurante": CNPJ_Restaurante,
@@ -40,7 +41,7 @@ defineFeature(feature, (test) => {
     when(/^uma requisição "POST" for enviada para "pedidos" com o corpo da requisição contendo id = "(.*)", CPF_Cliente = "(.*)", CPF_Entregador = "(.*)", CNPJ_Restaurante = "(.*)", Data = "(.*)", Endereco = "(.*)", Itens = "(.*)", MetodoDePagamento = "(.*)", Observacoes = "(.*)", Status = "(.*)" e ValorTotal = "(.*)"/,
         async (id, CPF_Cliente, CPF_Entregador, CNPJ_Restaurante, Data, Endereco, Itens, MetodoDePagamento, Observacoes, Status, ValorTotal) => {
           response = await request.post('/api/pedidos').send({
-            "id": id,
+            "name": id,
             "CPF_Cliente": CPF_Cliente,
             "CPF_Entregador": CPF_Entregador,
             "CNPJ_Restaurante": CNPJ_Restaurante,
