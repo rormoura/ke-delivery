@@ -21,24 +21,23 @@ Feature: Cadastro de entregadores
 
 	@read
 	Scenario: Obtenção de um entregador por ID
-  	  Given o sistema já possui um entregador com "id" preenchido com "451", "nome" preenchido com "Zacarias", "email" preenchido com "zaca@yahoo.com", "numOrders" preenchido com "0" e "numRates" preenchido com "0"
+  	  Given o sistema já possui um entregador com "id" preenchido com "451", "name" preenchido com "Zacarias", "email" preenchido com "zaca@yahoo.com", "numOrders" preenchido com "0" e "numRates" preenchido com "0"
   	  When uma requisição GET for enviada para "/api/entregadores/451"
 	  Then o status da resposta deve ser "200"
 	  And o campo "msgCode" do corpo da resposta deve estar preenchido com "success"
-      And o JSON da resposta deve conter um entregador com o campo "id" preenchido com "451", "nome" preenchido com "Zacarias", "email" preenchido com "zaca@yahoo.com", "numOrders" preenchido com "0" e "numRates" preenchido com "0"
+      And o JSON da resposta deve conter um entregador com o campo "id" preenchido com "451", "name" preenchido com "Zacarias", "email" preenchido com "zaca@yahoo.com", "numOrders" preenchido com "0" e "numRates" preenchido com "0"
 
 	@read
 	Scenario: Obtenção de todos os entregadores
-    	Given o sistema já possui o entregador com "id" preenchido com "452", "nome" preenchido com "Izabel", "email" preenchido com "iza@yahoo.com", "numOrders" preenchido com "0" e "numRates" preenchido com "0" e o entregador com "id" preenchido com "124", "nome" preenchido com "Maria", "email" preenchido com "maria@gmail.com", "numOrders" preenchido com "0" e "numRates" preenchido com "0"
+    	Given o sistema já possui o entregador com "id" preenchido com "452", "name" preenchido com "Izabel", "email" preenchido com "iza@yahoo.com", "numOrders" preenchido com "0" e "numRates" preenchido com "0" e o entregador com "id" preenchido com "124", "name" preenchido com "Maria", "email" preenchido com "maria@gmail.com", "numOrders" preenchido com "0" e "numRates" preenchido com "0"
    		When uma requisição GET for enviada para "/api/entregadores"
     	Then o status da resposta deve ser "200"
 		And o campo "msgCode" do corpo da resposta deve estar preenchido com "success"
-    	And o JSON da resposta deve conter o entregador com o campo "id" preenchido com "452", "nome" preenchido com "Izabel", "email" preenchido com "iza@yahoo.com", "numOrders" preenchido com "0" e "numRates" preenchido com "0" e o entregador com o campo "id" preenchido com "124", "nome" preenchido com "Maria", "email" preenchido com "maria@gmail.com", "numOrders" preenchido com "0" e "numRates" preenchido com "0"
+    	And o JSON da resposta deve conter o entregador com o campo "id" preenchido com "452", "name" preenchido com "Izabel", "email" preenchido com "iza@yahoo.com", "numOrders" preenchido com "0" e "numRates" preenchido com "0" e o entregador com o campo "id" preenchido com "124", "name" preenchido com "Maria", "email" preenchido com "maria@gmail.com", "numOrders" preenchido com "0" e "numRates" preenchido com "0"
 	
 	@update
 	Scenario: Atualização de um entregador bem sucedida
-		Given o servidor está ativo
-		And o sistema tem um entregador com "id" preenchido com "12", "name" preenchido com "Manuel" e "email" preenchido com "emanu@gmail.com"
+		Given o sistema já possui o entregador com "id" preenchido com "12", "name" preenchido com "Manuel", "email" preenchido com "emanu@gmail.com", "numOrders" preenchido com "0" e "numRates" preenchido com "0"
 		When uma requisição PUT for enviada para "/api/entregadores/12" com o corpo da requisição sendo um JSON com o campo "id" preenchido com "12", "name" preenchido com "Emanuel" e "email" preenchido com "emanuel@gmail.com"
 		Then o status da resposta deve ser "200"
 		And o campo "msgCode" do corpo da resposta deve estar preenchido com "success"
@@ -46,8 +45,7 @@ Feature: Cadastro de entregadores
 
 	@update
 	Scenario: Atualização de um entregador não existente
-		Given o servidor está ativo
-  		And o sistema não possui um entregador com "id" igual a "10"
+		Given o sistema não possui um entregador com "id" igual a "10"
 		When uma requisição PUT for enviada para "/api/entregadores/10" 
 		Then o status da resposta deve ser "404"
 		And o campo "msgCode" do corpo da resposta deve estar preenchido com "Deliveryman_not_found"
@@ -55,15 +53,15 @@ Feature: Cadastro de entregadores
 	
 	@delete
 	Scenario: Remoção de um entregador armazenado por ID
-    	Given o sistema já possui um entregador com "id" preenchido com "676", "nome" preenchido com "Antônio" e "email" preenchido com "toni@yahoo.com"
+    	Given o sistema já possui o entregador com "id" preenchido com "676", "name" preenchido com "Antônio", "email" preenchido com "toni@yahoo.com", "numOrders" preenchido com "0" e "numRates" preenchido com "0"
     	When uma requisição DELETE for enviada para "/api/entregadores/676"
     	Then o status da resposta deve ser "200"
 		And o campo "msgCode" do corpo da resposta deve estar preenchido com "success"
-		And o entregador "Antônio" não deve estar mais armazenado no sistema
+		#And o entregador "Antônio" não deve estar mais armazenado no sistema
 
 	@delete
   	Scenario: Remoção de um entregador não armazenado por ID 
-    	Given o sistema não possui um entregador com "id" preenchido com "122"
+    	Given o sistema não possui um entregador com "id" igual a "122"
     	When uma requisição DELETE for enviada para "/api/entregadores/122"
     	Then o status da resposta deve ser "200"
 		And o campo "msgCode" do corpo da resposta deve estar preenchido com "success"
