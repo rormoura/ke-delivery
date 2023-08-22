@@ -20,7 +20,7 @@ defineFeature(feature, (test) => {
     (await mockCustomerRepository.getCustomers()).forEach(async customer => { await mockCustomerRepository.deleteCustomer(customer.id); })
   })
   test('Cadastrar cliente', ({ given, when, then, and }) => {
-    given(/^Costumers contém um costumer com JSON contendo id = "(.*)", name = "(.*)", email = "(.*)", cpf = "(.*)", address = "(.*)" e password = "(.*)"/,
+    given(/^O sistema contém um costumer com JSON contendo id = "(.*)", name = "(.*)", email = "(.*)", cpf = "(.*)", address = "(.*)" e password = "(.*)"/,
     async (id, name, email, cpf, address, password) => {
         mockCustomerEntity = await mockCustomerRepository.createCustomer(new CustomerEntity({
             "id": id,

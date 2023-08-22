@@ -62,8 +62,9 @@ class CustomerService {
   }
 
   public async updateCustomer(id: string, data: CustomerEntity): Promise<CustomerModel> {
+    console.log("inicio", id);
     const CustomerEntity = await this.CustomerRepository.updateCustomer(id, data);
-
+    console.log("inicio", CustomerEntity);
     if (!CustomerEntity) {
       throw new HttpNotFoundError({
         msg: 'Customer not found',
@@ -72,8 +73,11 @@ class CustomerService {
     }
 
     const customerModel = new CustomerModel(CustomerEntity);
-
+    console.log(customerModel);
+    console.log(CustomerEntity);
+    console.log("data", data);
     return customerModel;
+
   }
 
   public async deleteCustomer(id: string): Promise<void> {

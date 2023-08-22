@@ -20,8 +20,10 @@ class CustomerRepository extends BaseRepository<CustomerEntity> {
 
   public async updateCustomer(
     id: string,
-    data: CustomerEntity
+    data: Partial<CustomerEntity>
   ): Promise<CustomerEntity | null> {
+    console.log('vamooo', this.update);
+    console.log('ENTRAAAAAAAAA', id);
     return await this.update((item) => item.id === id, data);
   }
 
