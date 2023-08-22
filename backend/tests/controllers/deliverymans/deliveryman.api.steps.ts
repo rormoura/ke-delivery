@@ -1,8 +1,8 @@
 import { loadFeature, defineFeature } from 'jest-cucumber';
-import DeliverymanRepository from '../../src/repositories/deliverymans/deliveryman.repository';
+import DeliverymanRepository from '../../../src/repositories/deliverymans/deliveryman.repository';
 import supertest from 'supertest';
-import app from '../../src/app';
-import { di } from '../../src/di';
+import app from '../../../src/app';
+import { di } from '../../../src/di';
 
 const feature = loadFeature('tests/features/deliverymans/Register.feature');
 const request = supertest(app);
