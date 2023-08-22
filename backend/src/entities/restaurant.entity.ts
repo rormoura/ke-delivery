@@ -12,7 +12,7 @@ export default class RestaurantEntity extends BaseEntity {
   corporateName: string;
   restaurantName: string;
   CNPJ: string;
-  specialty: string;
+  speciality: string;
 
   constructor(data: RestaurantEntity) {
     super(data.id || '');  // PRIMARY GENERATED COLUMN
@@ -26,6 +26,6 @@ export default class RestaurantEntity extends BaseEntity {
     this.corporateName = data.corporateName;
     this.restaurantName = data.restaurantName;
     this.CNPJ = data.CNPJ;
-    this.specialty = data.specialty;
+    this.speciality = data.speciality;
   }
 }

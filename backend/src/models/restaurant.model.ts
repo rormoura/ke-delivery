@@ -12,10 +12,10 @@ export default class RestaurantModel extends BaseModel {
   corporateName: string;
   restaurantName: string;
   CNPJ: string;
-  specialty: string;
+  speciality: string;
 
   constructor(data: RestaurantModel) {
-    super(data.id || '');  // PRIMARY GENERATED COLUMN
+    super(data.id || '');  
     this.typeBusiness = data.typeBusiness;
     this.responsibleName = data.responsibleName;
     this.email = data.email;
@@ -26,6 +26,6 @@ export default class RestaurantModel extends BaseModel {
     this.corporateName = data.corporateName;
     this.restaurantName = data.restaurantName;
     this.CNPJ = data.CNPJ;
-    this.specialty = data.specialty;
+    this.speciality = data.speciality;
   }
 }

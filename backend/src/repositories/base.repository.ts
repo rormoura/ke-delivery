@@ -19,12 +19,23 @@ export default class BaseRepository<T extends BaseEntity> {
       if (!this.db.data[this.prefix]) {
         this.db.data[this.prefix] = [];
       }
-      const newItem = {
-        ...data,
-        id: uuidv4(),
-      };
-      this.db.data[this.prefix].push(newItem);
-      return newItem;
+      if(!data.id){
+        const newItem = {
+          ...data,
+          id: uuidv4(),
+        };
+        this.db.data[this.prefix].push(newItem);
+        return newItem;
+      }else{
+        const newItem = {
+          ...data,
+          id: data.id,
+        };
+        this.db.data[this.prefix].push(newItem);
+        return newItem;
+      }
+      
+      
     } catch (e) {
       throw new HttpInternalServerError();
     }

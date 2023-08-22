@@ -11,14 +11,11 @@ class RestaurantServiceMessageCode {
 
 class RestaurantService {
   private restaurantRepository: RestaurantRepository;
-  private otherRepository: OtherRepository;
 
   constructor(
-    restaurantRepository: RestaurantRepository,
-    otherRepository: OtherRepository
+    restaurantRepository: RestaurantRepository
   ) {
-    this.restaurantRepository = restaurantRepository;
-    this.otherRepository = otherRepository;
+    this.restaurantRepository = restaurantRepository
   }
 
   public async getRestaurants(): Promise<RestaurantModel[]> {
@@ -43,14 +40,15 @@ class RestaurantService {
 
     return restaurantModel;
   }
-  public async getRestaurantWithoutError(restaurantName: string): Promise<RestaurantEntity | null> {
-    const RestaurantEntity = await this.restaurantRepository.getRestaurant(restaurantName)
+  
+  public async getRestaurantWithoutError(CNPJ: string): Promise<RestaurantEntity | null> {
+    const RestaurantEntity = await this.restaurantRepository.getRestaurant(CNPJ)
 
     return RestaurantEntity;
   }
 
   public async createRestaurant(data: RestaurantEntity): Promise<RestaurantModel> {
-    const RestaurantAlreadyExists = await this.getRestaurantWithoutError(data.restaurantName)
+    const RestaurantAlreadyExists = await this.getRestaurantWithoutError(data.CNPJ)
     
     if(RestaurantAlreadyExists) {
       throw new HttpForbiddenError({

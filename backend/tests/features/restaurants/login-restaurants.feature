@@ -4,8 +4,9 @@ As um restaurante
 I want fazer login no sistema 
 So I can eu posso acessar o sistema e meus pedidos
 
+@testLogin
 Scenario: Login pelo sistema realizado com sucesso
-  Given o restaurante já tem cadastro no sistema
+  Given o restaurante já tem cadastro no sistema com email = "contato@marinarestaurante.com.br" 
   When Eu preencho o campo “Email” com “contato@marinarestaurante.com.br”
   And Eu preencho o campo “Senha” com “xxxxxxxxxxx”
   Then o status da resposta deve ser "200"

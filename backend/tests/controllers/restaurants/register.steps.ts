@@ -20,7 +20,7 @@ defineFeature(feature, (Restaurant) => {
     (await mockRestaurantRepository.getRestaurants()).forEach(async restaurant => { await mockRestaurantRepository.deleteRestaurant(restaurant.id); })
   })
   Restaurant('Create a account for restaurant', ({ given, when, then }) => {
-    given(/^Restaurant apresenta um JSON com id = "(.*)", typeBusiness = "(.*)", responsibleName = "(.*)", responsibleCPF = "(.*)", email = "(.*)", phone = "(.*)", password = "(.*)", address = "(.*)", phoneRestaurant = "(.*)", corporateName = "(.*)", restaurantName = "(.*)", CNPJ = "(.*)", speciality = "(.*)"$/, 
+    given(/^O sistema apresenta um JSON com id = "(.*)", typeBusiness = "(.*)", responsibleName = "(.*)", responsibleCPF = "(.*)", email = "(.*)", phone = "(.*)", password = "(.*)", address = "(.*)", phoneRestaurant = "(.*)", corporateName = "(.*)", restaurantName = "(.*)", CNPJ = "(.*)", speciality = "(.*)"$/, 
     async (id, typeBusiness, responsibleName, responsibleCPF, email, phone, password, address, phoneRestaurant, corporateName, restaurantName, CNPJ, speciality) => {
       mockRestaurantEntity = await mockRestaurantRepository.createRestaurant(new RestaurantEntity({
         "id": id,
@@ -35,10 +35,10 @@ defineFeature(feature, (Restaurant) => {
         "corporateName": corporateName,
         "restaurantName": restaurantName,
         "CNPJ": CNPJ,
-        "specialty": speciality
+        "speciality": speciality
       }));
     });
-    when(/^Uma requisição "POST" for enviada para "restaurants" com id = "(.*)", typeBusiness = "(.*)", responsibleName = "(.*)", responsibleCPF = "(.*)", email = "(.*)", phone = "(.*)", password = "(.*)", address = "(.*)", phoneRestaurant = "(.*)", corporateName = "(.*)", restaurantName = "(.*)", CNPJ = "(.*)", speciality = "(.*)" $/, 
+    when(/^Uma requisição "POST" for enviada com id = "(.*)", typeBusiness = "(.*)", responsibleName = "(.*)", responsibleCPF = "(.*)", email = "(.*)", phone = "(.*)", password = "(.*)", address = "(.*)", phoneRestaurant = "(.*)", corporateName = "(.*)", restaurantName = "(.*)", CNPJ = "(.*)", speciality = "(.*)"$/, 
     async (id, typeBusiness, responsibleName, responsibleCPF, email, phone, password, address, phoneRestaurant, corporateName, restaurantName, CNPJ, speciality)  => {
       response = await request.post('/api/restaurants').send({
         "id": id,
@@ -53,18 +53,18 @@ defineFeature(feature, (Restaurant) => {
         "corporateName": corporateName,
         "restaurantName": restaurantName,
         "CNPJ": CNPJ,
-        "specialty": speciality
+        "speciality": speciality
       })
     });
 
-    then(/^o status da resposta deve ser "(.*)" e o JSON deve conter id = "(.*)", typeBusiness = "(.*)", responsibleName = "(.*)", responsibleCPF = "(.*)", email = "(.*)", phone = "(.*)", password = "(.*)", address = "(.*)", phoneRestaurant = "(.*)", corporateName = "(.*)", restaurantName = "(.*)", CNPJ = "(.*)", speciality = "(.*)"$/, 
-    async (id, typeBusiness, responsibleName, responsibleCPF, email, phone, password, address, phoneRestaurant, corporateName, restaurantName, CNPJ, speciality, statusCode)  => {
-      expect(response.status).toBe(parseInt(statusCode, 10));
-      expect(response.body.data).toEqual(
-        expect.objectContaining({
-          "typeBusiness": typeBusiness,
+    then(/^O status de resposta deve ser "(.*)" e o JSON deve conter id = "(.*)", typeBusiness = "(.*)", responsibleName = "(.*)", responsibleCPF = "(.*)", email = "(.*)", phone = "(.*)", password = "(.*)", address = "(.*)", phoneRestaurant = "(.*)", corporateName = "(.*)", restaurantName = "(.*)", CNPJ = "(.*)", speciality = "(.*)"$/, 
+    async (statusCode, id, typeBusiness, responsibleName, responsibleCPF, email, phone, password, address, phoneRestaurant, corporateName, restaurantName, CNPJ, speciality)  => {
+      expect(response.status).toBe(parseInt(statusCode, 10))
+      expect(response.body.data).toEqual(({
+        "id": id,
+        "typeBusiness": typeBusiness,
         "responsibleName": responsibleName,
-        "responsibleCPF": responsibleCPF,
+        //"responsibleCPF": responsibleCPF,
         "email": email,
         "phone": phone,
         "password": password,
@@ -73,7 +73,7 @@ defineFeature(feature, (Restaurant) => {
         "corporateName": corporateName,
         "restaurantName": restaurantName,
         "CNPJ": CNPJ,
-        "specialty": speciality
+        "speciality": speciality
         })
       );
     });
