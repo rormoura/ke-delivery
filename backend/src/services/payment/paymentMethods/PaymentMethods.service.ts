@@ -1,16 +1,11 @@
 import CashPaymentMethodEntity from '../../../entities/payment/paymentMethods/CashPaymentMethod.entity';
-import CashPaymentMethodModel from '../../../models/payment/paymentMethods/CashPaymentMethod.model';
 import CashPaymentMethodRepository from '../../../repositories/payment/paymentMethods/CashPaymentMethod.repository';
 import CreditCardPaymentMethodEntity from '../../../entities/payment/paymentMethods/CreditCardPaymentMethod.entity';
-import CreditCardPaymentMethodModel from '../../../models/payment/paymentMethods/CreditCardPaymentMethod.model';
 import CreditCardPaymentMethodRepository from '../../../repositories/payment/paymentMethods/CreditCardPaymentMethod.repository';
 import PixPaymentMethodEntity from '../../../entities/payment/paymentMethods/PixPaymentMethod.entity';
-import PixPaymentMethodModel from '../../../models/payment/paymentMethods/PixPaymentMethod.model';
 import PixPaymentMethodRepository from '../../../repositories/payment/paymentMethods/PixPaymentMethod.repository';
 import GooglePayPaymentMethodEntity from '../../../entities/payment/paymentMethods/GooglePayPaymentMethod.entity';
-import GooglePayPaymentMethodModel from '../../../models/payment/paymentMethods/GooglePayPaymentMethod.model';
 import GooglePayPaymentMethodRepository from '../../../repositories/payment/paymentMethods/GooglePayPaymentMethod.repository';
-import PaymentMethodsRepository from '../../../repositories/payment.base.repository';
 import { HttpNotFoundError } from '../../../utils/errors/http.error';
 
 class PaymentMethodsServiceMessageCode {
@@ -79,51 +74,33 @@ class PaymentMethodsService {
     return defaultPaymentMethod;
   }
 
-  private async getPaymentMethodType(name: string): Promise<string> {
-    let paymentMethodType = 'cash'
-
-    if(!(await this.cashPaymentMethodRepository.getCashPaymentMethod(name))){
-      paymentMethodType = 'creditCard'
-      if(!(await this.creditCardPaymentMethodRepository.getCreditCardPaymentMethod(name))){
-        paymentMethodType = 'pix'
-        if(!(await this.pixPaymentMethodRepository.getPixPaymentMethod(name))){
-          paymentMethodType = 'googlePay'
-          if(!(await this.googlePayPaymentMethodRepository.getGooglePayPaymentMethod(name))){
-            paymentMethodType = 'none'
-          }
-        }
-      }
-    }
-
-    return paymentMethodType;
-
-  }
-
   public async updateDefaultPaymentMethod(name: string): Promise<any>{
     const oldDefaultPaymentMethod = await this.getDefaultPaymentMethod();
     const newDefaultPaymentMethod = await this.getPaymentMethod(name);
 
+
     if(oldDefaultPaymentMethod){
-      if(!(await this.cashPaymentMethodRepository.updateCashPaymentMethod(oldDefaultPaymentMethod.name, new CashPaymentMethodEntity(oldDefaultPaymentMethod, "no")))){
-        if(!(await this.creditCardPaymentMethodRepository.updateCreditCardPaymentMethod(oldDefaultPaymentMethod.name, new CreditCardPaymentMethodEntity(oldDefaultPaymentMethod, "no")))){
-          if(!(await this.pixPaymentMethodRepository.updatePixPaymentMethod(oldDefaultPaymentMethod.name, new PixPaymentMethodEntity(oldDefaultPaymentMethod, "no")))){
-            await this.googlePayPaymentMethodRepository.updateGooglePayPaymentMethod(oldDefaultPaymentMethod.name, new GooglePayPaymentMethodEntity(oldDefaultPaymentMethod, "no"))
-          }
-        }
-      }
+      this.updatePaymentMethodDefaultAttribute(oldDefaultPaymentMethod.name, oldDefaultPaymentMethod, "no");
     }
 
-    if(!(await this.cashPaymentMethodRepository.updateCashPaymentMethod(newDefaultPaymentMethod.name, new CashPaymentMethodEntity(newDefaultPaymentMethod, "yes")))){
-      if(!(await this.googlePayPaymentMethodRepository.updateGooglePayPaymentMethod(newDefaultPaymentMethod.name, new GooglePayPaymentMethodEntity(newDefaultPaymentMethod, "yes")))){
-        if(!(await this.pixPaymentMethodRepository.updatePixPaymentMethod(newDefaultPaymentMethod.name, new PixPaymentMethodEntity(newDefaultPaymentMethod, "yes")))){
-          await this.creditCardPaymentMethodRepository.updateCreditCardPaymentMethod(newDefaultPaymentMethod.name, new CreditCardPaymentMethodEntity(newDefaultPaymentMethod, "yes"))
-        }
-      }
-    }
+
+    this.updatePaymentMethodDefaultAttribute(newDefaultPaymentMethod.name, newDefaultPaymentMethod, "yes");
 
 
     return this.getDefaultPaymentMethod();
   }
+
+
+  private async updatePaymentMethodDefaultAttribute(name: string, entity: any, msg: string){
+    if(!(await this.cashPaymentMethodRepository.updateCashPaymentMethod(name, new CashPaymentMethodEntity(entity, msg)))){
+      if(!(await this.creditCardPaymentMethodRepository.updateCreditCardPaymentMethod(name, new CreditCardPaymentMethodEntity(entity, msg)))){
+        if(!(await this.pixPaymentMethodRepository.updatePixPaymentMethod(name, new PixPaymentMethodEntity(entity, msg)))){
+          await this.googlePayPaymentMethodRepository.updateGooglePayPaymentMethod(name, new GooglePayPaymentMethodEntity(entity, msg))
+        }
+      }
+    }
+  }
+
 
 }
 export default PaymentMethodsService;
