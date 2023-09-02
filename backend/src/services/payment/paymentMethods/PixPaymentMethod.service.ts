@@ -6,6 +6,7 @@ import { HttpNotFoundError, HttpForbiddenError } from '../../../utils/errors/htt
 class PixPaymentMethodServiceMessageCode {
   public static readonly PixPaymentMethod_not_found = 'PixPaymentMethod_not_found';
   public static readonly PixPaymentMethod_incomplete = 'PixPaymentMethod_incomplete';
+  public static readonly PixPaymentMethod_already_exists = 'Pix Payment Method already exists';
 }
 
 class PixPaymentMethodService {
@@ -45,6 +46,13 @@ class PixPaymentMethodService {
       throw new HttpForbiddenError({
         msg: 'Pix payment method incomplete',
         msgCode: PixPaymentMethodServiceMessageCode.PixPaymentMethod_incomplete,
+      });
+    }
+    const PixEntityAlreadyExists = await this.PixPaymentMethodRepository.getPixPaymentMethod(data.name);
+    if(PixEntityAlreadyExists){
+      throw new HttpForbiddenError({
+        msg: 'Pix Payment Method already exists',
+        msgCode: PixPaymentMethodServiceMessageCode.PixPaymentMethod_already_exists,
       });
     }
 

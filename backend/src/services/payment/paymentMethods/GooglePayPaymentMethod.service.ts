@@ -6,6 +6,7 @@ import { HttpNotFoundError, HttpForbiddenError } from '../../../utils/errors/htt
 class GooglePayPaymentMethodServiceMessageCode {
   public static readonly GooglePayPaymentMethod_not_found = 'GooglePayPaymentMethod_not_found';
   public static readonly GooglePayPaymentMethod_incomplete = 'GooglePayPaymentMethod_incomplete';
+  public static readonly GooglePayPaymentMethod_already_exists = 'Google Pay Payment Method already exists';
 }
 
 class GooglePayPaymentMethodService {
@@ -45,6 +46,14 @@ class GooglePayPaymentMethodService {
       throw new HttpForbiddenError({
         msg: 'Google Pay payment method incomplete',
         msgCode: GooglePayPaymentMethodServiceMessageCode.GooglePayPaymentMethod_incomplete,
+      });
+    }
+
+    const GooglePayEntityAlreadyExists = await this.GooglePayPaymentMethodRepository.getGooglePayPaymentMethod(data.name);
+    if(GooglePayEntityAlreadyExists){
+      throw new HttpForbiddenError({
+        msg: 'Google Pay Payment Method already exists',
+        msgCode: GooglePayPaymentMethodServiceMessageCode.GooglePayPaymentMethod_already_exists,
       });
     }
 
