@@ -40,14 +40,8 @@ class PromotionService {
     return promotionModel;
   }
 
-  public async getPromotionWithoutError(name: string): Promise<PromotionEntity | null> {
-    const PromotionEntity = await this.PromotionRepository.getPromotion(name);
-
-    return PromotionEntity;
-  }
-
   public async createPromotion(data: PromotionEntity): Promise<PromotionModel> {
-    const PromotionEntityAlreadyExists = await this.getPromotionWithoutError(data.name)
+    const PromotionEntityAlreadyExists = await this.PromotionRepository.getPromotion(data.name);
     if (PromotionEntityAlreadyExists) {
       throw new HttpForbiddenError({
         msg: 'Promotion already exists',

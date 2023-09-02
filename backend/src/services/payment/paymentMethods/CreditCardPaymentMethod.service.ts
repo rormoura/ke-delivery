@@ -6,6 +6,7 @@ import { HttpNotFoundError, HttpForbiddenError } from '../../../utils/errors/htt
 class CreditCardPaymentMethodServiceMessageCode {
   public static readonly CreditCardPaymentMethod_not_found = 'CreditCardPaymentMethod_not_found';
   public static readonly CreditCardPaymentMethod_incomplete = 'CreditCardPaymentMethod_incomplete';
+  public static readonly CreditCardPaymentMethod_already_exists = 'Credit Card Payment Method already exists';
 }
 
 class CreditCardPaymentMethodService {
@@ -45,6 +46,14 @@ class CreditCardPaymentMethodService {
       throw new HttpForbiddenError({
         msg: 'Credit Card payment method incomplete',
         msgCode: CreditCardPaymentMethodServiceMessageCode.CreditCardPaymentMethod_incomplete,
+      });
+    }
+
+    const CreditCardEntityAlreadyExists = await this.CreditCardPaymentMethodRepository.getCreditCardPaymentMethod(data.name);
+    if(CreditCardEntityAlreadyExists){
+      throw new HttpForbiddenError({
+        msg: 'Credit Card Payment Method already exists',
+        msgCode: CreditCardPaymentMethodServiceMessageCode.CreditCardPaymentMethod_already_exists,
       });
     }
 
