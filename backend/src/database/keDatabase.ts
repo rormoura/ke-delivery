@@ -1,6 +1,7 @@
 import PedidoEntity from '../entities/Pedidos/pedido.entity';
 import PromotionEntity from '../entities/payment/promotions/promotion.entity';
 import CustomerEntity from "../entities/customer/customer.entity";
+import MenuEntity from '../entities/menu/menu.entity';
 
 export default class Database {
   data: { [key: string]: any[] };
@@ -9,6 +10,7 @@ export default class Database {
   private constructor() {
     this.data = {
       pedidos: [],
+      menu: [],
       customers: [],
       entregadores: [],
       promotions: [],
@@ -65,6 +67,14 @@ export default class Database {
           name: '10BARRA10',
           discount: '10%'
         }),
+      ],
+      menu: [
+        new MenuEntity({
+          id: '1',
+          name: 'Berinjela ao forno',
+          price: 32.69,
+          restaurantId: '123'
+        })
       ],
     };
   }
