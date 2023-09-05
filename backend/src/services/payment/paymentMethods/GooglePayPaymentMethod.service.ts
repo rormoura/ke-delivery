@@ -71,8 +71,15 @@ class GooglePayPaymentMethodService {
       });
     }
 
-    const GooglePayPaymentMethodEntity = await this.GooglePayPaymentMethodRepository.updateGooglePayPaymentMethod(name, data);
+    const GooglePayPaymentMethodEntityAlreadyExists = await this.GooglePayPaymentMethodRepository.getGooglePayPaymentMethod(data.name);
+    if(GooglePayPaymentMethodEntityAlreadyExists){
+      throw new HttpForbiddenError({
+        msg: 'GooglePay Payment Method already exists',
+        msgCode: GooglePayPaymentMethodServiceMessageCode.GooglePayPaymentMethod_already_exists,
+      });
+    }
 
+    const GooglePayPaymentMethodEntity = await this.GooglePayPaymentMethodRepository.updateGooglePayPaymentMethod(name, data);
     if (!GooglePayPaymentMethodEntity) {
       throw new HttpNotFoundError({
         msg: 'GooglePayPaymentMethod not found',

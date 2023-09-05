@@ -70,8 +70,15 @@ class PixPaymentMethodService {
       });
     }
 
-    const PixPaymentMethodEntity = await this.PixPaymentMethodRepository.updatePixPaymentMethod(name, data);
+    const PixPaymentMethodEntityAlreadyExists = await this.PixPaymentMethodRepository.getPixPaymentMethod(data.name);
+    if(PixPaymentMethodEntityAlreadyExists){
+      throw new HttpForbiddenError({
+        msg: 'Pix Payment Method already exists',
+        msgCode: PixPaymentMethodServiceMessageCode.PixPaymentMethod_already_exists,
+      });
+    }
 
+    const PixPaymentMethodEntity = await this.PixPaymentMethodRepository.updatePixPaymentMethod(name, data);
     if (!PixPaymentMethodEntity) {
       throw new HttpNotFoundError({
         msg: 'PixPaymentMethod not found',

@@ -72,8 +72,15 @@ class CashPaymentMethodService {
       });
     }
 
-    const CashPaymentMethodEntity = await this.CashPaymentMethodRepository.updateCashPaymentMethod(name, data);
+    const CashPaymentMethodEntityAlreadyExists = await this.CashPaymentMethodRepository.getCashPaymentMethod(data.name);
+    if(CashPaymentMethodEntityAlreadyExists){
+      throw new HttpForbiddenError({
+        msg: 'Cash Payment Method already exists',
+        msgCode: CashPaymentMethodServiceMessageCode.CashPaymentMethod_already_exists,
+      });
+    }
 
+    const CashPaymentMethodEntity = await this.CashPaymentMethodRepository.updateCashPaymentMethod(name, data);
     if (!CashPaymentMethodEntity) {
       throw new HttpNotFoundError({
         msg: 'CashPaymentMethod not found',
