@@ -3,7 +3,7 @@ import CashPaymentMethodRepository from '../repositories/payment/paymentMethods/
 import PixPaymentMethodRepository from '../repositories/payment/paymentMethods/PixPaymentMethod.repository';
 import GooglePayPaymentMethodRepository from '../repositories/payment/paymentMethods/GooglePayPaymentMethod.repository';
 import PromotionRepository from '../repositories/payment/promotions/promotion.repository';
-import PaymentMethodsRepository from '../repositories/payment.base.repository';
+import BaseRepository from '../repositories/base.repository';
 import CreditCardPaymentMethodService from '../services/payment/paymentMethods/CreditCardPaymentMethod.service';
 import CashPaymentMethodService from '../services/payment/paymentMethods/CashPaymentMethod.service';
 import PixPaymentMethodService from '../services/payment/paymentMethods/PixPaymentMethod.service';
@@ -40,7 +40,7 @@ di.registerService(
   )
 );
 // Test
-di.registerRepository(PaymentMethodsRepository, new PaymentMethodsRepository('paymentMethods'));
+di.registerRepository(BaseRepository, new BaseRepository('paymentMethods'));
 di.registerRepository(CreditCardPaymentMethodRepository, new CreditCardPaymentMethodRepository());
 di.registerRepository(CashPaymentMethodRepository, new CashPaymentMethodRepository());
 di.registerRepository(PixPaymentMethodRepository, new PixPaymentMethodRepository());

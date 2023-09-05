@@ -1,5 +1,5 @@
 import CashPaymentMethodEntity from '../../../entities/payment/paymentMethods/CashPaymentMethod.entity';
-import BaseRepository from '../../payment.base.repository';
+import BaseRepository from '../../base.repository';
 
 class CashPaymentMethodRepository extends BaseRepository<CashPaymentMethodEntity> {
   constructor() {

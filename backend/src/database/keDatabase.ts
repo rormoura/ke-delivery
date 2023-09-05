@@ -1,11 +1,21 @@
 import PedidoEntity from '../entities/Pedidos/pedido.entity';
+import PromotionEntity from '../entities/payment/promotions/promotion.entity';
+import CustomerEntity from "../entities/customer/customer.entity";
+
 export default class Database {
   data: { [key: string]: any[] };
   private static instance: Database;
 
   private constructor() {
     this.data = {
-      pedidos: []
+      pedidos: [],
+      customers: [],
+      entregadores: [],
+      promotions: [],
+      creditcard: [],
+      cash: [],
+      googlepay: [],
+      pix: [],
     };
   }
 
@@ -36,6 +46,24 @@ export default class Database {
           Observacoes: "Sem cebolas",
           Status: "Finalizado",
           ValorTotal: 43.95,
+        }),
+      ],
+      customers: [
+        new CustomerEntity({
+          id: '1',
+          name: 'Ana Santana',
+          cpf: '12345678910',
+          email: 'aninha@getMaxListeners.com',
+          address: 'Rua das Flores, 123',
+          password: '123456',
+        }),
+      ],
+      entregadores: [],
+      promotions: [
+        new PromotionEntity({
+          id: '1',
+          name: '10BARRA10',
+          discount: '10%'
         }),
       ],
     };
