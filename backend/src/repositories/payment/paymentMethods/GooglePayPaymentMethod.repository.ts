@@ -1,5 +1,5 @@
 import GooglePayPaymentMethodEntity from '../../../entities/payment/paymentMethods/GooglePayPaymentMethod.entity';
-import BaseRepository from '../../payment.base.repository';
+import BaseRepository from '../../base.repository';
 
 class GooglePayPaymentMethodRepository extends BaseRepository<GooglePayPaymentMethodEntity> {
   constructor() {

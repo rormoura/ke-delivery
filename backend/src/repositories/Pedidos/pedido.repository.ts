@@ -1,5 +1,5 @@
 import PedidoEntity from '../../entities/Pedidos/pedido.entity';
-import BaseRepository from '../pedido.base.repository';
+import BaseRepository from '../base.repository';
 
 class PedidoRepository extends BaseRepository<PedidoEntity> {
   constructor() {
