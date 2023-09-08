@@ -55,5 +55,4 @@ defineFeature(feature, (test) => {
         })
       );
     })              
-  });
-});
+  });});
