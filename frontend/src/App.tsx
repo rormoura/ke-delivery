@@ -6,6 +6,7 @@ import Home from "./app/home/pages/Home";
 import Navbar from "./app/home/pages/Navbar";
 import RegisterRestaurant from "./app/home/pages/RegisterRestaurant";
 import HomeRestaurant from "./app/home/pages/HomeRestaurant";
+import TypesRegisters from "./app/home/pages/TypesRegisters";
 
 const router = createBrowserRouter([
   // {
@@ -39,6 +40,10 @@ const router = createBrowserRouter([
   {
     path: "/homeRestaurant",
     Component: HomeRestaurant,
+  },
+  {
+    path: "/typesRegisters",
+    Component: TypesRegisters,
   },
 ]);
 
