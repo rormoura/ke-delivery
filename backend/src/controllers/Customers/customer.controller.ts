@@ -16,68 +16,36 @@ class CustomerController {
 
   private initRoutes() {
     this.router.get(this.prefix, (req: Request, res: Response) =>
-      this.getCustomers(req, res)
+      this.handleRequest(() => this.customerService.getCustomers(), req, res)
     );
 
     this.router.get(`${this.prefix}/:id`, (req: Request, res: Response) =>
-      this.getCustomer(req, res)
+      this.handleRequest(() => this.customerService.getCustomer(req.params.id), req, res)
     );
+
     this.router.post(this.prefix, (req: Request, res: Response) =>
-      this.createCustomer(req, res)
+      this.handleRequest(() => this.customerService.createCustomer(new CustomerEntity(req.body)), req, res)
     );
+
     this.router.put(`${this.prefix}/:id`, (req: Request, res: Response) =>
-      this.updateCustomer(req, res)
+      this.handleRequest(() => this.customerService.updateCustomer(req.params.id, new CustomerEntity(req.body)), req, res)
     );
+
     this.router.delete(`${this.prefix}/:id`, (req: Request, res: Response) =>
-      this.deleteCustomer(req, res)
+      this.handleRequest(() => this.customerService.deleteCustomer(req.params.id), req, res)
     );
   }
 
-  private async getCustomers(req: Request, res: Response) {
-    const customers = await this.customerService.getCustomers();
-
-    return new SuccessResult({
-      msg: Result.transformRequestOnMsg(req),
-      data: customers,
-    }).handle(res);
-  }
-
-  private async getCustomer(req: Request, res: Response) {
-    const customer = await this.customerService.getCustomer(req.params.id);
-
-    return new SuccessResult({
-      msg: Result.transformRequestOnMsg(req),
-      data: customer,
-    }).handle(res);
-  }
-
-  private async createCustomer(req: Request, res: Response) {
-    const customer = await this.customerService.createCustomer(new CustomerEntity(req.body));
-
-    return new SuccessResult({
-      msg: Result.transformRequestOnMsg(req),
-      data: customer,
-    }).handle(res);
-  }
-
-  private async updateCustomer(req: Request, res: Response) {
-    const customer = await this.customerService.updateCustomer(
-      req.params.id,
-      new CustomerEntity(req.body)
-    );
-
-    return new SuccessResult({
-      msg: Result.transformRequestOnMsg(req),
-      data: customer,
-    }).handle(res);
-  }
-
-  private async deleteCustomer(req: Request, res: Response) {
-    await this.customerService.deleteCustomer(req.params.id);
-
-    return new SuccessResult({
-      msg: Result.transformRequestOnMsg(req),
-    }).handle(res);
+  private async handleRequest(action: () => Promise<any>, req: Request, res: Response) {
+    try {
+      const result = await action();
+      new SuccessResult({
+        msg: Result.transformRequestOnMsg(req),
+        data: result,
+      }).handle(res);
+    } catch (error) {
+      // Handle errors here
+    }
   }
 }
 

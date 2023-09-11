@@ -3,6 +3,8 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ListTests from "./app/home/pages/ListTests";
 import Login from "./app/home/pages/Login";
 import Home from "./app/home/pages/Home";
+import Footer from "./app/home/pages/Footer";
+import LoginCustomer from "./app/home/pages/LoginCustomer";
 
 const router = createBrowserRouter([
   // {
@@ -24,6 +26,14 @@ const router = createBrowserRouter([
   {
     path: "/home",
     Component: Home,
+  },
+  {
+    path: "/footer",
+    Component: Footer,
+  },
+  {
+    path: "/login-customer",
+    Component: LoginCustomer,
   },
 ]);
 
