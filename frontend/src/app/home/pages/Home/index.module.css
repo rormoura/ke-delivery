@@ -1,0 +1,38 @@
+.container{
+  display: flex;
+  align-items: center;
+  margin-top: 5%;
+  justify-content: space-between;
+}
+
+.image {
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 20%;
+}
+
+.texts{
+  width: 35%;
+}
+
+.title{
+  font-size: 3rem;
+  margin-bottom: 5%;
+}
+
+
+.images{
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.foodImage{
+  height: 30rem;
+  padding-right: 5%;
+}
+
+.foodImageSmall{
+  height: 20rem;
+  padding-right: 5%;
+}
