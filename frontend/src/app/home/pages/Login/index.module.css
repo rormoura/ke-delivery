@@ -11,6 +11,10 @@
   justify-content: center;
 }
 
+.logo{
+  width: 3rem;
+}
+
 .formsLogin {
   width: 40%;
   display: flex;
@@ -22,16 +26,47 @@
   justify-content: space-evenly;
 }
 
-.textInput {
-  width: 100%;
-  height: 2rem;
+.input{
+  display: flex;
+  flex-direction: column;
 }
+
+.textInput {
+  width: 25rem;
+  height: 2.7rem;
+  background-color: #d9d9d9;
+  border-radius: 0.7rem;
+  border: 0px;
+  margin-top: 3%;
+}
+
+.textInput::placeholder{
+  padding: 5%;
+  font-size: 1rem;
+}
+
 .button {
   width: 80%;
   height: 2.5rem;
   border-radius: 2rem;
-  border: 1 px solid;
-  background-color: #F6C620;
+  border: 0px;
   font-size: 1rem;
   font-weight: bold;
+  background-color: black;
+  color: #fff;
+}
+
+.button:hover{
+  background-color: #F6C620;
+  color: black;
+}
+
+.register{
+  display: flex;
+  align-items: center;
+}
+
+.link{
+  font-size: 1rem;
+  color: black;
 }

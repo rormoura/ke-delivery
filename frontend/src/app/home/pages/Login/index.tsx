@@ -1,4 +1,5 @@
 import styles from "./index.module.css"
+import LogoTemporaria from "../../../../shared/assets/logoTemp.svg";
 
 const Login = () => {
   return(
@@ -8,26 +9,33 @@ const Login = () => {
         {/* colocar logo */}
       </div>
       <div className={styles.formsLogin}>
+        <img src={LogoTemporaria} alt="Logo" className={styles.logo} />
         <h1>Quem bom te ver novamente!</h1>
-        <label>
-          Email:
+        <div className={styles.input}>
+          <label>Email:</label>
           <input 
             type="text" 
             name="email" 
+            placeholder="Digite aqui seu melhor email"
             className={styles.textInput}
           />
-        </label>
-        <label>
-          Senha:
+        </div>
+        <div className={styles.input}>
+          <label>Senha:</label>
           <input 
             type="text" 
             name="password"
+            placeholder="Digite sua senha"
             className={styles.textInput}
           />
-        </label>
+        </div>
         <button className={styles.button}>Entrar</button>
-        {/* <form>
-        </form> */}
+        <div className={styles.register}>
+          <p>Ainda não tem conta?</p>
+          <a href="/typeRegister">
+            <h2 className={styles.link}>Cadastre-se</h2>
+          </a>
+        </div>
       </div>
     </section>
   );
