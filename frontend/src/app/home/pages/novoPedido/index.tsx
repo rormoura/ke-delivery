@@ -4,12 +4,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useContext, useEffect } from "react";
 import { HomeContext } from "../../context/HomeContext";
 import { TestFormSchema, TestFormType } from "../../forms/TestForm";
-import { Link } from "react-router-dom";
 import Button from "../../../../shared/components/Pedidos/Button";
-import Footer from "../../../../shared/components/Pedidos/Footer";
+import { Link } from "react-router-dom";
 
-const CreateTest = () => {
-  const { state, prevState, service } = useContext(HomeContext);
+
+const NovoPedido = () => {
+    const { state, prevState, service,  } = useContext(HomeContext);
 
   const {
     register,
@@ -34,42 +34,35 @@ const CreateTest = () => {
     }
   }, [state, prevState]);
 
-  return (
-      <section className={styles.container}>
-      <h1 className={styles.title}>Carrinho de Compras</h1>
-      <form className={styles.formContainer} onSubmit={handleSubmit(onSubmit)}>
-        <div className={styles.formInputContainer}>
-          <input
-            data-cy="input-name"
-            {...register("name")}
-            placeholder="Digite o nome"
-            className={styles.formInput}
-          />
-          {errors.name && (
-            <span data-cy="input-name-error" className={styles.formError}>
-              {errors.name.message}
-            </span>
-          )}
-        </div>
 
-        <Button data-cy="create" type="submit">
-            Prosseguir para pagamento
-        </Button>
-        <Button data-cy="create" type="reset">
-            Limpar carrinho
-        </Button>
-        
+    return (
 
-        <Link data-cy="view-tests" to="/tests">
-          VER TESTS
-        </Link>
-          </form>
-          <Footer>
-            Ke Delivery
-          </Footer>
+        <section className={styles.container}>
+            <h1>Meu Carrinho</h1>
+            <form className={styles.formContainer} onSubmit={handleSubmit(onSubmit)}>
+                <input
+                    data-cy="input-name"
+                    {...register("name")}
+                    placeholder="Observações"
+                    className={styles.formInputContainer}
+                />
+                {errors.name && (
+                    <span data-cy="input-name-error" className={styles.formError}>
+                        {errors.name.message}
+                    </span>
+                )}
+            </form>
+            
+            <Button type="submit" data-cy="create">
+                Prosseguir para pagamentoão
+            </Button>
+            <Button data-cy="create" type="reset">
+                Limpar carrinho
+            </Button>
+
     </section>
 
   );
 };
 
-export default CreateTest;
+export default NovoPedido;

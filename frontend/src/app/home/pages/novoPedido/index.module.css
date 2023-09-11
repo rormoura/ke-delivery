@@ -1,9 +1,12 @@
 .container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
+    display: inline-flex;
+    padding: 25px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 45px;
+    border-radius: 10px;
+    background: #F8F8F8;
 }
 
 .title {
@@ -13,20 +16,25 @@
 }
 
 .formContainer {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 400px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  padding: 2rem;
-  gap: 16px;
+    display: inline-flex;
+    padding: 25px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 45px;
+    border-radius: 10px;
+    background: #F8F8F8;
 }
 
 .formInputContainer {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+    display: inline-flex;
+    padding: 25px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 45px;
+    border-radius: 10px;
+    background: #F8F8F8;
 }
 
 .formInput {
