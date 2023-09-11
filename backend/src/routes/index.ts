@@ -16,6 +16,8 @@ import PaymentMethodsController from '../controllers/payment/paymentMethods/Paym
 import PaymentMethodsService from '../services/payment/paymentMethods/PaymentMethods.service';
 import DeliverymanController from '../controllers/deliverymans/deliveryman.controller';
 import DeliverymanService from '../services/deliverymans/deliveryman.service';
+import MenuController from '../controllers/menu/menu.controller';
+import MenuService from '../services/menu/menu.service';
 import PedidoController from '../controllers/Pedidos/pedido.controller';
 import PedidoService from '../services/Pedidos/pedido.service';
 import RestaurantController from '../controllers/restaurant.controller';
@@ -60,6 +62,10 @@ export default (app: Express) => {
   app.use(
     prefix,
     new DeliverymanController(router, di.getService(DeliverymanService)).router
+  );
+  app.use(
+    prefix,
+    new MenuController(router, di.getService(MenuService)).router
   );
   app.use(
     prefix,

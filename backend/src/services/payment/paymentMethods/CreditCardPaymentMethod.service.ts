@@ -6,6 +6,7 @@ import { HttpNotFoundError, HttpForbiddenError } from '../../../utils/errors/htt
 class CreditCardPaymentMethodServiceMessageCode {
   public static readonly CreditCardPaymentMethod_not_found = 'CreditCardPaymentMethod_not_found';
   public static readonly CreditCardPaymentMethod_incomplete = 'CreditCardPaymentMethod_incomplete';
+  public static readonly CreditCardPaymentMethod_already_exists = 'Credit Card Payment Method already exists';
 }
 
 class CreditCardPaymentMethodService {
@@ -48,6 +49,14 @@ class CreditCardPaymentMethodService {
       });
     }
 
+    const CreditCardEntityAlreadyExists = await this.CreditCardPaymentMethodRepository.getCreditCardPaymentMethod(data.name);
+    if(CreditCardEntityAlreadyExists){
+      throw new HttpForbiddenError({
+        msg: 'Credit Card Payment Method already exists',
+        msgCode: CreditCardPaymentMethodServiceMessageCode.CreditCardPaymentMethod_already_exists,
+      });
+    }
+
     const CreditCardPaymentMethodEntity = await this.CreditCardPaymentMethodRepository.createCreditCardPaymentMethod(data);
     const creditCardPaymentMethodModel = new CreditCardPaymentMethodModel(CreditCardPaymentMethodEntity);
 
@@ -62,8 +71,15 @@ class CreditCardPaymentMethodService {
       });
     }
     
-    const CreditCardPaymentMethodEntity = await this.CreditCardPaymentMethodRepository.updateCreditCardPaymentMethod(name, data);
+    const CreditCardPaymentMethodEntityAlreadyExists = await this.CreditCardPaymentMethodRepository.getCreditCardPaymentMethod(data.name);
+    if(CreditCardPaymentMethodEntityAlreadyExists){
+      throw new HttpForbiddenError({
+        msg: 'CreditCard Payment Method already exists',
+        msgCode: CreditCardPaymentMethodServiceMessageCode.CreditCardPaymentMethod_already_exists,
+      });
+    }
 
+    const CreditCardPaymentMethodEntity = await this.CreditCardPaymentMethodRepository.updateCreditCardPaymentMethod(name, data);
     if (!CreditCardPaymentMethodEntity) {
       throw new HttpNotFoundError({
         msg: 'CreditCardPaymentMethod not found',
