@@ -71,8 +71,15 @@ class CreditCardPaymentMethodService {
       });
     }
     
-    const CreditCardPaymentMethodEntity = await this.CreditCardPaymentMethodRepository.updateCreditCardPaymentMethod(name, data);
+    const CreditCardPaymentMethodEntityAlreadyExists = await this.CreditCardPaymentMethodRepository.getCreditCardPaymentMethod(data.name);
+    if(CreditCardPaymentMethodEntityAlreadyExists){
+      throw new HttpForbiddenError({
+        msg: 'CreditCard Payment Method already exists',
+        msgCode: CreditCardPaymentMethodServiceMessageCode.CreditCardPaymentMethod_already_exists,
+      });
+    }
 
+    const CreditCardPaymentMethodEntity = await this.CreditCardPaymentMethodRepository.updateCreditCardPaymentMethod(name, data);
     if (!CreditCardPaymentMethodEntity) {
       throw new HttpNotFoundError({
         msg: 'CreditCardPaymentMethod not found',

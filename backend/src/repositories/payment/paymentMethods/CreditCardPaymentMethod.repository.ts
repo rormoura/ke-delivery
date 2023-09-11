@@ -1,5 +1,5 @@
 import CreditCardPaymentMethodEntity from '../../../entities/payment/paymentMethods/CreditCardPaymentMethod.entity';
-import BaseRepository from '../../payment.base.repository';
+import BaseRepository from '../../base.repository';
 
 class CreditCardPaymentMethodRepository extends BaseRepository<CreditCardPaymentMethodEntity> {
   constructor() {
