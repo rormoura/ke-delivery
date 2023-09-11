@@ -32,7 +32,7 @@ const Login = () => {
         <button className={styles.button}>Entrar</button>
         <div className={styles.register}>
           <p>Ainda não tem conta?</p>
-          <a href="/typeRegister">
+          <a href="/typesRegisters">
             <h2 className={styles.link}>Cadastre-se</h2>
           </a>
         </div>
