@@ -1,5 +1,5 @@
 import PixPaymentMethodEntity from '../../../entities/payment/paymentMethods/PixPaymentMethod.entity';
-import BaseRepository from '../../payment.base.repository';
+import BaseRepository from '../../base.repository';
 
 class PixPaymentMethodRepository extends BaseRepository<PixPaymentMethodEntity> {
   constructor() {

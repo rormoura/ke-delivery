@@ -6,6 +6,7 @@ import { HttpNotFoundError, HttpForbiddenError } from '../../../utils/errors/htt
 class GooglePayPaymentMethodServiceMessageCode {
   public static readonly GooglePayPaymentMethod_not_found = 'GooglePayPaymentMethod_not_found';
   public static readonly GooglePayPaymentMethod_incomplete = 'GooglePayPaymentMethod_incomplete';
+  public static readonly GooglePayPaymentMethod_already_exists = 'Google Pay Payment Method already exists';
 }
 
 class GooglePayPaymentMethodService {
@@ -48,6 +49,14 @@ class GooglePayPaymentMethodService {
       });
     }
 
+    const GooglePayEntityAlreadyExists = await this.GooglePayPaymentMethodRepository.getGooglePayPaymentMethod(data.name);
+    if(GooglePayEntityAlreadyExists){
+      throw new HttpForbiddenError({
+        msg: 'Google Pay Payment Method already exists',
+        msgCode: GooglePayPaymentMethodServiceMessageCode.GooglePayPaymentMethod_already_exists,
+      });
+    }
+
     const GooglePayPaymentMethodEntity = await this.GooglePayPaymentMethodRepository.createGooglePayPaymentMethod(data);
     const googlePayPaymentMethodModel = new GooglePayPaymentMethodModel(GooglePayPaymentMethodEntity);
 
@@ -62,8 +71,15 @@ class GooglePayPaymentMethodService {
       });
     }
 
-    const GooglePayPaymentMethodEntity = await this.GooglePayPaymentMethodRepository.updateGooglePayPaymentMethod(name, data);
+    const GooglePayPaymentMethodEntityAlreadyExists = await this.GooglePayPaymentMethodRepository.getGooglePayPaymentMethod(data.name);
+    if(GooglePayPaymentMethodEntityAlreadyExists){
+      throw new HttpForbiddenError({
+        msg: 'GooglePay Payment Method already exists',
+        msgCode: GooglePayPaymentMethodServiceMessageCode.GooglePayPaymentMethod_already_exists,
+      });
+    }
 
+    const GooglePayPaymentMethodEntity = await this.GooglePayPaymentMethodRepository.updateGooglePayPaymentMethod(name, data);
     if (!GooglePayPaymentMethodEntity) {
       throw new HttpNotFoundError({
         msg: 'GooglePayPaymentMethod not found',

@@ -1,0 +1,29 @@
+.container{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2%;
+}
+
+.logo{
+  display: flex;
+}
+
+.title{
+  padding-left: 10%;
+}
+
+.buttonLogin{
+  width: 5rem;
+  height: 2rem;
+  background-color: black;
+  color: #fff;
+  border-radius: 0.7rem;
+  border: 0px;
+}
+
+.buttonLogin:hover {
+  background-color: #FCCD01;
+  color: black;
+  font-weight: bold;
+}

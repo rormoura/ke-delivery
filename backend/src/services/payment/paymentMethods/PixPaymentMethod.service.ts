@@ -6,6 +6,7 @@ import { HttpNotFoundError, HttpForbiddenError } from '../../../utils/errors/htt
 class PixPaymentMethodServiceMessageCode {
   public static readonly PixPaymentMethod_not_found = 'PixPaymentMethod_not_found';
   public static readonly PixPaymentMethod_incomplete = 'PixPaymentMethod_incomplete';
+  public static readonly PixPaymentMethod_already_exists = 'Pix Payment Method already exists';
 }
 
 class PixPaymentMethodService {
@@ -47,6 +48,13 @@ class PixPaymentMethodService {
         msgCode: PixPaymentMethodServiceMessageCode.PixPaymentMethod_incomplete,
       });
     }
+    const PixEntityAlreadyExists = await this.PixPaymentMethodRepository.getPixPaymentMethod(data.name);
+    if(PixEntityAlreadyExists){
+      throw new HttpForbiddenError({
+        msg: 'Pix Payment Method already exists',
+        msgCode: PixPaymentMethodServiceMessageCode.PixPaymentMethod_already_exists,
+      });
+    }
 
     const PixPaymentMethodEntity = await this.PixPaymentMethodRepository.createPixPaymentMethod(data);
     const pixPaymentMethodModel = new PixPaymentMethodModel(PixPaymentMethodEntity);
@@ -62,8 +70,15 @@ class PixPaymentMethodService {
       });
     }
 
-    const PixPaymentMethodEntity = await this.PixPaymentMethodRepository.updatePixPaymentMethod(name, data);
+    const PixPaymentMethodEntityAlreadyExists = await this.PixPaymentMethodRepository.getPixPaymentMethod(data.name);
+    if(PixPaymentMethodEntityAlreadyExists){
+      throw new HttpForbiddenError({
+        msg: 'Pix Payment Method already exists',
+        msgCode: PixPaymentMethodServiceMessageCode.PixPaymentMethod_already_exists,
+      });
+    }
 
+    const PixPaymentMethodEntity = await this.PixPaymentMethodRepository.updatePixPaymentMethod(name, data);
     if (!PixPaymentMethodEntity) {
       throw new HttpNotFoundError({
         msg: 'PixPaymentMethod not found',

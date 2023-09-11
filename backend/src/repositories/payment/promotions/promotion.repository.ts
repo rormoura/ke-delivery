@@ -1,5 +1,5 @@
 import PromotionEntity from '../../../entities/payment/promotions/promotion.entity';
-import BaseRepository from '../../payment.base.repository';
+import BaseRepository from '../../base.repository';
 
 class PromotionRepository extends BaseRepository<PromotionEntity> {
   constructor() {

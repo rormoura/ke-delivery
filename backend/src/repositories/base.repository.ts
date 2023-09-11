@@ -1,4 +1,4 @@
-import Database from '../database/deliverymans';
+import Database from '../database/keDatabase';
 import BaseEntity from '../entities/base.entity';
 import { HttpInternalServerError } from '../utils/errors/http.error';
 import { v4 as uuidv4 } from 'uuid';
