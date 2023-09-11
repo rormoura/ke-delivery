@@ -3,6 +3,7 @@ import LogoTemporaria from "../../../../../shared/assets/logoTempBlack.svg";
 import HomeIcon from "../../../../../shared/assets/homeIcon.svg";
 import RequestIcon from "../../../../../shared/assets/pedidosIcon.svg";
 import MenuIcon from "../../../../../shared/assets/cardapioIcon.svg";
+import ProfileIcon from "../../../../../shared/assets/profileIcon.svg";
 
 const Menu = () => {
   return(
@@ -21,6 +22,11 @@ const Menu = () => {
           <img src={MenuIcon} className={styles.icon}/>
           <h3>Cardápio</h3>
         </a>
+        <a href="/profile/id" className={styles.link}>
+          <img src={ProfileIcon} className={styles.icon}/>
+          <h3>Conta</h3>
+        </a>
+      <h1 id={styles.name}>Ké Delivery</h1>
       </div>
     </section>
   )
