@@ -8,9 +8,9 @@ const Navbar = () => {
         <img src={LogoTemporaria} alt="Logo"/>
         <h1 className={styles.title}>Ké Delivery</h1>
       </div>
-      <div>
+      <a href="/login">
         <button className={styles.buttonLogin}>Entrar</button>
-      </div>
+      </a>
     </section>
   )
 }
