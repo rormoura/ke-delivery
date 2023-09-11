@@ -1,6 +1,4 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-// import CreateTest from "./app/home/pages/CreateTest";
-import ListTests from "./app/home/pages/ListTests";
 import Login from "./app/home/pages/Login";
 import Home from "./app/home/pages/Home";
 import Navbar from "./app/home/pages/Navbar";
@@ -9,25 +7,13 @@ import HomeRestaurant from "./app/home/pages/HomeRestaurant";
 import TypesRegisters from "./app/home/pages/TypesRegisters";
 
 const router = createBrowserRouter([
-  // {
-  //   path: "*",
-  //   Component: CreateTest,
-  // },
-  // {
-  //   path: "/create-test",
-  //   Component: CreateTest,
-  // },
   {
-    path: "/tests",
-    Component: ListTests,
+    path: "/",
+    Component: Home,
   },
   {
     path: "/login",
     Component: Login,
-  },
-  {
-    path: "/home",
-    Component: Home,
   },
   {
     path: "/navbar",
