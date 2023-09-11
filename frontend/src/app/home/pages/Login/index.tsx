@@ -10,7 +10,7 @@ const Login = () => {
       </div>
       <div className={styles.formsLogin}>
         <img src={LogoTemporaria} alt="Logo" className={styles.logo} />
-        <h1>Quem bom te ver novamente!</h1>
+        <h1>Que bom te ver novamente!</h1>
         <div className={styles.input}>
           <label>Email:</label>
           <input 
