@@ -3,10 +3,14 @@ import styles from "./ProductCard.module.css";
 import propTypes from "prop-types";
 import { MdOutlineAddShoppingCart } from "react-icons/md";
 import formatCurrency from "../../../../utils/formatCurrency.js";
+import PedidosContext from "../../../../app/home/context/PedidosContext/PedidosContext.js";
 
 function ProductCard({ data }) {
 
     const { title, thumbnail, price } = data;
+    const { cartItems, setCartItems } = useContext(PedidosContext);
+
+    const handleAddCart = () => setCartItems([...cartItems, data]);
 
     return (
         <section className={styles.productCard}>
@@ -27,6 +31,7 @@ function ProductCard({ data }) {
             <button
                 type="button"
                 className={styles.buttonAddCart}
+                onClick={handleAddCart}
             >
                 <MdOutlineAddShoppingCart />
             </button>
