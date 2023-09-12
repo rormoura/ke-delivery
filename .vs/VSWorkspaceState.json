@@ -1,25 +1,17 @@
 {
   "ExpandedNodes": [
     "",
-<<<<<<< HEAD
-    "\\features"
+    "\\frontend",
+    "\\frontend\\src",
+    "\\frontend\\src\\app",
+    "\\frontend\\src\\app\\home",
+    "\\frontend\\src\\app\\home\\pages",
+    "\\frontend\\src\\shared",
+    "\\frontend\\src\\shared\\components",
+    "\\frontend\\src\\shared\\components\\Pedidos",
+    "\\frontend\\src\\shared\\components\\Pedidos\\Carrinho",
+    "\\frontend\\src\\shared\\components\\Pedidos\\CartButton"
   ],
-  "SelectedNode": "\\.gitignore",
-=======
-    "\\backend",
-    "\\backend\\src",
-    "\\backend\\src\\controllers",
-    "\\backend\\src\\controllers\\Pedidos",
-    "\\backend\\src\\database",
-    "\\backend\\src\\entities\\Pedidos",
-    "\\backend\\src\\models",
-    "\\backend\\src\\services\\Pedidos",
-    "\\features"
-  ],
-  "SelectedNode": "\\backend\\src\\controllers\\Pedidos\\pedido.controller.ts",
-<<<<<<< HEAD
->>>>>>> 3491a5804c822b7fa85f2f471eaa19de7027b059
-=======
->>>>>>> 3491a5804c822b7fa85f2f471eaa19de7027b059
+  "SelectedNode": "\\frontend\\src\\shared\\components\\Pedidos\\CartButton",
   "PreviewInSolutionExplorer": false
 }
