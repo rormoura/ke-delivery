@@ -1,7 +1,7 @@
 .cart {
     width: 100%;
     max-width: 330px;
-    background-color: white;
+    background-color: grey;
     height: 100vh;
     position: fixed;
     top: 0;
@@ -23,7 +23,7 @@
     font-weight: 500;
     padding: 35px 0 15px;
     border-top: 1px solid #ddd;
-
+    border-color: black;
 }
 .cartItens.cartItem:last-child {
     border-bottom: none;
@@ -42,4 +42,6 @@
     flex-direction: column;
     justify-content: space-between;
     transition: all 400ms ease;
+    border-left: 1px solid #ddd;
+    border-color: black;
 }
