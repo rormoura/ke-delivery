@@ -26,6 +26,9 @@ class PaymentMethodsController {
     this.router.get(`${this.prefix}/:name`, (req: Request, res: Response) =>
       this.getPaymentMethod(req, res)
     );
+    this.router.delete(`${this.prefix}/:name`, (req: Request, res: Response) =>
+      this.deletePaymentMethod(req, res)
+    );
   }
 
   private async getPaymentMethods(req: Request, res: Response) {
@@ -43,6 +46,14 @@ class PaymentMethodsController {
     return new SuccessResult({
       msg: Result.transformRequestOnMsg(req),
       data: paymentMethod,
+    }).handle(res);
+  }
+
+  private async deletePaymentMethod(req: Request, res: Response) {
+    const paymentMethod = await this.paymentMethodsService.deletePaymentMethod(req.params.name);
+
+    return new SuccessResult({
+      msg: Result.transformRequestOnMsg(req)
     }).handle(res);
   }
 

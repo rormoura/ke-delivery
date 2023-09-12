@@ -5,6 +5,9 @@ import Login from "./app/home/pages/Login";
 import Home from "./app/home/pages/Home";
 import Footer from "./app/home/pages/Footer";
 import LoginCustomer from "./app/home/pages/LoginCustomer";
+import PaymentMethods from "./app/home/pages/PaymentMethods";
+import Menu from "./app/home/pages/Menu";
+import Pedidos from "./app/home/pages/NovoPedido";
 
 const router = createBrowserRouter([
   // {
@@ -34,6 +37,18 @@ const router = createBrowserRouter([
   {
     path: "/login-customer",
     Component: LoginCustomer,
+  },
+  {
+    path: "/paymentMethods",
+    Component: PaymentMethods,
+  },
+  {
+    path: "/menu",
+    Component: Menu,
+  },
+  {
+    path: "/NovoPedido",
+    Component: Pedidos,
   },
 ]);
 
