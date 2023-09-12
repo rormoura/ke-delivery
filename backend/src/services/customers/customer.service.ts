@@ -83,6 +83,27 @@ class CustomerService {
   public async deleteCustomer(id: string): Promise<void> {
     await this.CustomerRepository.deleteCustomer(id);
   }
+
+  public async loginCustomer (email: string, password: string): Promise<CustomerModel> {
+    console.log("email", email);
+    const CustomerEntity = await this.CustomerRepository.getCustomerbyEmail(email);
+    if (!CustomerEntity) {
+      throw new HttpNotFoundError({
+        msg: 'Customer not found',
+        msgCode: CustomerServiceMessageCode.Customer_not_found,
+      });
+    }
+    if (CustomerEntity.password !== password) {
+      throw new HttpForbiddenError({
+        msg: 'Password incorrect',
+        msgCode: CustomerServiceMessageCode.Customer_not_found,
+      });
+    }
+
+    const customerModel = new CustomerModel(CustomerEntity);
+
+    return customerModel;
+  }
 }
 
 export default CustomerService;

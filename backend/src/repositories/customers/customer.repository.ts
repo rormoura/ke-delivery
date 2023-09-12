@@ -14,6 +14,10 @@ class CustomerRepository extends BaseRepository<CustomerEntity> {
     return await this.findOne((item) => item.id === id);
   }
 
+  public async getCustomerbyEmail(email: string): Promise<CustomerEntity | null> {
+    return await this.findOne((item) => item.email === email);
+  }
+  
   public async createCustomer(data: CustomerEntity): Promise<CustomerEntity> {
     return await this.add(data);
   }
