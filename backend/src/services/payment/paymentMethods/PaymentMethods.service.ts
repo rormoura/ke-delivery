@@ -66,6 +66,13 @@ class PaymentMethodsService {
 
   }
 
+  public async deletePaymentMethod(name: string): Promise<any> {
+    const cashPaymentMethod = await this.cashPaymentMethodRepository.deleteCashPaymentMethod(name)
+    const creditCardPaymentMethod = await this.creditCardPaymentMethodRepository.deleteCreditCardPaymentMethod(name)
+    const pixPaymentMethod = await this.pixPaymentMethodRepository.deletePixPaymentMethod(name)
+    const googlePayPaymentMethod = await this.googlePayPaymentMethodRepository.deleteGooglePayPaymentMethod(name)
+  }
+
   public async getDefaultPaymentMethod(): Promise<any | null> {
     const allPaymentMethods = await this.getPaymentMethods();
 
