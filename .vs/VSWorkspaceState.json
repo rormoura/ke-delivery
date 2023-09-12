@@ -1,0 +1,17 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\frontend",
+    "\\frontend\\src",
+    "\\frontend\\src\\app",
+    "\\frontend\\src\\app\\home",
+    "\\frontend\\src\\app\\home\\pages",
+    "\\frontend\\src\\shared",
+    "\\frontend\\src\\shared\\components",
+    "\\frontend\\src\\shared\\components\\Pedidos",
+    "\\frontend\\src\\shared\\components\\Pedidos\\Carrinho",
+    "\\frontend\\src\\shared\\components\\Pedidos\\CartButton"
+  ],
+  "SelectedNode": "\\frontend\\src\\shared\\components\\Pedidos\\CartButton",
+  "PreviewInSolutionExplorer": false
+}
