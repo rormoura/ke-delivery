@@ -2,6 +2,7 @@ import { Router, Request, Response } from 'express';
 import { Result, SuccessResult } from '../../utils/result';
 import CustomerService from '../../services/customers/customer.service';
 import CustomerEntity from '../../entities/customer/customer.entity';
+import { HttpError, HttpInternalServerError } from '../../utils/errors/http.error';
 
 class CustomerController {
   private prefix: string = '/customers';
@@ -40,6 +41,8 @@ class CustomerController {
 
   }
 
+  
+
   private async handleRequest(action: () => Promise<any>, req: Request, res: Response) {
     try {
       const result = await action();
@@ -48,10 +51,23 @@ class CustomerController {
         data: result,
       }).handle(res);
     } catch (error) {
-      console.log(error);
-      // Handle errors here
+      
+      if (error instanceof HttpError) {
+        error.handle(res);
+      } else {
+        const unknownError: unknown = error;
+        if (unknownError instanceof Error) {
+          new HttpInternalServerError({
+            msg: unknownError.message,
+            msgCode: 'internal_server_error',
+          }).handle(res);
+        } else {
+          res.status(500).json({ error: 'Erro interno do servidor' });
+        }
+      }
     }
   }
+  
 }
 
 export default CustomerController;

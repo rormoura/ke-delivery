@@ -1,6 +1,7 @@
 import styles from "./index.module.css";
 import LogoTemporaria from "../../../../shared/assets/logoTemp.svg";
 import { useState } from "react";
+import Footer from "../Footer";
 
 const CadastroCustomer = () => {
   const [formData, setFormData] = useState({
@@ -107,6 +108,7 @@ const CadastroCustomer = () => {
         </div>
         <button className={styles.button} type = "submit">Cadastrar</button>
       </form>
+      <Footer />
     </section>
   )
 }

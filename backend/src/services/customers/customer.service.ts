@@ -85,7 +85,6 @@ class CustomerService {
   }
 
   public async loginCustomer (email: string, password: string): Promise<CustomerModel> {
-    console.log("email", email);
     const CustomerEntity = await this.CustomerRepository.getCustomerbyEmail(email);
     if (!CustomerEntity) {
       throw new HttpNotFoundError({
@@ -99,9 +98,7 @@ class CustomerService {
         msgCode: CustomerServiceMessageCode.Customer_not_found,
       });
     }
-
     const customerModel = new CustomerModel(CustomerEntity);
-
     return customerModel;
   }
 }
