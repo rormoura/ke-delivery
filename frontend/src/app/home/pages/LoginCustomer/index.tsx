@@ -25,7 +25,6 @@ const LoginCustomer = () => {
   const handleForm = async (event) => {
     try {
       event.preventDefault();
-      console.log("AAAAAAAAAAAa",formData);
       const response = await fetch('http://localhost:5001/api/customers/login', {
         method: 'POST',
         body: JSON.stringify(formData),
@@ -33,7 +32,6 @@ const LoginCustomer = () => {
           'Content-Type': 'application/json',
         }
       });
-      console.log("RESPONSEE>>>>>>>",response);
       if (response.status === 200) {
         // Login bem-sucedido, redirecionar ou fazer algo aqui
         // window.open(`/cadastro-customer`, '_self');

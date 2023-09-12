@@ -2,6 +2,7 @@ import styles from "./index.module.css";
 import LogoTemporaria from "../../../../shared/assets/logoTemp.svg";
 import { useState } from "react";
 import Footer from "../Footer";
+import FoodCry from "../../../../shared/assets/foodCry.png";
 
 const CadastroCustomer = () => {
   const [formData, setFormData] = useState({
@@ -11,6 +12,7 @@ const CadastroCustomer = () => {
     address: '',
     password: '',
   });
+  const [showPopup, setShowPopup] = useState(false);
 
   const handleInputChange = (event, name) => {
     setFormData({ 
@@ -30,10 +32,16 @@ const CadastroCustomer = () => {
         }
       });
       const data = await response.json();
-      console.log(data);
-      console.log(formData);
+      if (response.status === 200) {
+        // Login bem-sucedido, redirecionar ou fazer algo aqui
+        // window.open(`/cadastro-customer`, '_self');
+      } else {
+        // Login falhou, mostrar pop-up de erro
+        setShowPopup(true);
+      }
     } catch (error) {
       console.log(error);
+      setShowPopup(true);
     }
   }
 
@@ -108,6 +116,13 @@ const CadastroCustomer = () => {
         </div>
         <button className={styles.button} type = "submit">Cadastrar</button>
       </form>
+      {showPopup && (
+          <div className={styles.popup}>
+            <img className={styles.foodCry} src={FoodCry} alt="Comida triste" />
+            <p>Email ou CPF ja em uso, tente novamente com outras credenciais</p>
+            <button onClick={() => setShowPopup(false)}>Fechar</button>
+          </div>
+        )}
       <Footer />
     </section>
   )

@@ -77,3 +77,43 @@
     color: black;
     font-weight: bold;
 }
+
+.popup {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+
+
+    top: 5%;
+    left: 40%;
+    width: 20vw;
+    height: 68.5vh;
+    flex-shrink: 0;
+    border-radius: 8px;
+    border: 1px dashed var(--base-dark-line, #393C49);
+    background: var(--base-dark-bg-2, #1F1D2B);
+}
+
+.foodCry {
+    width: auto;
+    height: auto;
+
+}
+
+.popup p {
+    width: 100%;
+    height: 20%;
+    flex-shrink: 0;
+    font-size: 14px;
+    font-weight: 500;
+    text-align: center;
+    color: var(--base-light, #FFFFFF);
+}
+
+.popup button {
+    width: 100%;
+    height: 10vh;
+    flex-shrink: 0;
+    border-radius: 8px;
+    background: var(--Primary-Color, #FCCD01);
+}

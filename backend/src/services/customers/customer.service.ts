@@ -40,14 +40,21 @@ class CustomerService {
     return customerModel;
   }
 
-  public async getCustomerWithoutError(id: string): Promise<CustomerEntity | null> {
-    const CustomerEntity = await this.CustomerRepository.getCustomer(id);
-
-    return CustomerEntity;
+  public async getCustomerWithoutError(email: string, cpf: string): Promise<CustomerEntity | null> {
+    const CustomerEntity = await this.CustomerRepository.getCustomerbyEmail(email);
+    const CustomerEntity2 = await this.CustomerRepository.getCustomerbyCpf(cpf);
+    if (CustomerEntity) {
+      return CustomerEntity;
+    }
+    if (CustomerEntity2) {
+      return CustomerEntity2;
+    }
+    return null;
   }
 
+
   public async createCustomer(data: CustomerEntity): Promise<CustomerModel> {
-    const CustomerEntityAlreadyExists = await this.getCustomerWithoutError(data.id)
+    const CustomerEntityAlreadyExists = await this.getCustomerWithoutError(data.email, data.cpf)
     if (CustomerEntityAlreadyExists) {
       throw new HttpForbiddenError({
         msg: 'Customer already exists',
@@ -101,6 +108,16 @@ class CustomerService {
     const customerModel = new CustomerModel(CustomerEntity);
     return customerModel;
   }
+
+  public async checkCustomerExists (email: string, cpf: string): Promise<boolean> {
+    const CustomerEntity = await this.CustomerRepository.getCustomerbyEmail(email);
+    const CustomerEntity2 = await this.CustomerRepository.getCustomerbyCpf(cpf);
+    if (CustomerEntity || CustomerEntity2) {
+      return true;
+    }
+    return false;
+  }
+
 }
 
 export default CustomerService;
