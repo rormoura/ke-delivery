@@ -3,6 +3,11 @@ import PedidoModel from '../../models/Pedidos/pedido.model';
 import PedidoRepository from '../../repositories/Pedidos/pedido.repository';
 import { HttpNotFoundError, HttpForbiddenError } from '../../utils/errors/http.error';
 
+class PedidoServiceMessageCode {
+  public static readonly Pedido_not_found = 'Pedido_not_found';
+  public static readonly Pedido_already_exists = 'Pedido_already_exists'
+}
+
 class PedidoService {
   private PedidoRepository: PedidoRepository;
 
@@ -26,7 +31,7 @@ class PedidoService {
     if (!PedidoEntity) {
       throw new HttpNotFoundError({
         msg: 'Pedido not found',
-        msgCode: 'Pedido_not_found',
+        msgCode: PedidoServiceMessageCode.Pedido_not_found,
       });
     }
 
@@ -46,7 +51,7 @@ class PedidoService {
     if (PedidoEntityAlreadyExists) {
       throw new HttpForbiddenError({
         msg: 'Pedido already exists',
-        msgCode: 'Pedido_already_exists',
+        msgCode: PedidoServiceMessageCode.Pedido_already_exists,
       });
     }
 
@@ -62,7 +67,7 @@ class PedidoService {
     if (!PedidoEntity) {
       throw new HttpNotFoundError({
         msg: 'Pedido not found',
-        msgCode: 'Pedido_not_found',
+        msgCode: PedidoServiceMessageCode.Pedido_not_found,
       });
     }
 
