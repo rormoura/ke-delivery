@@ -5,6 +5,7 @@ import Login from "./app/home/pages/Login";
 import Home from "./app/home/pages/Home";
 import Footer from "./app/home/pages/Footer";
 import LoginCustomer from "./app/home/pages/LoginCustomer";
+import Pedidos from "./app/home/pages/NovoPedido";
 
 const router = createBrowserRouter([
   // {
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
   {
     path: "/login-customer",
     Component: LoginCustomer,
+  },
+  {
+    path: "/NovoPedido",
+    Component: Pedidos,
   },
 ]);
 
