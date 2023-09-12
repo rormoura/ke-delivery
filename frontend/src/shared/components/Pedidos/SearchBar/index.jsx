@@ -8,8 +8,17 @@ import PedidosContext from "../../../../app/home/context/PedidosContext/PedidosC
 function SearchBar(){
     const [searchValue, setSearchValue] = useState('');
 
+    const handleSearch = async (event) => {
+        event.preventDefault();
+
+        const products = await fetchProducts(searchValue);
+        console.log(products);
+        setSearchValue('');
+    }
+    
+
     return (
-            <form className={styles.SearchBar}>
+        <form className={styles.SearchBar} onSubmit={handleSearch}>
                 <input
                     type="search"
                     value={searchValue}
@@ -17,8 +26,7 @@ function SearchBar(){
                     className={styles.SearchInput}
                     onChange={({ target }) => setSearchValue(target.value)}
                     required
-                />
-                {searchValue}
+                />            
                 <button type="submit" className={styles.SearchButton}>
                     <CgSearch/>
                 </button>
