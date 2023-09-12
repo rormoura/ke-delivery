@@ -1,11 +1,19 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import styles from "./carrinhoItem.module.css";
 import { BsCartDash } from 'react-icons/bs'
 import formatCurrency from "../../../../utils/formatCurrency.js";
 import propTypes from "prop-types";
+import PedidosContext from "../../../../app/home/context/PedidosContext/PedidosContext.js";
+
 function CarrinhoItem({ data }) {
 
-    const { thumbnail, title, price } = data;
+    const { id, thumbnail, title, price } = data;
+    const { cartItems, setCartItems} = useContext(PedidosContext);
+
+    const handleRemoveItem = () => {
+        const updatedItems = cartItems.filter((item) => item.id != id);
+        setCartItems(updatedItems);
+    }
 
     return (
         <section className={styles.cartItem}>
@@ -20,6 +28,7 @@ function CarrinhoItem({ data }) {
                 <button
                     type="button"
                     className={styles.buttonRemoveItem}
+                    onClick={handleRemoveItem}
                 >
                     <BsCartDash/>
                 </button>
