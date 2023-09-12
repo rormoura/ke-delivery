@@ -1,14 +1,14 @@
-import React, {useState, useEffect } from "react";
+import React, {useEffect, useContext } from "react";
 import styles from "./Produtos.module.css";
 import fetchProducts from "../../../../api/fetchProducts.js";
 import ProductCard from "../ProductCard";
 import Loading from "../Loading";
+import PedidosContext from "../../../../app/home/context/PedidosContext/PedidosContext.js";
 
 
 const Produtos = () => {
-
-    const [products, setProducts] = useState<any[]>([]);
-    const [loading, setLoading] = useState(true);
+    
+    const { products, setProducts, loading, setLoading } = useContext(PedidosContext);
 
     useEffect(() => {
         fetchProducts('leite').then((response) => {
