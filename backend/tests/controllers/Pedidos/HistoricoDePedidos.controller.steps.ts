@@ -7,7 +7,7 @@ import PedidoRepository from '../../../src/repositories/Pedidos/pedido.repositor
 import PedidoEntity from '../../../src/entities/Pedidos/pedido.entity';
 
 
-const feature = loadFeature('tests/features/HistoricoDePedidos.feature', {tagFilter: "@runThis" });
+const feature = loadFeature('tests/features/pedidos/HistoricoDePedidos.feature', {tagFilter: "@runThis" });
 const request = supertest(app);
 defineFeature(feature, (test) => {
   // mocking the repository
@@ -18,7 +18,7 @@ defineFeature(feature, (test) => {
     mockPedidoRepository = di.getRepository<PedidoRepository>(PedidoRepository);
   });
   afterEach(async () => {
-    (await mockPedidoRepository.getPedidos()).forEach(async pedido => { await mockPedidoRepository.deletePedido(pedido.name); })
+    (await mockPedidoRepository.getPedidos()).forEach(async pedido => { await mockPedidoRepository.deletePedido(pedido.id); })
   })
 
   //Scenario: Obter pedido com código inválido(SERVICE)
@@ -28,14 +28,13 @@ defineFeature(feature, (test) => {
   //      And o JSON da resposta deve ser "Pedido não encontrado"
 
   test('Obter pedido com código inválido (SERVICE)', ({ given, when, then, and }) => {
-    given(/^Pedidos contém um único pedido com JSON contendo id = "(.*)", CPF_Cliente = "(.*)", CPF_Entregador = "(.*)", CNPJ_Restaurante = "(.*)", Data = "(.*)", Endereco = "(.*)", Itens = "(.*)", MetodoDePagamento = "(.*)", Observacoes = "(.*)", Status = "(.*)" e ValorTotal = "(.*)"/,
-    async (name, CPF_Cliente, CPF_Entregador, CNPJ_Restaurante, Data, Endereco, Itens, MetodoDePagamento, Observacoes, Status, ValorTotal) => {
+    given(/^Pedidos contém um único pedido com JSON contendo id = "(.*)", IdCliente = "(.*)", IdEntregador = "(.*)", IdRestaurante = "(.*)", Data = "(.*)", Endereco = "(.*)", Itens = "(.*)", MetodoDePagamento = "(.*)", Observacoes = "(.*)", Status = "(.*)" e ValorTotal = "(.*)"/,
+    async (id, IdCliente, IdEntregador, IdRestaurante, Data, Endereco, Itens, MetodoDePagamento, Observacoes, Status, ValorTotal) => {
         mockPedidoEntity = await mockPedidoRepository.createPedido(new PedidoEntity({
-            "id": "1", 
-            "name": name,
-            "CPF_Cliente": CPF_Cliente,
-            "CPF_Entregador": CPF_Entregador,
-            "CNPJ_Restaurante": CNPJ_Restaurante,
+            "id": id,
+            "IdCliente": IdCliente,
+            "IdEntregador": IdEntregador,
+            "IdRestaurante": IdRestaurante,
             "Data": Data,
             "Endereco": Endereco,
             "Itens": Itens,

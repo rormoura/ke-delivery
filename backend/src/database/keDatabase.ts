@@ -37,13 +37,12 @@ export default class Database {
       pedidos: [
         new PedidoEntity({
           id: "1",
-          CNPJ_Restaurante: "12.345.678/0001-00",
-          CPF_Cliente: "111.098.098.72",
-          CPF_Entregador: "222.567.251.72",
+          IdRestaurante: "12.345.678/0001-00",
+          IdCliente: "111.098.098.72",
+          IdEntregador: "222.567.251.72",
           Data: new Date(2017, 4, 4, 17, 23, 42, 11),
           Endereco: "Avenida José Pinheiro, 358, Casa, Iputinga, Recife, Pernambuco, Brasil",
-          name: '1',
-          Itens: "{nome = 'Tofu', quantidade = '2', VUnit = 'R$10,00', VTot = 'R$20,00'}",
+          Itens: "{id= 1, name= 'Tofu', price= 'R$10,00', restaurantId= id, image= 'src'}",
           MetodoDePagamento: "Dinheiro",
           Observacoes: "Sem cebolas",
           Status: "Finalizado",
