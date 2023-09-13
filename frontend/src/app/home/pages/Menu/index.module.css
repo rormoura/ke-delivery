@@ -3,6 +3,7 @@
 .menu-page {
   text-align: center;
   padding: 20px;
+  display: block;
 }
 
 h1 {
@@ -19,15 +20,14 @@ h1 {
 
 .menu-item {
   border-radius: 10px;
-  background: #F8F8F8;
+  background-color: #efefef;
   padding: 10px;
   margin: 10px;
-  width: 200px;
   text-align: center;
 }
 
 .menu-item img {
-  max-width: 100%;
+  max-width: 220px;
   height: auto;
 }
 
@@ -70,4 +70,28 @@ h1 {
   .discreet-button:hover {
     background-color: #f0f0f0;
   }
+  
+  .restaurant {
+    display: flex;
+    justify-items: center;
+    justify-content: center;
+    margin-top: 10px;
+    padding: 10px;
+  }
+  .restaurant img {
+    margin-right: 10px;
+    height: 23px;
+  }
+  .box {
+    height: 100px;
+  }
+  .delete-button {
+    border: transparent;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-size: 14px;
+    margin-top: 10px;
+    cursor: pointer;
+  }
+  
   
