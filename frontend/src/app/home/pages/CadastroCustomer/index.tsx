@@ -33,10 +33,10 @@ const CadastroCustomer = () => {
       });
       const data = await response.json();
       if (response.status === 200) {
-        // Login bem-sucedido, redirecionar ou fazer algo aqui
+        
         window.open(`/login-customer`, '_self');
       } else {
-        // Login falhou, mostrar pop-up de erro
+        
         setShowPopup(true);
       }
     } catch (error) {
