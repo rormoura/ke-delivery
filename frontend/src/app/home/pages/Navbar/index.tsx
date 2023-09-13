@@ -8,7 +8,7 @@ const Navbar = () => {
         <img src={LogoTemporaria} alt="Logo" className={styles.icon}/>
         <h1 className={styles.title}>Ké Delivery</h1>
       </div>
-      <a href="/login">
+      <a href="/typesLogin">
         <button className={styles.buttonLogin}>Entrar</button>
       </a>
     </section>
