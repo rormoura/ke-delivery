@@ -27,16 +27,3 @@
 .value{
   margin-top: 5%;
 }
-
-.editButton{
-  width: 10rem;
-  height: 1.5rem;
-  margin-top: 15%;
-  border: none;
-  border-radius: 0.7rem;
-  background-color: rgba(246, 198, 32, 0.5);
-}
-
-.editButton:hover{
-  background-color: rgba(246, 198, 32, 1);
-}
