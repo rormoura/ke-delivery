@@ -2,10 +2,7 @@ import styles from "./index.module.css";
 import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 // import function to register Swiper custom elements
-import { register } from 'swiper/element/bundle';
-import { Swiper, SwiperSlide } from 'swiper/react';
 // register Swiper custom elements
-register();
 
 
 const Menu: React.FC = () => {
@@ -32,7 +29,6 @@ const Menu: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    // Substitua a URL abaixo pela URL da sua API
     const apiUrl = 'http://localhost:5001/api/menu';
 
     fetch(apiUrl)
@@ -60,18 +56,31 @@ const Menu: React.FC = () => {
     return <div>Erro ao carregar os dados.</div>;
   }
 
+  const handleExcluir = async (event, id) => {
+    const response = await fetch('http://localhost:5001/api/menu/'+id, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      });
+      const data = await response.json();
+      window.open(`/menu`, '_self');
+  }
+
   // Renderize os dados recebidos na sua interface
   return (
     <div className={styles['menu-page']}>
-
+      <div className={styles['box']}></div>
       {restaurantData.data.map((place: any) => ( 
-        <div>
-          <div className="flex items-center justify-center mt-10">
-            <img src="src\shared\assets\images\Subtract.png" alt="Imagem" className="mr-4" />
-            <h1 className="text-xl font-bold">{place.restaurantName}</h1>
+        <div key={place.id}>
+          <div className={styles['restaurant']}>
+            <img src="src\shared\assets\images\Subtract.png" alt="Imagem"/>
+            <h1>{place.restaurantName}</h1>
           </div>
-          <div className="mt-3">
+          <div>
+            <Link to={"/novoItem"}>
             <button className={styles['discreet-button']}>Adicionar novo item</button>
+            </Link>
           </div>
 
           <div className={styles['menu-items']}>
@@ -85,6 +94,7 @@ const Menu: React.FC = () => {
                     <Link to={`/cart/${item.id}`}>
                       <button className={styles['add-to-cart-button']}>Adicionar ao carrinho</button>
                     </Link>
+                    <button onClick={(event) => handleExcluir(event, item.id)} className={styles['delete-button']}>Excluir</button>
                   </div>
                 }
               </div>

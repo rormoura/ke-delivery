@@ -7,6 +7,9 @@ import Footer from "./app/home/pages/Footer";
 import LoginCustomer from "./app/home/pages/LoginCustomer";
 import Menu from "./app/home/pages/Menu";
 import Pedidos from "./app/home/pages/NovoPedido";
+import addItemMenu from "./app/home/pages/Menu/newItem";
+import Deliverymans from "./app/home/pages/Deliverymans";
+import addDeliveryman from "./app/home/pages/Deliverymans/newDeliv";
 
 const router = createBrowserRouter([
   // {
@@ -44,6 +47,18 @@ const router = createBrowserRouter([
   {
     path: "/NovoPedido",
     Component: Pedidos,
+  },
+  {
+    path: "/novoItem",
+    Component: addItemMenu,
+  },
+  {
+    path: "/entregadores",
+    Component: Deliverymans,
+  },
+  {
+    path: "/novoEntregador",
+    Component: addDeliveryman,
   },
 ]);
 
