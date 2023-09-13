@@ -1,11 +1,11 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import styles from './carrinho.module.css';
 import CarrinhoItem from '../CarrinhoItem';
 import PedidosContext from '../../../../app/home/context/PedidosContext/PedidosContext.js';
 import formatCurrency from '../../../../utils/formatCurrency.js';
 
 function Carrinho() {
-    const { cartItems, isCartVisible } = useContext(PedidosContext);
+    const { cartItems, isCartVisible, setCartItems, setQtdItems } = useContext(PedidosContext);
 
     // Função para agrupar itens pelo ID
     const groupedCartItems = cartItems.reduce((groups, item) => {
@@ -19,6 +19,14 @@ function Carrinho() {
 
         return groups;
     }, []);
+
+    // Calculate the total quantity of items in the cart
+    const totalQuantity = groupedCartItems.reduce((acc, item) => acc + item.quantity, 0);
+
+    // Update the qtdItems state in the context whenever the total quantity changes
+    useEffect(() => {
+        setQtdItems(totalQuantity);
+    }, [totalQuantity, setQtdItems]);
 
     // Conditionally apply the class based on isCartVisible
     const cartClass = isCartVisible ? styles.cartActive : styles.cart;

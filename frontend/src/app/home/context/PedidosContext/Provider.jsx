@@ -6,6 +6,7 @@ function Provider({ children }) {
 
     const [products, setProducts] = useState([]);
     const [cartItems, setCartItems] = useState([]);
+    const [qtdItems, setQtdItems] = useState([]);
     const [loading, setLoading] = useState(true);
     const [isCartVisible, setCartVisible] = useState(false);
 
@@ -18,6 +19,8 @@ function Provider({ children }) {
         setCartItems,
         isCartVisible,
         setCartVisible,
+        qtdItems,
+        setQtdItems,
     };
     return (
         <PedidosContext.Provider value={value}>

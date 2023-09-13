@@ -4,8 +4,8 @@ import { CgShoppingCart } from "react-icons/cg";
 import PedidosContext from "../../../../app/home/context/PedidosContext/PedidosContext.js";
 
 function CartButton() {
-    const { cartItems, isCartVisible, setCartVisible } = useContext(PedidosContext);
-
+    const { qtdItems, isCartVisible, setCartVisible } = useContext(PedidosContext);
+    console.log(qtdItems)
     return (
         <button
             type="button"
@@ -13,9 +13,9 @@ function CartButton() {
             onClick={() => setCartVisible(!isCartVisible)}
         >
             <CgShoppingCart />
-            {cartItems.length > 0 && (
+            {qtdItems > 0 && (
                 <span className={styles.cartStatus}>
-                    {cartItems.reduce((acc, item) => item.quantity + acc, 0)}
+                    {qtdItems}
                 </span>
             )}
         </button>
