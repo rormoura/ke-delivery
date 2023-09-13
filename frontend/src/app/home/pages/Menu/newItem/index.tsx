@@ -4,17 +4,25 @@ import { useState } from "react";
 
 const addItemMenu = () => {
   const [formData, setFormData] = useState({
-    name:'',
-    restaurantId: '',
-    price: 0
+    name: "",
+    restaurantId: "",
+    price: 0.0, // Inicialize o campo price como um número
   });
 
   const handleInputChange = (event, name) => {
+    let value = event.target.value;
+
+    // Se o campo atual é 'price', converta o valor para um número
+    if (name === 'price') {
+      value = parseFloat(value);
+    }
+
     setFormData({ 
       ...formData, 
-      [name]: event.target.value 
+      [name]: value,
     });
-  }
+  };
+
   const [showPopup, setShowPopup] = useState(false);
 
   const handleForm = async (event) => {
@@ -25,7 +33,7 @@ const addItemMenu = () => {
         body: JSON.stringify(formData),
         headers: {
           'Content-Type': 'application/json',
-        }
+        },
       });
       const data = await response.json();
       window.open(`/menu`, '_self');
@@ -34,9 +42,9 @@ const addItemMenu = () => {
     } catch (error) {
       console.log(error);
     }
-  }
-  
-  return(
+  };
+
+  return (
     <section className={styles.container}>
       <div className={styles.header}>
         <img src={LogoTemporaria} alt="Logo" className={styles.logo} />
@@ -52,7 +60,7 @@ const addItemMenu = () => {
               placeholder="Digite o nome do prato"
               className={styles.input}
               required
-              value = {formData.name}
+              value={formData.name}
               onChange={(event) => handleInputChange(event, 'name')}
             />
           </div>
@@ -63,7 +71,7 @@ const addItemMenu = () => {
               placeholder="Digite o id do restaurante dono do prato"
               className={styles.input}
               required
-              value = {formData.restaurantId}
+              value={formData.restaurantId}
               onChange={(event) => handleInputChange(event, 'restaurantId')}
             />
           </div>
@@ -71,18 +79,20 @@ const addItemMenu = () => {
             <label>Preço</label>
             <input 
               name="price"
+              type="number" // Use o tipo "number" para o campo de preço
+              step="0.01" // Especifica a precisão de duas casas decimais
               placeholder="Digite o preço do prato"
               className={styles.input}
               required
-              value = {formData.price}
+              value={formData.price}
               onChange={(event) => handleInputChange(event, 'price')}
             />
           </div>
-        <button className={styles.button} type = "submit">Cadastrar</button>
+          <button className={styles.button} type="submit">Cadastrar</button>
         </form>
       </div>
     </section>
-  )
-}
+  );
+};
 
 export default addItemMenu;
