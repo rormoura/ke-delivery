@@ -3,12 +3,12 @@ import PedidoRepository from '../../../src/repositories/Pedidos/pedido.repositor
 import PedidoEntity from '../../../src/entities/Pedidos/pedido.entity';
 import PedidoService from '../../../src/services/Pedidos/pedido.service';
 import PedidoModel from '../../../src/models/Pedidos/pedido.model';
-const feature = loadFeature('tests/features/Pedidos-service.feature');
+const feature = loadFeature('tests/features/pedidos/Pedidos-service.feature');
 defineFeature(feature, (test) => {
   // mocking the repository
   let mockPedidoRepository: PedidoRepository;
   let service: PedidoService;
-  let nameToCall: string;
+  let idToCall: string;
   let entityToCall: PedidoEntity;
   let pedidoReturned: PedidoEntity;
   let pedidosReturnedArray: PedidoEntity[];
@@ -29,15 +29,14 @@ defineFeature(feature, (test) => {
 
   test('Update observacao', ({ given, when, then }) => {
     given(
-      /^o método updatePedido chamado com id = "(.*)", CPF_Cliente = "(.*)", CPF_Entregador = "(.*)", CNPJ_Restaurante = "(.*)", Data = "(.*)", Endereco = "(.*)", Itens = "(.*)", MetodoDePagamento = "(.*)", Observacoes = "(.*)", Status = "(.*)" e ValorTotal = "(.*)" do PedidoService retorna um pedido de id = "(.*)", CPF_Cliente = "(.*)", CPF_Entregador = "(.*)", CNPJ_Restaurante = "(.*)", Data = "(.*)", Endereco = "(.*)", Itens = "(.*)", MetodoDePagamento = "(.*)", Observacoes = "(.*)", Status = "(.*)" e ValorTotal = "(.*)"$/,
-      async (name, CPF_Cliente, CPF_Entregador, CNPJ_Restaurante, Data, Endereco, Itens, MetodoDePagamento, Observacoes, Status, ValorTotal, name1, CPF_Cliente1, CPF_Entregador1, CNPJ_Restaurante1, Data1, Endereco1, Itens1, MetodoDePagamento1, Observacoes1, Status1, ValorTotal1) => {
-        nameToCall = name;
+      /^o método updatePedido chamado com id = "(.*)", IdCliente = "(.*)", IdEntregador = "(.*)", IdRestaurante = "(.*)", Data = "(.*)", Endereco = "(.*)", Itens = "(.*)", MetodoDePagamento = "(.*)", Observacoes = "(.*)", Status = "(.*)" e ValorTotal = "(.*)" do PedidoService retorna um pedido de id = "(.*)", IdCliente = "(.*)", IdEntregador = "(.*)", IdRestaurante = "(.*)", Data = "(.*)", Endereco = "(.*)", Itens = "(.*)", MetodoDePagamento = "(.*)", Observacoes = "(.*)", Status = "(.*)" e ValorTotal = "(.*)"$/,
+      async (id, IdCliente, IdEntregador, IdRestaurante, Data, Endereco, Itens, MetodoDePagamento, Observacoes, Status, ValorTotal, id1, IdCliente1, IdEntregador1, IdRestaurante1, Data1, Endereco1, Itens1, MetodoDePagamento1, Observacoes1, Status1, ValorTotal1) => {
+        idToCall = id;
         entityToCall = new PedidoEntity({
-          "id": "1",
-          "name": name,
-          "CPF_Cliente": CPF_Cliente,
-          "CPF_Entregador": CPF_Entregador,
-          "CNPJ_Restaurante": CNPJ_Restaurante,
+          "id": id,
+          "IdCliente": IdCliente,
+          "IdEntregador": IdEntregador,
+          "IdRestaurante": IdRestaurante,
           "Data": Data,
           "Endereco": Endereco,
           "Itens": Itens,
@@ -47,11 +46,10 @@ defineFeature(feature, (test) => {
           "ValorTotal": ValorTotal
         });
         mockPedidoEntity = new PedidoEntity({
-          "id": "1",
-          "name": name1,
-          "CPF_Cliente": CPF_Cliente1,
-          "CPF_Entregador": CPF_Entregador1,
-          "CNPJ_Restaurante": CNPJ_Restaurante1,
+          "id": id1,
+          "IdCliente": IdCliente1,
+          "IdEntregador": IdEntregador1,
+          "IdRestaurante": IdRestaurante1,
           "Data": Data1,
           "Endereco": Endereco1,
           "Itens": Itens1,
@@ -64,14 +62,13 @@ defineFeature(feature, (test) => {
           .mockResolvedValue(mockPedidoEntity);
       });
 
-    when(/^o método updatePedido é chamado para atualizar a Observação = "(.*)" do pedido de id = "(.*)", CPF_Cliente = "(.*)", CPF_Entregador = "(.*)", CNPJ_Restaurante = "(.*)", Data = "(.*)", Endereco = "(.*)", Itens = "(.*)", MetodoDePagamento = "(.*)", Observacoes = "(.*)", Status = "(.*)" e ValorTotal = "(.*)"$/,
-      async (obs, name, CPF_Cliente, CPF_Entregador, CNPJ_Restaurante, Data, Endereco, Itens, MetodoDePagamento, Observacoes, Status, ValorTotal) => {
-        pedidoReturned = await service.updatePedido(name, new PedidoEntity({
-          "id": "1",
-          "name": name,
-          "CPF_Cliente": CPF_Cliente,
-          "CPF_Entregador": CPF_Entregador,
-          "CNPJ_Restaurante": CNPJ_Restaurante,
+    when(/^o método updatePedido é chamado para atualizar a Observação = "(.*)" do pedido de id = "(.*)", IdCliente = "(.*)", IdEntregador = "(.*)", IdRestaurante = "(.*)", Data = "(.*)", Endereco = "(.*)", Itens = "(.*)", MetodoDePagamento = "(.*)", Observacoes = "(.*)", Status = "(.*)" e ValorTotal = "(.*)"$/,
+      async (obs, id, IdCliente, IdEntregador, IdRestaurante, Data, Endereco, Itens, MetodoDePagamento, Observacoes, Status, ValorTotal) => {
+        pedidoReturned = await service.updatePedido(id, new PedidoEntity({
+          "id": id,
+          "IdCliente": IdCliente,
+          "IdEntregador": IdEntregador,
+          "IdRestaurante": IdRestaurante,
           "Data": Data,
           "Endereco": Endereco,
           "Itens": Itens,
@@ -81,14 +78,13 @@ defineFeature(feature, (test) => {
           "ValorTotal": ValorTotal
         }));
       });
-       then(/^o pedido retornado deve ter id = "(.*)", CPF_Cliente = "(.*)", CPF_Entregador = "(.*)", CNPJ_Restaurante = "(.*)", Data = "(.*)", Endereco = "(.*)", Itens = "(.*)", MetodoDePagamento = "(.*)", Observacoes = "(.*)", Status = "(.*)" e ValorTotal = "(.*)"$/,
-      (name, CPF_Cliente, CPF_Entregador, CNPJ_Restaurante, Data, Endereco, Itens, MetodoDePagamento, Observacoes, Status, ValorTotal) => {
+       then(/^o pedido retornado deve ter id = "(.*)", IdCliente = "(.*)", IdEntregador = "(.*)", IdRestaurante = "(.*)", Data = "(.*)", Endereco = "(.*)", Itens = "(.*)", MetodoDePagamento = "(.*)", Observacoes = "(.*)", Status = "(.*)" e ValorTotal = "(.*)"$/,
+      (id, IdCliente, IdEntregador, IdRestaurante, Data, Endereco, Itens, MetodoDePagamento, Observacoes, Status, ValorTotal) => {
         const pedidoModel = new PedidoModel(new PedidoEntity({
-          "id": "1",
-          "name": name,
-          "CPF_Cliente": CPF_Cliente,
-          "CPF_Entregador": CPF_Entregador,
-          "CNPJ_Restaurante": CNPJ_Restaurante,
+          "id": id,
+          "IdCliente": IdCliente,
+          "IdEntregador": IdEntregador,
+          "IdRestaurante": IdRestaurante,
           "Data": Data,
           "Endereco": Endereco,
           "Itens": Itens,
@@ -98,20 +94,19 @@ defineFeature(feature, (test) => {
           "ValorTotal": ValorTotal
         }))
         expect(pedidoReturned).toEqual(pedidoModel);
-        expect(mockPedidoRepository.updatePedido).toBeCalledWith(nameToCall, entityToCall)
+        expect(mockPedidoRepository.updatePedido).toBeCalledWith(idToCall, entityToCall)
       });
   });
   //-------------------------------------------------------------------------------------------------------------------------------------
   test('Create pedido', ({ given, when, then }) => {
     given(
-      /^o método createPedido chamado com id = "(.*)", CPF_Cliente = "(.*)", CPF_Entregador = "(.*)", CNPJ_Restaurante = "(.*)", Data = "(.*)", Endereco = "(.*)", Itens = "(.*)", MetodoDePagamento = "(.*)", Observacoes = "(.*)", Status = "(.*)" e ValorTotal = "(.*)" do PedidoService retorna um pedido de id = "(.*)", CPF_Cliente = "(.*)", CPF_Entregador = "(.*)", CNPJ_Restaurante = "(.*)", Data = "(.*)", Endereco = "(.*)", Itens = "(.*)", MetodoDePagamento = "(.*)", Observacoes = "(.*)", Status = "(.*)" e ValorTotal = "(.*)"$/,
-      async (name, CPF_Cliente, CPF_Entregador, CNPJ_Restaurante, Data, Endereco, Itens, MetodoDePagamento, Observacoes, Status, ValorTotal, name1, CPF_Cliente1, CPF_Entregador1, CNPJ_Restaurante1, Data1, Endereco1, Itens1, MetodoDePagamento1, Observacoes1, Status1, ValorTotal1) => {
+      /^o método createPedido chamado com id = "(.*)", IdCliente = "(.*)", IdEntregador = "(.*)", IdRestaurante = "(.*)", Data = "(.*)", Endereco = "(.*)", Itens = "(.*)", MetodoDePagamento = "(.*)", Observacoes = "(.*)", Status = "(.*)" e ValorTotal = "(.*)" do PedidoService retorna um pedido de id = "(.*)", IdCliente = "(.*)", IdEntregador = "(.*)", IdRestaurante = "(.*)", Data = "(.*)", Endereco = "(.*)", Itens = "(.*)", MetodoDePagamento = "(.*)", Observacoes = "(.*)", Status = "(.*)" e ValorTotal = "(.*)"$/,
+      async (id, IdCliente, IdEntregador, IdRestaurante, Data, Endereco, Itens, MetodoDePagamento, Observacoes, Status, ValorTotal, id1, IdCliente1, IdEntregador1, IdRestaurante1, Data1, Endereco1, Itens1, MetodoDePagamento1, Observacoes1, Status1, ValorTotal1) => {
         entityToCall = new PedidoEntity({
-          "id": "1",
-          "name": name,
-          "CPF_Cliente": CPF_Cliente,
-          "CPF_Entregador": CPF_Entregador,
-          "CNPJ_Restaurante": CNPJ_Restaurante,
+          "id": id,
+          "IdCliente": IdCliente,
+          "IdEntregador": IdEntregador,
+          "IdRestaurante": IdRestaurante,
           "Data": Data,
           "Endereco": Endereco,
           "Itens": Itens,
@@ -121,11 +116,10 @@ defineFeature(feature, (test) => {
           "ValorTotal": ValorTotal
         });
         mockPedidoEntity = new PedidoEntity({
-          "id": "1",
-          "name": name1,
-          "CPF_Cliente": CPF_Cliente1,
-          "CPF_Entregador": CPF_Entregador1,
-          "CNPJ_Restaurante": CNPJ_Restaurante1,
+          "id": id1,
+          "IdCliente": IdCliente1,
+          "IdEntregador": IdEntregador1,
+          "IdRestaurante": IdRestaurante1,
           "Data": Data1,
           "Endereco": Endereco1,
           "Itens": Itens1,
@@ -138,14 +132,13 @@ defineFeature(feature, (test) => {
           .mockResolvedValue(mockPedidoEntity);
       });
 
-    when(/^o método createPedido é chamado para criar o pedido com id = "(.*)", CPF_Cliente = "(.*)", CPF_Entregador = "(.*)", CNPJ_Restaurante = "(.*)", Data = "(.*)", Endereco = "(.*)", Itens = "(.*)", MetodoDePagamento = "(.*)", Observacoes = "(.*)", Status = "(.*)" e ValorTotal = "(.*)"$/,
-      async(name, CPF_Cliente, CPF_Entregador, CNPJ_Restaurante, Data, Endereco, Itens, MetodoDePagamento, Observacoes, Status, ValorTotal) => {
+    when(/^o método createPedido é chamado para criar o pedido com id = "(.*)", IdCliente = "(.*)", IdEntregador = "(.*)", IdRestaurante = "(.*)", Data = "(.*)", Endereco = "(.*)", Itens = "(.*)", MetodoDePagamento = "(.*)", Observacoes = "(.*)", Status = "(.*)" e ValorTotal = "(.*)"$/,
+      async(id, IdCliente, IdEntregador, IdRestaurante, Data, Endereco, Itens, MetodoDePagamento, Observacoes, Status, ValorTotal) => {
         pedidoReturned = await service.createPedido(new PedidoEntity({
-          "id": "1",
-          "name": name,
-          "CPF_Cliente": CPF_Cliente,
-          "CPF_Entregador": CPF_Entregador,
-          "CNPJ_Restaurante": CNPJ_Restaurante,
+          "id": id,
+          "IdCliente": IdCliente,
+          "IdEntregador": IdEntregador,
+          "IdRestaurante": IdRestaurante,
           "Data": Data,
           "Endereco": Endereco,
           "Itens": Itens,
@@ -155,14 +148,13 @@ defineFeature(feature, (test) => {
           "ValorTotal": ValorTotal
         }));
       });
-    then(/^o pedido retornado deve ter id = "(.*)", CPF_Cliente = "(.*)", CPF_Entregador = "(.*)", CNPJ_Restaurante = "(.*)", Data = "(.*)", Endereco = "(.*)", Itens = "(.*)", MetodoDePagamento = "(.*)", Observacoes = "(.*)", Status = "(.*)" e ValorTotal = "(.*)"$/,
-      (name, CPF_Cliente, CPF_Entregador, CNPJ_Restaurante, Data, Endereco, Itens, MetodoDePagamento, Observacoes, Status, ValorTotal) => {
+    then(/^o pedido retornado deve ter id = "(.*)", IdCliente = "(.*)", IdEntregador = "(.*)", IdRestaurante = "(.*)", Data = "(.*)", Endereco = "(.*)", Itens = "(.*)", MetodoDePagamento = "(.*)", Observacoes = "(.*)", Status = "(.*)" e ValorTotal = "(.*)"$/,
+      (id, IdCliente, IdEntregador, IdRestaurante, Data, Endereco, Itens, MetodoDePagamento, Observacoes, Status, ValorTotal) => {
         const pedidoModel = new PedidoModel(new PedidoEntity({
-          "id": "1",
-          "name": name,
-          "CPF_Cliente": CPF_Cliente,
-          "CPF_Entregador": CPF_Entregador,
-          "CNPJ_Restaurante": CNPJ_Restaurante,
+          "id": id,
+          "IdCliente": IdCliente,
+          "IdEntregador": IdEntregador,
+          "IdRestaurante": IdRestaurante,
           "Data": Data,
           "Endereco": Endereco,
           "Itens": Itens,
@@ -178,15 +170,14 @@ defineFeature(feature, (test) => {
   //-------------------------------------------------------------------------------------------------------------------------------------
   test('Return all pedidos', ({ given, when, then }) => {
     given(
-      /^o método getPedidos do PedidoService retorna um array com os pedidos id = "(.*)", CPF_Cliente = "(.*)", CPF_Entregador = "(.*)", CNPJ_Restaurante = "(.*)", Data = "(.*)", Endereco = "(.*)", Itens = "(.*)", MetodoDePagamento = "(.*)", Observacoes = "(.*)", Status = "(.*)" e ValorTotal = "(.*)" e id = "(.*)", CPF_Cliente = "(.*)", CPF_Entregador = "(.*)", CNPJ_Restaurante = "(.*)", Data = "(.*)", Endereco = "(.*)", Itens = "(.*)", MetodoDePagamento = "(.*)", Observacoes = "(.*)", Status = "(.*)" e ValorTotal = "(.*)"$/,
-      async (name, CPF_Cliente, CPF_Entregador, CNPJ_Restaurante, Data, Endereco, Itens, MetodoDePagamento, Observacoes, Status, ValorTotal, name1, CPF_Cliente1, CPF_Entregador1, CNPJ_Restaurante1, Data1, Endereco1, Itens1, MetodoDePagamento1, Observacoes1, Status1, ValorTotal1) => {
+      /^o método getPedidos do PedidoService retorna um array com os pedidos id = "(.*)", IdCliente = "(.*)", IdEntregador = "(.*)", IdRestaurante = "(.*)", Data = "(.*)", Endereco = "(.*)", Itens = "(.*)", MetodoDePagamento = "(.*)", Observacoes = "(.*)", Status = "(.*)" e ValorTotal = "(.*)" e id = "(.*)", IdCliente = "(.*)", IdEntregador = "(.*)", IdRestaurante = "(.*)", Data = "(.*)", Endereco = "(.*)", Itens = "(.*)", MetodoDePagamento = "(.*)", Observacoes = "(.*)", Status = "(.*)" e ValorTotal = "(.*)"$/,
+      async (id, IdCliente, IdEntregador, IdRestaurante, Data, Endereco, Itens, MetodoDePagamento, Observacoes, Status, ValorTotal, id1, IdCliente1, IdEntregador1, IdRestaurante1, Data1, Endereco1, Itens1, MetodoDePagamento1, Observacoes1, Status1, ValorTotal1) => {
         mockPedidoEntityArray = [
           new PedidoEntity({
-            "id": "1",
-            "name": name,
-            "CPF_Cliente": CPF_Cliente,
-            "CPF_Entregador": CPF_Entregador,
-            "CNPJ_Restaurante": CNPJ_Restaurante,
+            "id": id,
+            "IdCliente": IdCliente,
+            "IdEntregador": IdEntregador,
+            "IdRestaurante": IdRestaurante,
             "Data": Data,
             "Endereco": Endereco,
             "Itens": Itens,
@@ -196,11 +187,10 @@ defineFeature(feature, (test) => {
             "ValorTotal": ValorTotal
           }),
           new PedidoEntity({
-            "id": "2",
-            "name": name1,
-            "CPF_Cliente": CPF_Cliente1,
-            "CPF_Entregador": CPF_Entregador1,
-            "CNPJ_Restaurante": CNPJ_Restaurante1,
+            "id": id1,
+            "IdCliente": IdCliente1,
+            "IdEntregador": IdEntregador1,
+            "IdRestaurante": IdRestaurante1,
             "Data": Data1,
             "Endereco": Endereco1,
             "Itens": Itens1,
@@ -218,14 +208,13 @@ defineFeature(feature, (test) => {
         pedidosReturnedArray = await service.getPedidos();
       });
 
-    then(/^o array retornado deve conter os pedidos id = "(.*)", CPF_Cliente = "(.*)", CPF_Entregador = "(.*)", CNPJ_Restaurante = "(.*)", Data = "(.*)", Endereco = "(.*)", Itens = "(.*)", MetodoDePagamento = "(.*)", Observacoes = "(.*)", Status = "(.*)" e ValorTotal = "(.*)" e id = "(.*)", CPF_Cliente = "(.*)", CPF_Entregador = "(.*)", CNPJ_Restaurante = "(.*)", Data = "(.*)", Endereco = "(.*)", Itens = "(.*)", MetodoDePagamento = "(.*)", Observacoes = "(.*)", Status = "(.*)" e ValorTotal = "(.*)"/,
-      (name, CPF_Cliente, CPF_Entregador, CNPJ_Restaurante, Data, Endereco, Itens, MetodoDePagamento, Observacoes, Status, ValorTotal, name1, CPF_Cliente1, CPF_Entregador1, CNPJ_Restaurante1, Data1, Endereco1, Itens1, MetodoDePagamento1, Observacoes1, Status1, ValorTotal1) => {
+    then(/^o array retornado deve conter os pedidos id = "(.*)", IdCliente = "(.*)", IdEntregador = "(.*)", IdRestaurante = "(.*)", Data = "(.*)", Endereco = "(.*)", Itens = "(.*)", MetodoDePagamento = "(.*)", Observacoes = "(.*)", Status = "(.*)" e ValorTotal = "(.*)" e id = "(.*)", IdCliente = "(.*)", IdEntregador = "(.*)", IdRestaurante = "(.*)", Data = "(.*)", Endereco = "(.*)", Itens = "(.*)", MetodoDePagamento = "(.*)", Observacoes = "(.*)", Status = "(.*)" e ValorTotal = "(.*)"/,
+      (id, IdCliente, IdEntregador, IdRestaurante, Data, Endereco, Itens, MetodoDePagamento, Observacoes, Status, ValorTotal, id1, IdCliente1, IdEntregador1, IdRestaurante1, Data1, Endereco1, Itens1, MetodoDePagamento1, Observacoes1, Status1, ValorTotal1) => {
         const pedidoModelArray = [new PedidoModel(new PedidoEntity({
-            "id": "1",
-            "name": name,
-            "CPF_Cliente": CPF_Cliente,
-            "CPF_Entregador": CPF_Entregador,
-            "CNPJ_Restaurante": CNPJ_Restaurante,
+            "id": id,
+            "IdCliente": IdCliente,
+            "IdEntregador": IdEntregador,
+            "IdRestaurante": IdRestaurante,
             "Data": Data,
             "Endereco": Endereco,
             "Itens": Itens,
@@ -235,11 +224,10 @@ defineFeature(feature, (test) => {
             "ValorTotal": ValorTotal
         })),
         new PedidoModel(new PedidoEntity({
-          "id": "2",
-          "name": name1,
-          "CPF_Cliente": CPF_Cliente1,
-          "CPF_Entregador": CPF_Entregador1,
-          "CNPJ_Restaurante": CNPJ_Restaurante1,
+          "id": id1,
+          "IdCliente": IdCliente1,
+          "IdEntregador": IdEntregador1,
+          "IdRestaurante": IdRestaurante1,
           "Data": Data1,
           "Endereco": Endereco1,
           "Itens": Itens1,
@@ -257,7 +245,7 @@ defineFeature(feature, (test) => {
     given(
       /^o método deletePedido chamado com "(.*)" do PedidoService não realiza retorno$/,
       async (idPedido) => {
-        nameToCall = idPedido;
+        idToCall = idPedido;
         jest.spyOn(mockPedidoRepository, 'deletePedido')
           .mockImplementation();
       });
@@ -270,7 +258,7 @@ defineFeature(feature, (test) => {
     then(/^nada deve ser retornado$/,
       () => {
         expect(voidReturned).toBeUndefined();
-        expect(mockPedidoRepository.deletePedido).toBeCalledWith(nameToCall)
+        expect(mockPedidoRepository.deletePedido).toBeCalledWith(idToCall)
       });
   });
 });

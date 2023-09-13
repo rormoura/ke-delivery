@@ -16,6 +16,7 @@ Feature: Criação de Pedidos
 		And o status do pedido "0001" é "Aguardando confirmação do Restaurante"
 		And Uma notificação de novo pedido é enviada ao restaurante
 
+@runThis
 	Scenario: Finalizar compra (Service)
 		Given Pedidos contém um pedido com JSON contendo id = "0001", IdCliente = "654.243.312.11", IdEntregador = "645.323.162.43", IdRestaurante = "22.949.533/0001-00", Data = "15/05/2022", Endereco = "Rua das Flores, 432, Váezea, Recife, Pernambuco, Brasil", Itens = "{nome = 'Salsicha', quantidade = '3', VUnit = 'R$10,00',VTot = 'R$30,00'}", MetodoDePagamento = "Dinheiro", Observacoes = "Nenhuma", Status = "Finalizado" e ValorTotal = "R$30,00"
 		When uma requisição "POST" for enviada para "pedidos" com o corpo da requisição contendo id = "0002", IdCliente = "111.111.111.11", IdEntregador = "000.000.000.00", IdRestaurante = "12.345.678/0003-00", Data = "25/09/2020", Endereco = "Rua Mauricéia, 358, Torre, Recife, Pernambuco, Brasil", Itens = "{nome = 'Tofu', quantidade = '2', VUnit = 'R$10,00', VTot = 'R$20,00'}", MetodoDePagamento = "Cartão de Crédito VISA", Observacoes = "Nenhuma", Status = "Aguardando confirmação do restaurante" e ValorTotal = "R$20,00"
