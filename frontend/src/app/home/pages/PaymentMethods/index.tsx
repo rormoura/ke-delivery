@@ -65,19 +65,54 @@ const PaymentMethods: React.FC = () => {
   };
 
   const handleSubmit = () => {
+    if(formData.name == undefined){
+      formData.name = '';
+    }
+    if(formData.cardHolderName == undefined){
+      formData.cardHolderName = '';
+    }
+    if(formData.cardNumber == undefined){
+      formData.cardNumber = '';
+    }
+    if(formData.expirationDate == undefined){
+      formData.expirationDate = '';
+    }
+    if(formData.cvv == undefined){
+      formData.cvv = '';
+    }
     axios.post(`http://localhost:5001/api/paymentMethods/${formData.type}`, formData)
       .then((response) => {
-        setPaymentMethods([...paymentMethods, response.data.data]);
-        closeModal();
-        closeCreditCardModal();
-        alert(`Método de pagamento do tipo ${formData.type} adicionado com sucesso.`);
-      })
+          if(response.data.msgCode === "success"){
+            setPaymentMethods([...paymentMethods, response.data.data]);
+            closeModal();
+            closeCreditCardModal();
+            alert(`Método de pagamento do tipo ${formData.type} adicionado com sucesso.`);
+            }
+            else{
+              return Promise.reject(response);
+            }
+        })
       .catch((error) => {
-        alert(`Não foi possível adicionar o método de pagamento do tipo ${formData.type}: `+error);
+        alert(`Não foi possível adicionar o método de pagamento do tipo ${formData.type}: `+error.response.data.msg);
       });
   };
 
   const handleUpdateSubmit = () => {
+    if(formData.name == undefined){
+      formData.name = '';
+    }
+    if(formData.cardHolderName == undefined){
+      formData.cardHolderName = '';
+    }
+    if(formData.cardNumber == undefined){
+      formData.cardNumber = '';
+    }
+    if(formData.expirationDate == undefined){
+      formData.expirationDate = '';
+    }
+    if(formData.cvv == undefined){
+      formData.cvv = '';
+    }
     axios.put(`http://localhost:5001/api/paymentMethods/cash/${formData.name}`, updateData)
       .then((response) => {
           if(formData.name === defaultPaymentMethod){
@@ -120,7 +155,7 @@ const PaymentMethods: React.FC = () => {
                       setShowUpdateModal(false);
                     })
                     .catch((error) => {
-                      alert(`Não foi possível atualizar o método de pagamento ${formData.name}: `+error);
+                      alert(`Não foi possível atualizar o método de pagamento ${formData.name}: `+error.response.data.msg);
                   });
 
             });
@@ -142,7 +177,7 @@ const PaymentMethods: React.FC = () => {
         setShowUpdateCreditCardModal(false);
       })
       .catch((error) => {
-        alert(`Não foi possível atualizar o método de pagamento ${formData.name}: `+error);
+        alert(`Não foi possível atualizar o método de pagamento ${formData.name}: `+error.response.data.msg);
       });
   };
 
@@ -169,15 +204,11 @@ const PaymentMethods: React.FC = () => {
         setPaymentMethods(paymentMethods.filter((method: any) => method.name !== name));
       })
       .catch((error) => {
-        alert(`Não foi possível remover o método de pagamento ${name}: `+error);
+        alert(`Não foi possível remover o método de pagamento ${name}: `+error.response.data.msg);
       });
       if(name === defaultPaymentMethod){
         setDefaultPaymentMethod('');
       }
-  };
-
-  const handleChange = (fieldName: string, value: string) => {
-    setFormData({ ...formData, [fieldName]: value });
   };
 
   const handleSetDefaultPaymentMethod = (name: string) => {
@@ -194,7 +225,7 @@ const PaymentMethods: React.FC = () => {
         alert(`O método de pagamento ${name} foi definido como padrão com sucesso.`)
       })
       .catch((error) => {
-        alert(`Não foi possível definir o método ${name} como o novo método de pagamento padrão: `+error);
+        alert(`Não foi possível definir o método ${name} como o novo método de pagamento padrão: `+error.response.data.msg);
       });
   };
 
@@ -206,12 +237,12 @@ const PaymentMethods: React.FC = () => {
         <h2>Métodos de Pagamento disponíveis</h2>
         <ul>
           {paymentMethods.map((method: PaymentMethod) => (
-            <li key={method.name}>
+            <li key={method.name} data-cy="metodosDisponiveis">
               {method.name} (Padrão: {method.name === defaultPaymentMethod ? 'Sim' : 'Não'})
-              <button onClick={() => handleUpdatePaymentMethod(method.name)}>Atualizar</button>
-              <button onClick={() => handleDeletePaymentMethod(method.name)}>Remover</button>
+              <button data-cy={"atualizar"+method.name} onClick={() => handleUpdatePaymentMethod(method.name)}>Atualizar</button>
+              <button data-cy={"remover"+method.name} onClick={() => handleDeletePaymentMethod(method.name)}>Remover</button>
               {!(method.default === "yes") && (
-                <button onClick={() => handleSetDefaultPaymentMethod(method.name)}>Definir como padrão</button>
+                <button data-cy={"definirPadrao"+method.name} onClick={() => handleSetDefaultPaymentMethod(method.name)}>Definir como padrão</button>
               )}
             </li>
           ))}
@@ -220,10 +251,10 @@ const PaymentMethods: React.FC = () => {
 
       <div className={styles.addPaymentMethod}>
         <h2>Adicionar método de pagamento</h2>
-        <button onClick={() => handleAddPaymentMethod('cash')}>Adicionar método de pagamento em dinheiro</button>
-        <button onClick={() => handleAddPaymentMethod('creditCard')}>Adicionar cartão de crédito</button>
-        <button onClick={() => handleAddPaymentMethod('pix')}>Adicionar pix</button>
-        <button onClick={() => handleAddPaymentMethod('googlePay')}>Adicionar google pay</button>
+        <button data-cy="adicionarDinheiro" onClick={() => handleAddPaymentMethod('cash')}>Adicionar método de pagamento em dinheiro</button>
+        <button data-cy="adicionarCartao" onClick={() => handleAddPaymentMethod('creditCard')}>Adicionar cartão de crédito</button>
+        <button data-cy="adicionarPix" onClick={() => handleAddPaymentMethod('pix')}>Adicionar pix</button>
+        <button data-cy="adicionarGooglePay" onClick={() => handleAddPaymentMethod('googlePay')}>Adicionar google pay</button>
       </div>
 
       {showModal && (
@@ -234,6 +265,7 @@ const PaymentMethods: React.FC = () => {
             <div className={styles.formGroup}>
               <label htmlFor="name">Nome:</label>
               <input
+                data-cy="nomeModalComum"
                 type="text"
                 id="name"
                 name="name"
@@ -241,8 +273,8 @@ const PaymentMethods: React.FC = () => {
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
               />
             </div>
-            <button type="button" onClick={handleSubmit}>Adicionar</button>
-            <button type="button" onClick={closeModal}>Cancelar</button>
+            <button data-cy="adicionarModalComum" type="button" onClick={handleSubmit}>Adicionar</button>
+            <button data-cy="cancelarModalComum" type="button" onClick={closeModal}>Cancelar</button>
           </form>
         </div>
         </div>
@@ -256,6 +288,7 @@ const PaymentMethods: React.FC = () => {
             <div className={styles.formGroup}>
               <label htmlFor="name">Nome:</label>
               <input
+                data-cy="nomeModalCartao"
                 type="text"
                 id="name"
                 name="name"
@@ -264,15 +297,16 @@ const PaymentMethods: React.FC = () => {
               />
               <label htmlFor="cardHolderName">Nome do titular do cartão:</label>
               <input
+                data-cy="titularModalCartao"
                 type="text"
                 id="cardHolderName"
                 name="cardHolderName"
                 value={formData.cardHolderName || ''}
-                onChange={(e) => handleChange("cardHolderName", e.target.value)}
-                onBlur={(e) => handleChange("cardHolderName", e.target.value)}
+                onChange={(e) => setFormData({ ...formData, cardHolderName: e.target.value })}
               />
               <label htmlFor="cardNumber">Número do cartão:</label>
               <input
+                data-cy="numeroModalCartao"
                 type="text"
                 id="cardNumber"
                 name="cardNumber"
@@ -281,6 +315,7 @@ const PaymentMethods: React.FC = () => {
               />
               <label htmlFor="expirationDate">Data de validade:</label>
               <input
+                data-cy="validadeModalCartao"
                 type="date"
                 id="expirationDate"
                 name="expirationDate"
@@ -289,6 +324,7 @@ const PaymentMethods: React.FC = () => {
               />
               <label htmlFor="cvv">CVV:</label>
               <input
+                data-cy="cvvModalCartao"
                 type="text"
                 id="cvv"
                 name="cvv"
@@ -296,8 +332,8 @@ const PaymentMethods: React.FC = () => {
                 onChange={(e) => setFormData({ ...formData, cvv: e.target.value })}
               />
             </div>
-            <button type="button" onClick={handleSubmit}>Adicionar</button>
-            <button type="button" onClick={closeCreditCardModal}>Cancelar</button>
+            <button data-cy="adicionarModalCartao" type="button" onClick={handleSubmit}>Adicionar</button>
+            <button data-cy="cancelarModalCartao" type="button" onClick={closeCreditCardModal}>Cancelar</button>
           </form>
         </div>
         </div>
@@ -311,6 +347,7 @@ const PaymentMethods: React.FC = () => {
                 <div className={styles.formGroup}>
                 <label htmlFor="name">Nome:</label>
                   <input
+                    data-cy="nomeUpdateModalCartao"
                     type="text"
                     name="name"
                     value={updateCreditCardData.name}
@@ -318,6 +355,7 @@ const PaymentMethods: React.FC = () => {
                   />
                   <label htmlFor="cardHolderName">Nome do titular do cartão:</label>
               <input
+                data-cy="titularUpdateModalCartao"
                 type="text"
                 id="cardHolderName"
                 name="cardHolderName"
@@ -326,6 +364,7 @@ const PaymentMethods: React.FC = () => {
               />
               <label htmlFor="cardNumber">Número do cartão:</label>
               <input
+                data-cy="numeroUpdateModalCartao"
                 type="text"
                 id="cardNumber"
                 name="cardNumber"
@@ -334,6 +373,7 @@ const PaymentMethods: React.FC = () => {
               />
               <label htmlFor="expirationDate">Data de validade:</label>
               <input
+                data-cy="validadeUpdateModalCartao"
                 type="date"
                 id="expirationDate"
                 name="expirationDate"
@@ -342,6 +382,7 @@ const PaymentMethods: React.FC = () => {
               />
               <label htmlFor="cvv">CVV:</label>
               <input
+                data-cy="cvvUpdateModalCartao"
                 type="text"
                 id="cvv"
                 name="cvv"
@@ -350,14 +391,15 @@ const PaymentMethods: React.FC = () => {
               />
               <label htmlFor="default">Padrão:</label>
                   <input
+                    data-cy="padraoUpdateModalCartao"
                     type="text"
                     name="default"
                     value={updateCreditCardData.default}
                     onChange={(e) => setUpdateCreditCardData({ ...updateCreditCardData, default: e.target.value })}
                     disabled
                   />
-                  <button type="button" onClick={handleUpdateCreditCardSubmit}>Atualizar</button>
-                  <button type="button" onClick={() => {setFormData({}); setShowUpdateCreditCardModal(false); setUpdateCreditCardData({ id:'',name:'', cardHolderName:'',cardNumber:'',expirationDate:'',cvv:'',default:''});}}>Cancelar</button>
+                  <button data-cy="atualizarUpdateModalCartao" type="button" onClick={handleUpdateCreditCardSubmit}>Atualizar</button>
+                  <button data-cy="cancelarUpdateModalCartao" type="button" onClick={() => {setFormData({}); setShowUpdateCreditCardModal(false); setUpdateCreditCardData({ id:'',name:'', cardHolderName:'',cardNumber:'',expirationDate:'',cvv:'',default:''});}}>Cancelar</button>
                   </div>
                 </form>
               </div>
@@ -372,6 +414,7 @@ const PaymentMethods: React.FC = () => {
                 <div className={styles.formGroup}>
                 <label htmlFor="name">Nome:</label>
                   <input
+                    data-cy="nomeUpdateModalComum"
                     type="text"
                     name="name"
                     value={updateData.name}
@@ -379,14 +422,15 @@ const PaymentMethods: React.FC = () => {
                   />
                 <label htmlFor="default">Padrão:</label>
                   <input
+                    data-cy="padraoUpdateModalComum"
                     type="text"
                     name="default"
                     value={updateData.default}
                     onChange={(e) => setUpdateData({ ...updateData, default: e.target.value })}
                     disabled
                   />
-                  <button type="button" onClick={handleUpdateSubmit}>Atualizar</button>
-                  <button type="button" onClick={() => {setFormData({}); setShowUpdateModal(false); setUpdateData({ id:'',name:'',default:''});}}>Cancelar</button>
+                  <button data-cy="atualizarUpdateModalComum" type="button" onClick={handleUpdateSubmit}>Atualizar</button>
+                  <button data-cy="cancelarUpdateModalComum" type="button" onClick={() => {setFormData({}); setShowUpdateModal(false); setUpdateData({ id:'',name:'',default:''});}}>Cancelar</button>
                   </div>
                 </form>
               </div>
