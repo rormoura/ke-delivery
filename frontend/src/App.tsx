@@ -15,6 +15,8 @@ import HomeRestaurant from "./app/home/pages/HomeRestaurant";
 import TypesRegisters from "./app/home/pages/TypesRegisters";
 import TypesLogin from "./app/home/pages/TypesLogin";
 import MenuRestaurant from "./app/home/pages/MenuRestaurant";
+import CadastroCustomer from "./app/home/pages/CadastroCustomer";
+import PainelCustomer from "./app/home/pages/PainelCustomer";
 
 const router = createBrowserRouter([
   {
@@ -84,6 +86,14 @@ const router = createBrowserRouter([
   {
     path: "/menuRestaurant",
     Component: MenuRestaurant,
+  },
+  {
+    path: "/cadastro-customer",
+    Component: CadastroCustomer,
+  },
+  {
+    path: "/painel-customer",
+    Component: PainelCustomer,
   },
 ]);
 
