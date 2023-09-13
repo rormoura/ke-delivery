@@ -1,10 +1,12 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Login from "./app/home/pages/Login";
+import LoginRestaurant from "./app/home/pages/LoginRestaurant";
 import Home from "./app/home/pages/Home";
 import Navbar from "./app/home/pages/Navbar";
 import RegisterRestaurant from "./app/home/pages/RegisterRestaurant";
 import HomeRestaurant from "./app/home/pages/HomeRestaurant";
 import TypesRegisters from "./app/home/pages/TypesRegisters";
+import TypesLogin from "./app/home/pages/TypesLogin";
+import MenuRestaurant from "./app/home/pages/MenuRestaurant";
 
 const router = createBrowserRouter([
   {
@@ -12,8 +14,8 @@ const router = createBrowserRouter([
     Component: Home,
   },
   {
-    path: "/login",
-    Component: Login,
+    path: "/loginRestaurant",
+    Component: LoginRestaurant,
   },
   {
     path: "/navbar",
@@ -24,12 +26,20 @@ const router = createBrowserRouter([
     Component: RegisterRestaurant,
   },
   {
-    path: "/homeRestaurant",
+    path: "/homeRestaurant/:id",
     Component: HomeRestaurant,
   },
   {
     path: "/typesRegisters",
     Component: TypesRegisters,
+  },
+  {
+    path: "/typesLogin",
+    Component: TypesLogin,
+  },
+  {
+    path: "/menuRestaurant/:id",
+    Component: MenuRestaurant,
   },
 ]);
 
