@@ -12,6 +12,11 @@ function Carrinho() {
     // Conditionally apply the class based on isCartVisible
     const cartClass = isCartVisible ? styles.cartActive : styles.cart;
 
+    const handleCheckout = () => {
+        const updatedItems = cartItems.filter((item) => item.id != id);
+        setCartItems(updatedItems);
+    }
+
     return (
         <section className={cartClass}>
             <div className={styles.cartItens}>
@@ -20,7 +25,16 @@ function Carrinho() {
                 ))}
             </div>
 
-            <div className={styles.cartResume}>{formatCurrency(totalPrice, 'BRL')}</div>
+            <div className={styles.cartResume}>
+                {formatCurrency(totalPrice, 'BRL')}
+                <button
+                    className={styles.cartCheckout}
+                    type="button"
+                    onClick={handleCheckout}
+                >
+                Checkout
+                </button>
+            </div>
         </section>
     );
 }

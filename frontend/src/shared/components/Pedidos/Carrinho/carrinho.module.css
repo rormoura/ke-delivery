@@ -45,3 +45,31 @@
     border-left: 1px solid #ddd;
     border-color: black;
 }
+
+
+.cartCheckout {
+    font-size: 1.5rem;
+    border: rgb(255, 204, 0);
+    outline: none;
+    border-radius: 24px;
+    padding: 5px;
+    line-height: 20px;
+    text-transform: uppercase;
+    margin: 0px;
+    height: 48px;
+    color: rgb(34, 34, 34);
+    background-color: rgb(255, 204, 0);
+    font-weight: 700;
+    width: 50px;
+    margin-left: 10px;
+    align-items: center;
+    align-content: center;
+    cursor: pointer;
+    position: relative;
+}
+
+    .cartCheckout:hover {
+        background-color: #FFDC00;
+        color: #222;
+        font-weight: bold;
+    }
