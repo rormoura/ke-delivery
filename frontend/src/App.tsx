@@ -38,7 +38,7 @@ const router = createBrowserRouter([
     Component: TypesLogin,
   },
   {
-    path: "/menuRestaurant/:id",
+    path: "/menuRestaurant",
     Component: MenuRestaurant,
   },
 ]);
