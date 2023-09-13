@@ -1,6 +1,5 @@
 import RestaurantEntity from '../entities/restaurant.entity';
 import RestaurantModel from '../models/restaurant.model';
-import OtherRepository from '../repositories/other.repository';
 import RestaurantRepository from '../repositories/restaurant.repository';
 import { HttpForbiddenError, HttpNotFoundError } from '../utils/errors/http.error';
 
@@ -80,6 +79,24 @@ class RestaurantService {
 
   public async deleteRestaurant(id: string): Promise<void> {
     await this.restaurantRepository.deleteRestaurant(id);
+  }
+
+  public async loginRestaurant (email: string, password: string): Promise<RestaurantModel> {
+    const RestaurantEntity = await this.restaurantRepository.getRestaurantbyEmail(email);
+    if (!RestaurantEntity) {
+      throw new HttpNotFoundError({
+        msg: 'Restaurant not found',
+        msgCode: RestaurantServiceMessageCode.account_not_found,
+      });
+    }
+    if (RestaurantEntity.password !== password) {
+      throw new HttpForbiddenError({
+        msg: 'Password incorrect',
+        msgCode: RestaurantServiceMessageCode.account_not_found,
+      });
+    }
+    const restaurantModel = new RestaurantModel(RestaurantEntity);
+    return restaurantModel;
   }
 }
 
