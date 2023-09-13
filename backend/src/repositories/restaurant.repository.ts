@@ -1,3 +1,4 @@
+import RestaurantEntity from '../entities/restaurant.entity';
 import RegisterRestaurantEntity from '../entities/restaurant.entity';
 import BaseRepository from './base.repository';
 
@@ -12,6 +13,10 @@ class RestaurantRepository extends BaseRepository<RegisterRestaurantEntity> {
 
   public async getRestaurant(id: string): Promise<RegisterRestaurantEntity | null> {
     return await this.findOne((item) => item.id === id);
+  }
+
+  public async getRestaurantbyEmail(email: string): Promise<RestaurantEntity | null> {
+    return await this.findOne((item) => item.email === email);
   }
 
   public async createRestaurant(data: RegisterRestaurantEntity): Promise<RegisterRestaurantEntity> {

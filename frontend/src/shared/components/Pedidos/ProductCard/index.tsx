@@ -27,7 +27,7 @@ function ProductCard({ data }) {
         <div className={styles['menu-item']} key={id}>
                 <img src={`src/shared/assets/images/${name}.png`} alt={name} />
                 <p className={styles['menu-item-name']}>{name}</p>
-                <p className={styles['menu-item-price']}>{price}</p>
+                <p className={styles['menu-item-price']}>{formatCurrency(price, 'BRL')}</p>
                 <button onClick={(event) => handleExcluir(event, id)} className={styles['delete-button']}>Excluir</button>
                 <button
                     type="button"
