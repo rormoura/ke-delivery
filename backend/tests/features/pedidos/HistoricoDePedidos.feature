@@ -49,10 +49,10 @@ Feature: Histórico de pedidos
     Scenario: Obter pedido existente (SERVICE)
         Given PedidosService retorna uma lista de pedidos
         When uma requisição "GET" for enviada para "/api/pedidos/15122023"
-        Then o status da resposta deve ser "200" e o JSON da resposta deve ser id = "15122023", CPF_Cliente = "111.442.412.54", CPF_Entregador = "567.223.123.55", CNPJ_Restaurante = "66.324.165/0005-00", Data = "15/12/2023", Endereco = "Rua das Labutas, 876, Váezea, Recife, Pernambuco, Brasil", Itens = "{nome = "Macarronada", quantidade = "1", VUnit = "R$43,14", VTot = "R$43,14"}", MetodoDePagamento = "Cartão de Crédito VISA", Observacoes = "Com molho extra", Status = "Finalizado" e ValorTotal = "R$43,14"
+        Then o status da resposta deve ser "200" e o JSON da resposta deve ser id = "15122023", IdCliente = "111.442.412.54", IdEntregador = "567.223.123.55", IdRestaurante = "66.324.165/0005-00", Data = "15/12/2023", Endereco = "Rua das Labutas, 876, Váezea, Recife, Pernambuco, Brasil", Itens = "{nome = "Macarronada", quantidade = "1", VUnit = "R$43,14", VTot = "R$43,14"}", MetodoDePagamento = "Cartão de Crédito VISA", Observacoes = "Com molho extra", Status = "Finalizado" e ValorTotal = "R$43,14"
 
     @runThis
     Scenario: Obter pedido com código inválido (SERVICE)
-        Given Pedidos contém um único pedido com JSON contendo id = "6000", CPF_Cliente = "222.555.312.11", CPF_Entregador = "644.132.162.23", CNPJ_Restaurante = "22.543.654/0001-00", Data = "15/09/2022", Endereco = "Rua das Quedas, 333, Váezea, Recife, Pernambuco, Brasil", Itens = "{nome = "Pizza de Marguerita G", quantidade = "1", VUnit = "R$33,00", VTot = "R$33,00"}", MetodoDePagamento = "Cartão de Crédito VISA", Observacoes = "Nenhuma", Status = "Em preparo" e ValorTotal = "R$40,00"
+        Given Pedidos contém um único pedido com JSON contendo id = "6000", IdCliente = "222.555.312.11", IdEntregador = "644.132.162.23", IdRestaurante = "22.543.654/0001-00", Data = "15/09/2022", Endereco = "Rua das Quedas, 333, Váezea, Recife, Pernambuco, Brasil", Itens = "{nome = "Pizza de Marguerita G", quantidade = "1", VUnit = "R$33,00", VTot = "R$33,00"}", MetodoDePagamento = "Cartão de Crédito VISA", Observacoes = "Nenhuma", Status = "Em preparo" e ValorTotal = "R$40,00"
         When uma requisição "GET" for enviada para "/api/pedidos/999999"
         Then o status da resposta deve ser "404" e o JSON da resposta deve ser "Pedido não encontrado"

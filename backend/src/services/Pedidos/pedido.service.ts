@@ -3,12 +3,11 @@ import PedidoModel from '../../models/Pedidos/pedido.model';
 import PedidoRepository from '../../repositories/Pedidos/pedido.repository';
 import { HttpNotFoundError, HttpForbiddenError } from '../../utils/errors/http.error';
 
-class PedidoServiceMessageCode {
-  public static readonly Pedido_not_found = 'Pedido_not_found';
-  public static readonly Pedido_already_exists = 'Pedido_already_exists'
-}
-
 class PedidoService {
+
+  nFound = 'Pedido not found';
+  aExist = 'Pedido already exists';
+
   private PedidoRepository: PedidoRepository;
 
   constructor(
@@ -30,8 +29,8 @@ class PedidoService {
 
     if (!PedidoEntity) {
       throw new HttpNotFoundError({
-        msg: 'Pedido not found',
-        msgCode: PedidoServiceMessageCode.Pedido_not_found,
+        msg: this.nFound,
+        msgCode: this.nFound,
       });
     }
 
@@ -47,11 +46,11 @@ class PedidoService {
   }
 
   public async createPedido(data: PedidoEntity): Promise<PedidoModel> {
-    const PedidoEntityAlreadyExists = await this.getPedidoWithoutError(data.name)
+    const PedidoEntityAlreadyExists = await this.getPedidoWithoutError(data.id)
     if (PedidoEntityAlreadyExists) {
       throw new HttpForbiddenError({
-        msg: 'Pedido already exists',
-        msgCode: PedidoServiceMessageCode.Pedido_already_exists,
+        msg: this.aExist,
+        msgCode: this.aExist,
       });
     }
 
@@ -66,8 +65,8 @@ class PedidoService {
 
     if (!PedidoEntity) {
       throw new HttpNotFoundError({
-        msg: 'Pedido not found',
-        msgCode: PedidoServiceMessageCode.Pedido_not_found,
+        msg: this.nFound,
+        msgCode: this.nFound,
       });
     }
 
