@@ -40,6 +40,37 @@ class CustomerService {
     return customerModel;
   }
 
+  public async getCustomerbyEmail(email: string): Promise<CustomerModel> {
+    const CustomerEntity = await this.CustomerRepository.getCustomerbyEmail(email);
+
+    if (!CustomerEntity) {
+      throw new HttpNotFoundError({
+        msg: 'Customer not found',
+        msgCode: CustomerServiceMessageCode.Customer_not_found,
+      });
+    }
+
+    const customerModel = new CustomerModel(CustomerEntity);
+
+    return customerModel;
+  }
+
+  public async getCustomerbyCpf(cpf: string): Promise<CustomerModel> {
+    const CustomerEntity = await this.CustomerRepository.getCustomerbyCpf(cpf);
+
+    if (!CustomerEntity) {
+      throw new HttpNotFoundError({
+        msg: 'Customer not found',
+        msgCode: CustomerServiceMessageCode.Customer_not_found,
+      });
+    }
+
+    const customerModel = new CustomerModel(CustomerEntity);
+
+    return customerModel;
+  }
+  
+
   public async getCustomerWithoutError(email: string, cpf: string): Promise<CustomerEntity | null> {
     const CustomerEntity = await this.CustomerRepository.getCustomerbyEmail(email);
     const CustomerEntity2 = await this.CustomerRepository.getCustomerbyCpf(cpf);
@@ -107,15 +138,6 @@ class CustomerService {
     }
     const customerModel = new CustomerModel(CustomerEntity);
     return customerModel;
-  }
-
-  public async checkCustomerExists (email: string, cpf: string): Promise<boolean> {
-    const CustomerEntity = await this.CustomerRepository.getCustomerbyEmail(email);
-    const CustomerEntity2 = await this.CustomerRepository.getCustomerbyCpf(cpf);
-    if (CustomerEntity || CustomerEntity2) {
-      return true;
-    }
-    return false;
   }
 
 }

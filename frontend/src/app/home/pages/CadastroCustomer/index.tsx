@@ -34,7 +34,7 @@ const CadastroCustomer = () => {
       const data = await response.json();
       if (response.status === 200) {
         // Login bem-sucedido, redirecionar ou fazer algo aqui
-        // window.open(`/cadastro-customer`, '_self');
+        window.open(`/login-customer`, '_self');
       } else {
         // Login falhou, mostrar pop-up de erro
         setShowPopup(true);
@@ -58,6 +58,7 @@ const CadastroCustomer = () => {
           <div className={styles.inputContainer}>
             <label>Nome Completo</label>
             <input 
+              data-cy="name"
               name="name"
               placeholder="Digite seu nome completo"
               className={styles.input}
@@ -69,6 +70,7 @@ const CadastroCustomer = () => {
           <div className={styles.inputContainer}>
             <label>CPF</label>
             <input 
+              data-cy="cpf"
               name="cpf"
               placeholder="Digite seu CPF"
               className={styles.input}
@@ -80,6 +82,7 @@ const CadastroCustomer = () => {
           <div className={styles.inputContainer}>
             <label>Email</label>
             <input 
+              data-cy="email"
               name="email"
               placeholder="Digite seu melhor email"
               className={styles.input}
@@ -92,6 +95,7 @@ const CadastroCustomer = () => {
           <div className={styles.inputContainer}>
             <label>Endereço</label>
             <input 
+              data-cy="address"
               name="address"
               placeholder="Digite seu endereço"
               className={styles.input}
@@ -104,6 +108,7 @@ const CadastroCustomer = () => {
           <div className={styles.inputContainer}>
             <label>Senha</label>
             <input 
+              data-cy="password"
               name="password"
               placeholder="Crie uma senha"
               className={styles.input}
@@ -114,13 +119,13 @@ const CadastroCustomer = () => {
             />
           </div>
         </div>
-        <button className={styles.button} type = "submit">Cadastrar</button>
+        <button data-cy="boton" className={styles.button} type = "submit">Cadastrar</button>
       </form>
       {showPopup && (
-          <div className={styles.popup}>
+          <div data-cy= "popup" className={styles.popup}>
             <img className={styles.foodCry} src={FoodCry} alt="Comida triste" />
-            <p>Email ou CPF ja em uso, tente novamente com outras credenciais</p>
-            <button onClick={() => setShowPopup(false)}>Fechar</button>
+            <p>Email ou CPF ja esta em uso, tente novamente com outras credenciais</p>
+            <button  onClick={() => setShowPopup(false)}>Fechar</button>
           </div>
         )}
       <Footer />
