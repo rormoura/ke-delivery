@@ -1,0 +1,42 @@
+.container{
+  display: flex;
+  gap: 5%;
+}
+
+.card{
+  width: 60%;
+  height: 20rem;
+  background-color: #eeeeee;
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.img{
+  width: 75%;
+  border-radius: 1rem;
+  margin-bottom: 25%;
+}
+
+.title{
+  margin-top: -15%;
+}
+
+.value{
+  margin-top: 5%;
+}
+
+.editButton{
+  width: 10rem;
+  height: 1.5rem;
+  margin-top: 15%;
+  border: none;
+  border-radius: 0.7rem;
+  background-color: rgba(246, 198, 32, 0.5);
+}
+
+.editButton:hover{
+  background-color: rgba(246, 198, 32, 1);
+}
