@@ -1,5 +1,5 @@
 import React, {useContext} from "react";
-import styles from "./ProductCard.module.css";
+import styles from "../../../../app/home/pages/Menu/index.module.css";
 import propTypes from "prop-types";
 import { MdOutlineAddShoppingCart } from "react-icons/md";
 import formatCurrency from "../../../../utils/formatCurrency.js";
@@ -7,35 +7,36 @@ import PedidosContext from "../../../../app/home/context/PedidosContext/PedidosC
 
 function ProductCard({ data }) {
 
-    const { title, thumbnail, price } = data;
+    const { id, name, restaurantId, price } = data;
     const { cartItems, setCartItems } = useContext(PedidosContext);
 
     const handleAddCart = () => setCartItems([...cartItems, data]);
 
+    const handleExcluir = async (event, id) => {
+        const response = await fetch('http://localhost:5001/api/menu/'+id, {
+            method: 'DELETE',
+            headers: {
+              'Content-Type': 'application/json',
+            }
+          });
+          const data = await response.json();
+          window.open(`/NovoPedido`, '_self');
+      }
+
     return (
-        <section className={styles.productCard}>
-
-            <img
-                src={thumbnail.replace(/\w\.jpg/gi, 'W.jpg')}
-                alt="Product"
-                className={styles.cardImage}
-            />
-
-            
-            <div className={styles.cardInfos}>
-                <h2 className={styles.cardPrice}>{formatCurrency(price, 'BRL')}</h2>
-                <h2 className={styles.cardTitle}> {title}</h2>
-                
-            </div>
-
-            <button
-                type="button"
-                className={styles.buttonAddCart}
-                onClick={handleAddCart}
-            >
-                <MdOutlineAddShoppingCart />
-            </button>
-        </section>
+        <div className={styles['menu-item']} key={id}>
+                <img src={`src/shared/assets/images/${name}.png`} alt={name} />
+                <p className={styles['menu-item-name']}>{name}</p>
+                <p className={styles['menu-item-price']}>{formatCurrency(price, 'BRL')}</p>
+                <button onClick={(event) => handleExcluir(event, id)} className={styles['delete-button']}>Excluir</button>
+                <button
+                    type="button"
+                    className={styles['add-to-cart-button']}
+                    onClick={handleAddCart}
+                >
+                    Adicionar ao carrinho <MdOutlineAddShoppingCart />
+                </button>
+        </div>
     );
 }
 
