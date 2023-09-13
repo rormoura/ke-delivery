@@ -6,9 +6,9 @@ Feature: Login de clientes
         I want fazer login no site
         so that eu possa utilizar o site
 
-        Given eu estou na página de "login-customer"
-        When Eu preencho o campo "emailLogin" com "mmln@cin.com.br",o campo "passwordLogin" com "sudoku123!" e clico no botão "botonLogin"
-        Then Eu vou para a página "cadastro-customer"
+        Given eu estou na tela de "login-customer"
+        When Eu coloco no campo "emailLogin" com "mmln@cin.com.br",o campo "passwordLogin" com "sudoku123!" e clico no botão "botonLogin"
+        Then Eu vou para a tela "cadastro-customer"
 
     Scenario: Login de cliente com o email errado
 

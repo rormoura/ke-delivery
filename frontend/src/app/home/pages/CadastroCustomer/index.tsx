@@ -108,6 +108,7 @@ const CadastroCustomer = () => {
           <div className={styles.inputContainer}>
             <label>Senha</label>
             <input 
+              type="password"
               data-cy="password"
               name="password"
               placeholder="Crie uma senha"

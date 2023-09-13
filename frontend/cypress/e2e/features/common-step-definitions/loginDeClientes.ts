@@ -4,18 +4,18 @@ import { Given, When, Then } from "@badeball/cypress-cucumber-preprocessor";
 //Given: common-step-definitions.ts
 
 Given(
-  "eu estou na página de {string}",(page: string) => {
+  "eu estou na tela de {string}",(page: string) => {
     cy.visit(page);
   }
 );
 
-  When("Eu preencho o campo {string} com {string},o campo {string} com {string} e clico no botão {string}", (email: string, emailValue: string,password: string, passwordValue: string, button: string) => {
+  When("Eu coloco no campo {string} com {string},o campo {string} com {string} e clico no botão {string}", (email: string, emailValue: string,password: string, passwordValue: string, button: string) => {
     cy.getDataCy(email).type(emailValue);
     cy.getDataCy(password).type(passwordValue);
     cy.getDataCy(button).click();
   });
   
-    Then("Eu vou para a página {string}", (page: string) => {
+    Then("Eu vou para a tela {string}", (page: string) => {
       cy.url().should("include", page);
     });
 
