@@ -41,7 +41,7 @@ Then("Eu vejo uma indicação que não posso cadastrar alguém {string}", (popup
 });
 
 // Scenario: cadastrar cliente faltando campos
-Given("eu estou na página de {string}", (page: string) => {
+Given("estou na página de {string}", (page: string) => {
   cy.visit(page);
 }
 );

@@ -34,7 +34,7 @@ const LoginCustomer = () => {
       });
       if (response.status === 200) {
         // Login bem-sucedido, redirecionar ou fazer algo aqui
-        // window.open(`/cadastro-customer`, '_self');
+        window.open(`/cadastro-customer`, '_self');
       } else {
         // Login falhou, mostrar pop-up de erro
         setShowPopup(true);
@@ -52,18 +52,20 @@ const LoginCustomer = () => {
         <form className={styles.content} onSubmit={handleForm}> 
           <h1 className={styles.title}>O que você quer, onde você quer, quando você quer!</h1>
           <input className={styles.input} type="text" 
+            data-cy= "emailLogin"
             placeholder="Digite seu e-mail" 
             required
             value={formData.email}
             onChange={(event) => handleInputChange(event, 'email')}
           />
           <input className={styles.input} type="password" 
+            data-cy= "passwordLogin"
             placeholder="Digite sua senha" 
             required
             value={formData.password}
             onChange={(event) => handleInputChange(event, 'password')}
           />
-          <button className={styles.button} type="submit">
+          <button data-cy= "botonLogin" className={styles.button} type="submit">
             <p className={styles.textButton}>Entrar</p>
           </button>
         </form>
@@ -72,7 +74,7 @@ const LoginCustomer = () => {
           <div className={styles.popup}>
             <img className={styles.foodCry} src={FoodCry} alt="Comida triste" />
             <p>O login não foi bem-sucedido. Verifique suas credenciais.</p>
-            <button onClick={() => setShowPopup(false)}>Fechar</button>
+            <button data-cy="popupLogin" onClick={() => setShowPopup(false)}>Fechar</button>
           </div>
         )}
       </section>

@@ -19,6 +19,6 @@ Feature: Cadastro dos clientes
 
     Scenario: Cadastro de cliente faltando campos
 
-        Given eu estou na página de "cadastro-customer"
+        Given estou na página de "cadastro-customer"
         When  preencho o campo "name" com "Mário Mota", o campo "cpf" com "06178145598" , o campo "email" com "mota@gmail.com" ,o campo "address" com "rua loucura" e clico no botão "boton"
         Then Eu permaneço na página de "cadastro-customer"
