@@ -22,6 +22,10 @@ const router = createBrowserRouter([
   //   Component: CreateTest,
   // },
   {
+    path: "/",
+    Component: Home,
+  },
+  {
     path: "/tests",
     Component: ListTests,
   },
