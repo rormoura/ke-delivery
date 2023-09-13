@@ -1,0 +1,29 @@
+.container{
+  display: flex;
+  gap: 5%;
+}
+
+.card{
+  width: 60%;
+  height: 20rem;
+  background-color: #eeeeee;
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.img{
+  width: 75%;
+  border-radius: 1rem;
+  margin-bottom: 25%;
+}
+
+.title{
+  margin-top: -15%;
+}
+
+.value{
+  margin-top: 5%;
+}

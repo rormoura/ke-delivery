@@ -5,12 +5,12 @@ const Navbar = () => {
   return(
     <section className={styles.container}>
       <div className={styles.logo}>
-        <img src={LogoTemporaria} alt="Logo"/>
+        <img src={LogoTemporaria} alt="Logo" className={styles.icon}/>
         <h1 className={styles.title}>Ké Delivery</h1>
       </div>
-      <div>
+      <a href="/typesLogin">
         <button className={styles.buttonLogin}>Entrar</button>
-      </div>
+      </a>
     </section>
   )
 }

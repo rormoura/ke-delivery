@@ -1,0 +1,35 @@
+.menu{
+  width: 10rem;
+  height: 43.1rem;
+  display: flex;
+  flex-direction: column;
+  background-color: #F6C620;
+  /* align-items: center; */
+}
+
+.logo{
+  width: 3rem;
+  margin: 20% 30% 20% 30%;
+}
+
+.icon{
+  width: 1.5rem;
+  margin-right: 10%;
+}
+
+.link{
+  display: flex;
+  color: black;
+  text-decoration: none;
+  gap: 2%;
+  padding: 1rem;
+  margin-left: 5%;
+  align-items: center;
+}
+
+/* essa gambiarra vai sair */
+#name{
+  position: absolute;
+  bottom: 3%;
+  left: 2%;
+}

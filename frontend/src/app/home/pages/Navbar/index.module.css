@@ -2,11 +2,15 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 2%;
+  padding: 2% 5% 0 5%;
 }
 
 .logo{
   display: flex;
+}
+
+.icon{
+  width: 3rem;
 }
 
 .title{

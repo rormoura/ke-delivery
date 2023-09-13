@@ -1,4 +1,10 @@
+import { Response } from "express";
+
 export abstract class HttpError extends Error {
+  handle(res: Response<any, Record<string, any>>) {
+    throw new Error('Method not implemented.');
+  }
+
   msg: string;
   status: number;
   msgCode: any;
