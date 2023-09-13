@@ -1,7 +1,5 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-// import CreateTest from "./app/home/pages/CreateTest";
-import ListTests from "./app/home/pages/ListTests";
-import Login from "./app/home/pages/Login";
+import LoginRestaurant from "./app/home/pages/LoginRestaurant";
 import Home from "./app/home/pages/Home";
 import Footer from "./app/home/pages/Footer";
 import LoginCustomer from "./app/home/pages/LoginCustomer";
@@ -11,26 +9,16 @@ import Pedidos from "./app/home/pages/NovoPedido";
 import addItemMenu from "./app/home/pages/Menu/newItem";
 import Deliverymans from "./app/home/pages/Deliverymans";
 import addDeliveryman from "./app/home/pages/Deliverymans/newDeliv";
+import Navbar from "./app/home/pages/Navbar";
+import RegisterRestaurant from "./app/home/pages/RegisterRestaurant";
+import HomeRestaurant from "./app/home/pages/HomeRestaurant";
+import TypesRegisters from "./app/home/pages/TypesRegisters";
+import TypesLogin from "./app/home/pages/TypesLogin";
+import MenuRestaurant from "./app/home/pages/MenuRestaurant";
 
 const router = createBrowserRouter([
-  // {
-  //   path: "*",
-  //   Component: CreateTest,
-  // },
-  // {
-  //   path: "/create-test",
-  //   Component: CreateTest,
-  // },
   {
-    path: "/tests",
-    Component: ListTests,
-  },
-  {
-    path: "/login",
-    Component: Login,
-  },
-  {
-    path: "/home",
+    path: "/",
     Component: Home,
   },
   {
@@ -64,6 +52,34 @@ const router = createBrowserRouter([
   {
     path: "/novoEntregador",
     Component: addDeliveryman,
+  },
+  {
+    path: "/loginRestaurant",
+    Component: LoginRestaurant,
+  },
+  {
+    path: "/navbar",
+    Component: Navbar,
+  },
+  {
+    path: "/registerRestaurant",
+    Component: RegisterRestaurant,
+  },
+  {
+    path: "/homeRestaurant",
+    Component: HomeRestaurant,
+  },
+  {
+    path: "/typesRegisters",
+    Component: TypesRegisters,
+  },
+  {
+    path: "/typesLogin",
+    Component: TypesLogin,
+  },
+  {
+    path: "/menuRestaurant",
+    Component: MenuRestaurant,
   },
 ]);
 
