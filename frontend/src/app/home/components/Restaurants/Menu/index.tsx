@@ -18,7 +18,7 @@ const Menu = () => {
           <img src={RequestIcon} className={styles.icon} />
           <h3>Pedidos</h3>
         </a>
-        <a href="/menu" className={styles.link}>
+        <a href="/menuRestaurant" className={styles.link}>
           <img src={MenuIcon} className={styles.icon}/>
           <h3>Cardápio</h3>
         </a>

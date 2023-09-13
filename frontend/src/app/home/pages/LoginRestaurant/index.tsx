@@ -38,9 +38,8 @@ const LoginRestaurant = () => {
           'Content-Type': 'application/json',
         }
       });
-      // nao estou conseguindo redirecionar para a home com o id do perfil
       if (response.status === 200) {
-        window.open(`/homeRestaurant`, '_self');
+        window.open(`/homeRestaurant?email=${formData.email}`, '_self');
         // alert("login realizado com sucesso!");
       } else {
         setShowPopup(true);

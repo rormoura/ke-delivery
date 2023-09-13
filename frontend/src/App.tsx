@@ -26,7 +26,7 @@ const router = createBrowserRouter([
     Component: RegisterRestaurant,
   },
   {
-    path: "/homeRestaurant/:id",
+    path: "/homeRestaurant",
     Component: HomeRestaurant,
   },
   {
