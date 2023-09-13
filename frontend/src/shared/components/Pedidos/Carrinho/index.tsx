@@ -7,32 +7,46 @@ import formatCurrency from '../../../../utils/formatCurrency.js';
 function Carrinho() {
     const { cartItems, isCartVisible } = useContext(PedidosContext);
 
-    const totalPrice = cartItems.reduce((acc, item) => item.price + acc, 0);
+    // Função para agrupar itens pelo ID
+    const groupedCartItems = cartItems.reduce((groups, item) => {
+        const existingGroup = groups.find((group) => group.id === item.id);
+
+        if (existingGroup) {
+            existingGroup.quantity += 1;
+        } else {
+            groups.push({ ...item, quantity: 1 });
+        }
+
+        return groups;
+    }, []);
 
     // Conditionally apply the class based on isCartVisible
     const cartClass = isCartVisible ? styles.cartActive : styles.cart;
 
     const handleCheckout = () => {
-        const updatedItems = cartItems.filter((item) => item.id != id);
+        const updatedItems = cartItems.filter((item) => item.id !== id);
         setCartItems(updatedItems);
     }
 
     return (
         <section className={cartClass}>
             <div className={styles.cartItens}>
-                {cartItems.map((cartItem) => (
+                {groupedCartItems.map((cartItem) => (
                     <CarrinhoItem key={cartItem.id} data={cartItem} />
                 ))}
             </div>
 
             <div className={styles.cartResume}>
-                {formatCurrency(totalPrice, 'BRL')}
+                {formatCurrency(
+                    groupedCartItems.reduce((acc, item) => item.price * item.quantity + acc, 0),
+                    'BRL'
+                )}
                 <button
                     className={styles.cartCheckout}
                     type="button"
                     onClick={handleCheckout}
                 >
-                Checkout
+                    Checkout
                 </button>
             </div>
         </section>

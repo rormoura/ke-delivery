@@ -36,3 +36,25 @@
     background: none;
     cursor: pointer;
 }
+
+.buttonDecreaseItem {
+    position: absolute;
+    top: 30px;
+    right: 0;
+    color: darkgoldenrod;
+    font-size: 1.4rem;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.buttonIncreaseItem {
+    position: absolute;
+    top: 60px;
+    right: 0;
+    color: darkgreen;
+    font-size: 1.4rem;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
