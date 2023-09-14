@@ -6,7 +6,7 @@ import propTypes from "prop-types";
 import PedidosContext from "../../../../app/home/context/PedidosContext/PedidosContext.js";
 
 function CarrinhoItem({ data }) {
-    const { id, thumbnail, title, price, quantity } = data;
+    const { id, image, name, price, quantity, restaurantId } = data;
     const { cartItems, setCartItems } = useContext(PedidosContext);
 
     const handleRemoveItem = () => {
@@ -42,12 +42,12 @@ function CarrinhoItem({ data }) {
 
     return (
         <section className={styles.cartItem}>
-            <img src={thumbnail}
+            <img src={image}
                 alt="Imagem do produto"
                 className={styles.cartItemImage}
             />
             <div className={styles.cartItemContent}>
-                <h3 className={styles.cartItemTitle}>{title}</h3>
+                <h3 className={styles.cartItemTitle}>{name}</h3>
                 <div className={styles.cartItemQuantity}>
                     {quantity} Und. x {formatCurrency(price, 'BRL')}
                 </div>

@@ -6,7 +6,7 @@ import formatCurrency from "../../../../utils/formatCurrency.js";
 import PedidosContext from "../../../../app/home/context/PedidosContext/PedidosContext.js";
 
 function ProductCard({ data }) {
-    const { title, thumbnail, price } = data;
+    const { id, name, image, price, restaurantId } = data;
     const { cartItems, setCartItems } = useContext(PedidosContext);
 
     const handleAddCart = () => {
@@ -28,14 +28,14 @@ function ProductCard({ data }) {
     return (
         <section className={styles.productCard}>
             <img
-                src={thumbnail.replace(/\w\.jpg/gi, 'W.jpg')}
-                alt="Product"
+                src={image}
+                alt={name}
                 className={styles.cardImage}
             />
 
             <div className={styles.cardInfos}>
                 <h2 className={styles.cardPrice}>{formatCurrency(price, 'BRL')}</h2>
-                <h2 className={styles.cardTitle}> {title}</h2>
+                <h2 className={styles.cardTitle}> {name}</h2>
             </div>
 
             <button
@@ -54,3 +54,4 @@ ProductCard.propTypes = {
 };
 
 export default ProductCard;
+
