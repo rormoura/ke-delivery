@@ -65,10 +65,10 @@ const Deliverymans: React.FC = () => {
         {data.data.map((item: any) => (
             <div> 
             <div className={styles['menu-item']} key={item.id}>
-            <p className={styles['menu-item-name']}>{item.name}</p>
+            <p data-cy={`deliveryman-${item.name}`} className={styles['menu-item-name']}>{item.name}</p>
             <p className={styles['menu-item-price']}>Email: {item.email}</p>
             <p className={styles['menu-item-price']}>Pedidos: {item.numOrders}</p>
-            <button onClick={(event) => handleExcluir(event, item.id)} className={styles['add-to-cart-button']}>Excluir</button>
+            <button data-cy="excluir" onClick={(event) => handleExcluir(event, item.id)} className={styles['add-to-cart-button']}>Excluir</button>
             </div>
             </div>
         ))}

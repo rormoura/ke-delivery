@@ -64,13 +64,12 @@ const Menu: React.FC = () => {
         }
       });
       const data = await response.json();
-      window.open(`/menu`, '_self');
+      window.location.reload();
   }
 
   // Renderize os dados recebidos na sua interface
   return (
     <div className={styles['menu-page']}>
-      <div className={styles['box']}></div>
       {restaurantData.data.map((place: any) => ( 
         <div key={place.id}>
           <div className={styles['restaurant']}>
@@ -91,9 +90,6 @@ const Menu: React.FC = () => {
                     <img src={item.image} alt={item.name} />
                     <p className={styles['menu-item-name']}>{item.name}</p>
                     <p className={styles['menu-item-price']}>{item.price}</p>
-                    <Link to={`/cart/${item.id}`}>
-                      <button className={styles['add-to-cart-button']}>Adicionar ao carrinho</button>
-                    </Link>
                     <button onClick={(event) => handleExcluir(event, item.id)} className={styles['delete-button']}>Excluir</button>
                   </div>
                 }
