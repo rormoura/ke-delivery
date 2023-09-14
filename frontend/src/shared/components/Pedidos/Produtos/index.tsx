@@ -57,7 +57,7 @@ const Produtos = () => {
             }
         });
         const data = await response.json();
-        window.open(`/menu`, '_self');
+        window.open(`/NovoPedido`, '_self');
     }
 
 
@@ -70,11 +70,6 @@ const Produtos = () => {
                     <div className={styles['restaurant']}>
                         <img src="src\shared\assets\images\Subtract.png" alt="Imagem"/>
                         <h1>{place.restaurantName}</h1>
-                    </div>
-                    <div>
-                        <Link to={"/novoItem"}>
-                        <button className={styles['discreet-button']}>Adicionar novo item</button>
-                        </Link>
                     </div>
                         <section className={styles['menu-items']}>
                             {products.data.map((product) => 

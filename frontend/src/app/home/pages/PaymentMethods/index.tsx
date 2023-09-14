@@ -82,15 +82,10 @@ const PaymentMethods: React.FC = () => {
     }
     axios.post(`http://localhost:5001/api/paymentMethods/${formData.type}`, formData)
       .then((response) => {
-          if(response.data.msgCode === "success"){
-            setPaymentMethods([...paymentMethods, response.data.data]);
-            closeModal();
-            closeCreditCardModal();
-            alert(`Método de pagamento do tipo ${formData.type} adicionado com sucesso.`);
-            }
-            else{
-              return Promise.reject(response);
-            }
+        setPaymentMethods([...paymentMethods, response.data.data]);
+        closeModal();
+        closeCreditCardModal();
+        alert(`Método de pagamento do tipo ${formData.type} adicionado com sucesso.`);
         })
       .catch((error) => {
         alert(`Não foi possível adicionar o método de pagamento do tipo ${formData.type}: `+error.response.data.msg);

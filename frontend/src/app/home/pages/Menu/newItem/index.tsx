@@ -3,9 +3,14 @@ import LogoTemporaria from "../../../../../shared/assets/logoTemp.svg";
 import { useState } from "react";
 
 const addItemMenu = () => {
+  const resId = (typeof window !== 'undefined' && window.location.search.includes('id='))
+    ? new URLSearchParams(window.location.search).get('id')
+    : 'defaultId';
+
   const [formData, setFormData] = useState({
     name: "",
-    restaurantId: "",
+    image: "",
+    restaurantId: resId,
     price: 0.0, // Inicialize o campo price como um número
   });
 
@@ -36,7 +41,7 @@ const addItemMenu = () => {
         },
       });
       const data = await response.json();
-      window.open(`/menu`, '_self');
+      window.open(`/NovoPedido`, '_self');
       alert("Item cadastrado com sucesso!!");
       // setShowPopup(true);
     } catch (error) {
@@ -86,6 +91,17 @@ const addItemMenu = () => {
               required
               value={formData.price}
               onChange={(event) => handleInputChange(event, 'price')}
+            />
+          </div>
+          <div className={styles.inputContainer}>
+            <label>Imagem</label>
+            <input 
+              name="image"
+              placeholder="Digite a url da imagem"
+              className={styles.input}
+              required
+              value={formData.image}
+              onChange={(event) => handleInputChange(event, 'image')}
             />
           </div>
           <button className={styles.button} type="submit">Cadastrar</button>

@@ -9,7 +9,12 @@ const Navbar = () => {
         <h1 className={styles.title}>Ké Delivery</h1>
       </div>
       <a href="/typesLogin">
-        <button className={styles.buttonLogin}>Entrar</button>
+        <button 
+          className={styles.buttonLogin} 
+          data-cy="typesLogin"
+        >
+          Entrar
+        </button>
       </a>
     </section>
   )
