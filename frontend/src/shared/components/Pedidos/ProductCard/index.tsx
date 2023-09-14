@@ -1,26 +1,12 @@
-<<<<<<< HEAD
 import React, { useContext } from 'react';
 import styles from "./ProductCard.module.css";
-=======
-import React, {useContext} from "react";
-import styles from "../../../../app/home/pages/Menu/index.module.css";
->>>>>>> 1cf9afc1020ce3dd0f3c209d915ddfd50eec3b56
 import propTypes from "prop-types";
 import { MdOutlineAddShoppingCart } from "react-icons/md";
 import formatCurrency from "../../../../utils/formatCurrency.js";
 import PedidosContext from "../../../../app/home/context/PedidosContext/PedidosContext.js";
 
 function ProductCard({ data }) {
-<<<<<<< HEAD
     const { title, thumbnail, price } = data;
-=======
-
-<<<<<<< HEAD
-    const { id, name, restaurantId, price } = data;
->>>>>>> 1cf9afc1020ce3dd0f3c209d915ddfd50eec3b56
-=======
-    const { id, name, restaurantId, price, image } = data;
->>>>>>> dae10c5f3d6c8b67c68913bbac827c9758c4be52
     const { cartItems, setCartItems } = useContext(PedidosContext);
 
     const handleAddCart = () => {
@@ -40,7 +26,6 @@ function ProductCard({ data }) {
     }
 
     return (
-<<<<<<< HEAD
         <section className={styles.productCard}>
             <img
                 src={thumbnail.replace(/\w\.jpg/gi, 'W.jpg')}
@@ -61,20 +46,6 @@ function ProductCard({ data }) {
                 <MdOutlineAddShoppingCart />
             </button>
         </section>
-=======
-        <div className={styles['menu-item']} key={id}>
-                <img src={image} alt={name} />
-                <p className={styles['menu-item-name']}>{name}</p>
-                <p className={styles['menu-item-price']}>{formatCurrency(price, 'BRL')}</p>
-                <button
-                    type="button"
-                    className={styles['add-to-cart-button']}
-                    onClick={handleAddCart}
-                >
-                    Adicionar ao carrinho <MdOutlineAddShoppingCart />
-                </button>
-        </div>
->>>>>>> 1cf9afc1020ce3dd0f3c209d915ddfd50eec3b56
     );
 }
 

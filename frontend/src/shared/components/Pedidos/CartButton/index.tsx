@@ -5,7 +5,7 @@ import PedidosContext from "../../../../app/home/context/PedidosContext/PedidosC
 
 function CartButton() {
     const { qtdItems, isCartVisible, setCartVisible } = useContext(PedidosContext);
-    console.log(qtdItems)
+
     return (
         <button
             type="button"
