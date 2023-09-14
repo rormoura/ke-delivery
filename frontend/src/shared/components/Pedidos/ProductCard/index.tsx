@@ -1,12 +1,22 @@
+<<<<<<< HEAD
 import React, { useContext } from 'react';
 import styles from "./ProductCard.module.css";
+=======
+import React, {useContext} from "react";
+import styles from "../../../../app/home/pages/Menu/index.module.css";
+>>>>>>> 1cf9afc1020ce3dd0f3c209d915ddfd50eec3b56
 import propTypes from "prop-types";
 import { MdOutlineAddShoppingCart } from "react-icons/md";
 import formatCurrency from "../../../../utils/formatCurrency.js";
 import PedidosContext from "../../../../app/home/context/PedidosContext/PedidosContext.js";
 
 function ProductCard({ data }) {
+<<<<<<< HEAD
     const { title, thumbnail, price } = data;
+=======
+
+    const { id, name, restaurantId, price } = data;
+>>>>>>> 1cf9afc1020ce3dd0f3c209d915ddfd50eec3b56
     const { cartItems, setCartItems } = useContext(PedidosContext);
 
     const handleAddCart = () => {
@@ -25,7 +35,19 @@ function ProductCard({ data }) {
         }
     }
 
+    const handleExcluir = async (event, id) => {
+        const response = await fetch('http://localhost:5001/api/menu/'+id, {
+            method: 'DELETE',
+            headers: {
+              'Content-Type': 'application/json',
+            }
+          });
+          const data = await response.json();
+          window.open(`/NovoPedido`, '_self');
+      }
+
     return (
+<<<<<<< HEAD
         <section className={styles.productCard}>
             <img
                 src={thumbnail.replace(/\w\.jpg/gi, 'W.jpg')}
@@ -46,6 +68,21 @@ function ProductCard({ data }) {
                 <MdOutlineAddShoppingCart />
             </button>
         </section>
+=======
+        <div className={styles['menu-item']} key={id}>
+                <img src={`src/shared/assets/images/${name}.png`} alt={name} />
+                <p className={styles['menu-item-name']}>{name}</p>
+                <p className={styles['menu-item-price']}>{formatCurrency(price, 'BRL')}</p>
+                <button onClick={(event) => handleExcluir(event, id)} className={styles['delete-button']}>Excluir</button>
+                <button
+                    type="button"
+                    className={styles['add-to-cart-button']}
+                    onClick={handleAddCart}
+                >
+                    Adicionar ao carrinho <MdOutlineAddShoppingCart />
+                </button>
+        </div>
+>>>>>>> 1cf9afc1020ce3dd0f3c209d915ddfd50eec3b56
     );
 }
 
