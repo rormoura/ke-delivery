@@ -25,6 +25,8 @@ defineFeature(feature, (test) => {
             createCustomer: jest.fn(),
             updateCustomer: jest.fn(),
             deleteCustomer: jest.fn(),
+            getCustomerbyEmail: jest.fn(),
+            getCustomerbyCpf: jest.fn(),
         } as any;
         service = new CustomerService(mockCustomerRepository);
     });
