@@ -31,22 +31,30 @@ const LoginRestaurant = () => {
   const handleForm = async (event: any) => {
     try {
       event.preventDefault();
-      const response = await fetch(`http://localhost:5001/api/restaurants/login`, {
+      await fetch(`http://localhost:5001/api/restaurants/login`, {
         method: 'POST',
         body: JSON.stringify(formData),
         headers: {
           'Content-Type': 'application/json',
         }
+      }).then(response => {
+        if (!response.ok) {
+          throw new Error('Erro na requisição.');
+        }
+        return response.json(); // Lê o corpo da resposta como JSON
+      })
+      .then(data => {
+        const id = data.id; // Acessa o campo "id" do objeto JSON
+        console.log(data);
+        window.open(`/homeRestaurant?id=${id}`, '_self');
+      })
+      .catch(error => {
+        console.error('Erro:', error);
+        setShowPopup(true); 
       });
-      if (response.status === 200) {
-        window.open(`/homeRestaurant?email=${formData.email}`, '_self');
-        // alert("login realizado com sucesso!");
-      } else {
-        setShowPopup(true);
-      } 
     } catch (error) {
       console.log(error);
-      setShowPopup(true); // Mostrar o pop-up quando ocorrer um erro
+      setShowPopup(true);  // Mostrar o pop-up quando ocorrer um erro
     }
   }
 

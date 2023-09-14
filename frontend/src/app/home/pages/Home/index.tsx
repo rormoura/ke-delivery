@@ -13,8 +13,8 @@ const Home = () => {
           <img src={HomeImage} alt="forma amarela"/>
         </div>
         <div className={styles.texts}>
-          <h1 className={styles.title}>Premium quality Food for your healthy & Daily Life</h1>
-          <p className={styles.text}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+          <h1 className={styles.title}>Ingredientes simples em experiências extraordinárias.</h1>
+          <p className={styles.text}>Com uma interface intuitiva e uma variedade de recursos incríveis, o Ké Delivery se tornou um nome familiar para aqueles que desejam conveniência e qualidade.</p>
         </div>
         <div className={styles.images}>
           <img src={HomeImageFood} alt="" className={styles.foodImage}/>
