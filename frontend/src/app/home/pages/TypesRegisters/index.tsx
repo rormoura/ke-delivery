@@ -10,11 +10,8 @@ const TypesRegisters = () => {
         <h3>Nos diga qual tipo de cadastro deseja realizar.</h3>
       </div>
       <div className={styles.cards}>
-        <a>
-          <button className={styles.button}>Pessoa Consumidora</button>
-        </a>
-        <a>
-          <button className={styles.button}>Pessoa Entregadora</button>
+        <a href="/cadastro-customer">
+          <button className={styles.button}>Cliente</button>
         </a>
         <a href="/registerRestaurant">
           <button className={styles.button}>Restaurante</button>
@@ -22,7 +19,7 @@ const TypesRegisters = () => {
       </div>
       <div className={styles.register}>
           <p>Já tem conta? </p>
-          <a href="/login">
+          <a href="/typesLogin">
             <h2 className={styles.link}>Realize seu login</h2>
           </a>
         </div>

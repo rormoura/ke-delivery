@@ -13,7 +13,7 @@ const Home = () => {
           <img src={HomeImage} alt="forma amarela"/>
         </div>
         <div className={styles.texts}>
-          <h1 className={styles.title}>Ingredientes simples em experiências extraordinárias.</h1>
+        <h1 className={styles.title}>Ingredientes simples em experiências extraordinárias.</h1>
           <p className={styles.text}>Com uma interface intuitiva e uma variedade de recursos incríveis, o Ké Delivery se tornou um nome familiar para aqueles que desejam conveniência e qualidade.</p>
         </div>
         <div className={styles.images}>
