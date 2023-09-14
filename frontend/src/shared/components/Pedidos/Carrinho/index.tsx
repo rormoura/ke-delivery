@@ -1,19 +1,25 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import styles from './carrinho.module.css';
 import CarrinhoItem from '../CarrinhoItem';
 import PedidosContext from '../../../../app/home/context/PedidosContext/PedidosContext.js';
 import formatCurrency from '../../../../utils/formatCurrency.js';
 
 function Carrinho() {
-    const { cartItems, isCartVisible } = useContext(PedidosContext);
+    const { cartItems, isCartVisible, qtdItems, setQtdItems } = useContext(PedidosContext);
 
-    const totalPrice = cartItems.reduce((acc, item) => item.price + acc, 0);
+    // Calculate the total value of items in the cart
+    const totalValue = cartItems.reduce((acc, item) => item.price * item.quantity + acc, 0);
+
+    // Update the qtdItems state in the context whenever the total quantity changes
+    useEffect(() => {
+        setQtdItems(cartItems.reduce((acc, item) => item.quantity + acc, 0));
+    }, [cartItems, setQtdItems]);
 
     // Conditionally apply the class based on isCartVisible
     const cartClass = isCartVisible ? styles.cartActive : styles.cart;
 
     const handleCheckout = () => {
-        const updatedItems = cartItems.filter((item) => item.id != id);
+        const updatedItems = cartItems.filter((item) => item.id !== id);
         setCartItems(updatedItems);
     }
 
@@ -26,13 +32,14 @@ function Carrinho() {
             </div>
 
             <div className={styles.cartResume}>
-                {formatCurrency(totalPrice, 'BRL')}
+                {formatCurrency(totalValue, 'BRL')}
                 <button
                     className={styles.cartCheckout}
                     type="button"
                     onClick={handleCheckout}
+                    data-cy="cartCheckout"
                 >
-                Checkout
+                    Checkout
                 </button>
             </div>
         </section>

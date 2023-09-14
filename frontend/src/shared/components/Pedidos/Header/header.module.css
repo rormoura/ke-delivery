@@ -34,12 +34,10 @@
     padding: 12px;
     line-height: 20px;
     text-transform: uppercase;
-    margin: 0px;
-    height: 48px;
+
     color: rgb(34, 34, 34);
     background-color: rgb(255, 204, 0);
     font-weight: 700;
-    width: 97px;
     cursor: pointer;
 }
 
