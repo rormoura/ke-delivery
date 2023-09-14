@@ -41,7 +41,7 @@ const addItemMenu = () => {
         },
       });
       const data = await response.json();
-      window.open(`/NovoPedido`, '_self');
+      window.history.back();
       alert("Item cadastrado com sucesso!!");
       // setShowPopup(true);
     } catch (error) {
