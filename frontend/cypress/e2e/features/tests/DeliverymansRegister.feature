@@ -4,11 +4,22 @@ Feature: Cadastro de entregadores
     Para que eu possa agregar mais informações a entregas feitas na plataforma
 
     Scenario: Cadastro de cliente com sucesso
-        Given Eu estou na página de "novoEntregador"
+        Given Eu me encontro na página "novoEntregador"
         When Eu preencho o campo "name" com "Matheus", o campo "email" com "matheusinh@gmail.com.br" ,o campo "numOrders" com "3" e clico no botão "cadastro"
-        Then Eu vou para a página de "entregadores"
+        Then Eu devo estar na página "entregadores"
 
     Scenario: Cadastro de cliente faltando campos
-        Given Eu estou na página de "novoEntregador"
-        When Eu preencho o campo "name" com "Matheus", o campo "email" com "matheusinh@gmail.com.br" ,o campo "numOrders" com "3" e clico no botão "cadastro"
-        Then Eu permaneço na página de "novoEntregador"
+        Given Estou na página "novoEntregador"
+        When Preencho o campo "name" com "Matheus", o campo "email" com "matheusinh@gmail.com.br" e clico no botão "cadastro"
+        Then Eu permaneço na página "novoEntregador"
+    
+    Scenario: Visualizar entregadores
+        Given Eu estou em "entregadores" com o entregador "Matheus" criado
+        Then Eu devo ver o entregador "Matheus"
+
+    Scenario: Remoção de um entregador armazenado por ID
+        Given Me encontro na página "entregadores"
+        When Clico no botão "excluir"
+        Then Devo estar na página "entregadores"
+    
+    
