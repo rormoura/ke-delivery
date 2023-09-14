@@ -46,13 +46,13 @@ const HomeRestaurant = () => {
         <Menu />
       </div>
       <div className={styles.body}>
-        <h1 className={styles.title}>Olá, Nome do Restaurante</h1>
+        <h1 className={styles.title}>Olá</h1>
         <div className={styles.box}></div>
-        <Carte />
         <div className={styles.boxes}>
           <div className={styles.boxSmall}></div>
           <div className={styles.boxSmall}></div>
         </div>
+        <Carte />
       </div>
     </section>
   )

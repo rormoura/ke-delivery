@@ -88,7 +88,7 @@ const Promotions: React.FC = () => {
   };
 
   const handleVoltar = () => {
-    window.open(`/home`, '_self');
+    window.open(`/homeRestaurant`, '_self');
   }
 
   const handleDeletePromotion = (name: string) => {

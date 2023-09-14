@@ -15,23 +15,18 @@ const Menu = () => {
           <img src={HomeIcon} className={styles.icon} />
           <h3>Início</h3>
         </a>
-        <a href="/requests" className={styles.link}>
-          <img src={RequestIcon} className={styles.icon} />
-          <h3>Pedidos</h3>
-        </a>
-        <a href="/menuRestaurant" className={styles.link}>
+        <a href="/menu" className={styles.link}>
           <img src={MenuIcon} className={styles.icon}/>
           <h3>Cardápio</h3>
         </a>
-        <a href="/profile/id" className={styles.link}>
+        <a href="/promotions" className={styles.link}>
           <img src={ProfileIcon} className={styles.icon}/>
-          <h3>Conta</h3>
+          <h3>Promoções</h3>
         </a>
         <a href="/" className={styles.link} id={styles.logout}>
           <img src={LogoutIcon} className={styles.icon}/>
           <h3>Sair</h3>
         </a>
-      <h1 id={styles.name}>Ké Delivery</h1>
       </div>
     </section>
   )
