@@ -1,0 +1,168 @@
+main {
+
+    overflow-y: auto;
+    /* Adiciona uma barra de rolagem vertical quando o conteúdo excede a altura da tela. */
+
+}
+
+
+
+.page {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    background-color: #393c49;
+    min-height: 100vh;
+}
+
+.title {
+    color: var(--White, #FFF);
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 140%;
+
+    margin-top: 3vh;
+    margin-left: 2vw;
+
+
+}
+
+.estatisticas {
+    display: flex;
+    align-items: flex-start;
+    gap: 3vw;
+    margin-left: 2vw;
+}
+
+.estatistica1 {
+    display: flex;
+    width: 30vw;
+    height: 30vh;
+    padding: 16px;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    border-radius: 8px;
+    background: var(--base-dark-bg-2, #393c49);
+}
+
+.customerList {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 95vw;
+    min-height: 50vh;
+
+    background: var(--base-dark-bg-2, #1F1D2B);
+    gap: 5px;
+    padding-top: 2vh;
+    padding-bottom: 2vh;
+    padding-left: 1vw;
+    padding-right: 1vw;
+
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+    margin-left: 2vw;
+    border-radius: 8px;
+
+
+}
+
+.customer {
+    display: flex;
+    padding: 10px 0px;
+    width: 100%;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 16px;
+    background: var(--amarelo, #FCCD01);
+    border-radius: 8px;
+}
+
+.customerInfo {
+    display: flex;
+    flex-direction: row;
+
+    align-items: flex-start;
+
+    padding-left: 2vw;
+    border-radius: 8px;
+    width: 100%;
+}
+
+.textDiv {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    border-left: 2px solid black;
+    padding-left: 10px;
+    width: 100%;
+}
+
+.deleteButton {
+    display: inline-flex;
+    padding: 4px 12px;
+    align-items: flex-start;
+    gap: 10px;
+    border-radius: 30px;
+    background: rgba(0, 0, 0, 0.651);
+    margin-right: 1vw;
+}
+
+.textButton {
+    color: #FFF;
+}
+
+.deleteButton:hover {
+    background-color: #FCCD01;
+    color: black;
+    font-weight: bold;
+}
+
+.comida {
+    display: flex;
+    width: 75%;
+    height: 100%;
+
+}
+
+.popup {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+
+
+    top: 5%;
+    left: 40%;
+    width: 20vw;
+    height: 68.5vh;
+    flex-shrink: 0;
+    border-radius: 8px;
+    border: 1px dashed var(--base-dark-line, #393C49);
+    background: var(--base-dark-bg-2, #1F1D2B);
+}
+
+.foodCry {
+    width: auto;
+    height: auto;
+
+}
+
+.popup p {
+    width: 100%;
+    height: 20%;
+    flex-shrink: 0;
+    font-size: 14px;
+    font-weight: 500;
+    text-align: center;
+    color: var(--base-light, #FFFFFF);
+}
+
+.popup button {
+    width: 100%;
+    height: 10vh;
+    flex-shrink: 0;
+    border-radius: 8px;
+    background: var(--Primary-Color, #FCCD01);
+}

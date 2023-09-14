@@ -40,14 +40,52 @@ class CustomerService {
     return customerModel;
   }
 
-  public async getCustomerWithoutError(id: string): Promise<CustomerEntity | null> {
-    const CustomerEntity = await this.CustomerRepository.getCustomer(id);
+  public async getCustomerbyEmail(email: string): Promise<CustomerModel> {
+    const CustomerEntity = await this.CustomerRepository.getCustomerbyEmail(email);
 
-    return CustomerEntity;
+    if (!CustomerEntity) {
+      throw new HttpNotFoundError({
+        msg: 'Customer not found',
+        msgCode: CustomerServiceMessageCode.Customer_not_found,
+      });
+    }
+
+    const customerModel = new CustomerModel(CustomerEntity);
+
+    return customerModel;
   }
 
+  public async getCustomerbyCpf(cpf: string): Promise<CustomerModel> {
+    const CustomerEntity = await this.CustomerRepository.getCustomerbyCpf(cpf);
+
+    if (!CustomerEntity) {
+      throw new HttpNotFoundError({
+        msg: 'Customer not found',
+        msgCode: CustomerServiceMessageCode.Customer_not_found,
+      });
+    }
+
+    const customerModel = new CustomerModel(CustomerEntity);
+
+    return customerModel;
+  }
+  
+
+  public async getCustomerWithoutError(email: string, cpf: string): Promise<CustomerEntity | null> {
+    const CustomerEntity = await this.CustomerRepository.getCustomerbyEmail(email);
+    const CustomerEntity2 = await this.CustomerRepository.getCustomerbyCpf(cpf);
+    if (CustomerEntity) {
+      return CustomerEntity;
+    }
+    if (CustomerEntity2) {
+      return CustomerEntity2;
+    }
+    return null;
+  }
+
+
   public async createCustomer(data: CustomerEntity): Promise<CustomerModel> {
-    const CustomerEntityAlreadyExists = await this.getCustomerWithoutError(data.id)
+    const CustomerEntityAlreadyExists = await this.getCustomerWithoutError(data.email, data.cpf)
     if (CustomerEntityAlreadyExists) {
       throw new HttpForbiddenError({
         msg: 'Customer already exists',
@@ -83,6 +121,25 @@ class CustomerService {
   public async deleteCustomer(id: string): Promise<void> {
     await this.CustomerRepository.deleteCustomer(id);
   }
+
+  public async loginCustomer (email: string, password: string): Promise<CustomerModel> {
+    const CustomerEntity = await this.CustomerRepository.getCustomerbyEmail(email);
+    if (!CustomerEntity) {
+      throw new HttpNotFoundError({
+        msg: 'Customer not found',
+        msgCode: CustomerServiceMessageCode.Customer_not_found,
+      });
+    }
+    if (CustomerEntity.password !== password) {
+      throw new HttpForbiddenError({
+        msg: 'Password incorrect',
+        msgCode: CustomerServiceMessageCode.Customer_not_found,
+      });
+    }
+    const customerModel = new CustomerModel(CustomerEntity);
+    return customerModel;
+  }
+
 }
 
 export default CustomerService;
