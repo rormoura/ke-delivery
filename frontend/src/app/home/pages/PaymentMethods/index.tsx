@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styles from './index.module.css';
+import logo from '../../../../shared/assets/logoTemp.svg'
+import Footer from '../Footer';
 
 interface CommonPaymentMethod {
     name: string;
@@ -40,8 +42,6 @@ const PaymentMethods: React.FC = () => {
 
   useEffect(() => {
 
-    localStorage.setItem('pedido', JSON.stringify({cartItems:[{idRestaurant:"12"},{idRestaurant:"14"}]}))
-
     axios.get(`http://localhost:5001/api/paymentMethods`)
       .then((response) => {
         setPaymentMethods(response.data.data);
@@ -51,10 +51,10 @@ const PaymentMethods: React.FC = () => {
       });
     const pedido = localStorage.getItem('pedido');
     if(pedido != null){
-      const items = JSON.parse(pedido).cartItems;
+      const items = JSON.parse(pedido);
       const idRestaurantsSet = new Set<string>();
       items.forEach((item: any) => {
-        idRestaurantsSet.add(item.idRestaurant);
+        idRestaurantsSet.add(item.restaurantId);
       })
       axios.get(`http://localhost:5001/api/promotions`)
       .then((response) => {
@@ -252,9 +252,16 @@ const PaymentMethods: React.FC = () => {
   };
 
   const handleAvancar = () => {
-    localStorage.setItem('paymentMethod', JSON.stringify(chosenPaymentMethod));
-    localStorage.setItem('promotion', JSON.stringify(chosenPromotion));
-    window.open(`/home`, '_self');
+    console.log("chosenPaymentMethod ",chosenPaymentMethod)
+    if(chosenPaymentMethod != undefined){
+      localStorage.setItem('paymentMethod', JSON.stringify(chosenPaymentMethod));
+      localStorage.setItem('promotion', JSON.stringify(chosenPromotion));
+      window.open(`/`, '_self');
+      alert("Pedido concluído com sucesso!")
+    }
+    else{
+      alert("Escolha um método de pagamento antes de avançar")
+    }
   }
 
   const handleVoltar = () => {
@@ -263,6 +270,7 @@ const PaymentMethods: React.FC = () => {
 
   return (
     <div className={styles.container}>
+      <img src={logo} className={styles.logo}/>
       <h1>Métodos de Pagamento</h1>
 
       <div className={styles.paymentMethods}>
@@ -271,11 +279,11 @@ const PaymentMethods: React.FC = () => {
           {paymentMethods.map((method: PaymentMethod) => (
             <li key={method.name} data-cy="metodosDisponiveis">
               {method.name} (Padrão: {method.name === defaultPaymentMethod ? 'Sim' : 'Não'})
-              <button data-cy={"atualizar"+method.name} onClick={() => handleUpdatePaymentMethod(method.name)}>Atualizar</button>
-              <button data-cy={"remover"+method.name} onClick={() => handleDeletePaymentMethod(method.name)}>Remover</button>
-              <button data-cy={"escolher"+method.name} onClick={() => setChosenPaymentMethod(method.name)}>Escolher</button>
+              <button className={styles.button} data-cy={"atualizar"+method.name} onClick={() => handleUpdatePaymentMethod(method.name)}>Atualizar</button>
+              <button className={styles.button} data-cy={"remover"+method.name} onClick={() => handleDeletePaymentMethod(method.name)}>Remover</button>
+              <button className={styles.button} data-cy={"escolher"+method.name} onClick={() => setChosenPaymentMethod(method.name)}>Escolher</button>
               {!(method.default === "yes") && (
-                <button data-cy={"definirPadrao"+method.name} onClick={() => handleSetDefaultPaymentMethod(method.name)}>Definir como padrão</button>
+                <button className={styles.button} data-cy={"definirPadrao"+method.name} onClick={() => handleSetDefaultPaymentMethod(method.name)}>Definir como padrão</button>
               )}
             </li>
           ))}
@@ -283,11 +291,11 @@ const PaymentMethods: React.FC = () => {
       </div>
 
       <div className={styles.addPaymentMethod}>
-        <h2>Adicionar método de pagamento</h2>
-        <button data-cy="adicionarDinheiro" onClick={() => handleAddPaymentMethod('cash')}>Adicionar método de pagamento em dinheiro</button>
-        <button data-cy="adicionarCartao" onClick={() => handleAddPaymentMethod('creditCard')}>Adicionar cartão de crédito</button>
-        <button data-cy="adicionarPix" onClick={() => handleAddPaymentMethod('pix')}>Adicionar pix</button>
-        <button data-cy="adicionarGooglePay" onClick={() => handleAddPaymentMethod('googlePay')}>Adicionar google pay</button>
+        {/* <h2>Adicionar método de pagamento</h2> */}
+        <button className={styles.button} data-cy="adicionarDinheiro" onClick={() => handleAddPaymentMethod('cash')}>Adicionar método de pagamento em dinheiro</button>
+        <button className={styles.button} data-cy="adicionarCartao" onClick={() => handleAddPaymentMethod('creditCard')}>Adicionar cartão de crédito</button>
+        <button className={styles.button} data-cy="adicionarPix" onClick={() => handleAddPaymentMethod('pix')}>Adicionar pix</button>
+        <button className={styles.button} data-cy="adicionarGooglePay" onClick={() => handleAddPaymentMethod('googlePay')}>Adicionar google pay</button>
       </div>
 
       <div className={styles.paymentMethods}>
@@ -297,18 +305,18 @@ const PaymentMethods: React.FC = () => {
             <li key={method.name} data-cy="promocoesDisponiveis">
               {method.name} (Desconto: {method.discount})
               {!(method == chosenPromotion) && (
-              <button data-cy={"escolher"+method.name} onClick={() => setChosenPromotion(method)}>Escolher</button>)}
+              <button className={styles.button} data-cy={"escolher"+method.name} onClick={() => setChosenPromotion(method)}>Escolher</button>)}
             </li>
           ))}
         </ul>
       </div>
 
       <div>
-        <button data-cy="voltar" onClick={() => handleVoltar()}>Voltar</button>
+        <button className={styles.button} data-cy="voltar" onClick={() => handleVoltar()}>Voltar</button>
       </div>
 
       <div>
-        <button data-cy="avancar" onClick={() => handleAvancar()}>Avançar</button>
+        <button className={styles.button} data-cy="avancar" onClick={() => handleAvancar()}>Avançar</button>
       </div>
 
       {showModal && (
@@ -327,8 +335,8 @@ const PaymentMethods: React.FC = () => {
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
               />
             </div>
-            <button data-cy="adicionarModalComum" type="button" onClick={handleSubmit}>Adicionar</button>
-            <button data-cy="cancelarModalComum" type="button" onClick={closeModal}>Cancelar</button>
+            <button className={styles.button} data-cy="adicionarModalComum" type="button" onClick={handleSubmit}>Adicionar</button>
+            <button className={styles.button} data-cy="cancelarModalComum" type="button" onClick={closeModal}>Cancelar</button>
           </form>
         </div>
         </div>
@@ -386,8 +394,8 @@ const PaymentMethods: React.FC = () => {
                 onChange={(e) => setFormData({ ...formData, cvv: e.target.value })}
               />
             </div>
-            <button data-cy="adicionarModalCartao" type="button" onClick={handleSubmit}>Adicionar</button>
-            <button data-cy="cancelarModalCartao" type="button" onClick={closeCreditCardModal}>Cancelar</button>
+            <button className={styles.button} data-cy="adicionarModalCartao" type="button" onClick={handleSubmit}>Adicionar</button>
+            <button className={styles.button} data-cy="cancelarModalCartao" type="button" onClick={closeCreditCardModal}>Cancelar</button>
           </form>
         </div>
         </div>
@@ -452,8 +460,8 @@ const PaymentMethods: React.FC = () => {
                     onChange={(e) => setUpdateCreditCardData({ ...updateCreditCardData, default: e.target.value })}
                     disabled
                   />
-                  <button data-cy="atualizarUpdateModalCartao" type="button" onClick={handleUpdateCreditCardSubmit}>Atualizar</button>
-                  <button data-cy="cancelarUpdateModalCartao" type="button" onClick={() => {setFormData({}); setShowUpdateCreditCardModal(false); setUpdateCreditCardData({ id:'',name:'', cardHolderName:'',cardNumber:'',expirationDate:'',cvv:'',default:''});}}>Cancelar</button>
+                  <button className={styles.button} data-cy="atualizarUpdateModalCartao" type="button" onClick={handleUpdateCreditCardSubmit}>Atualizar</button>
+                  <button className={styles.button} data-cy="cancelarUpdateModalCartao" type="button" onClick={() => {setFormData({}); setShowUpdateCreditCardModal(false); setUpdateCreditCardData({ id:'',name:'', cardHolderName:'',cardNumber:'',expirationDate:'',cvv:'',default:''});}}>Cancelar</button>
                   </div>
                 </form>
               </div>
@@ -483,15 +491,15 @@ const PaymentMethods: React.FC = () => {
                     onChange={(e) => setUpdateData({ ...updateData, default: e.target.value })}
                     disabled
                   />
-                  <button data-cy="atualizarUpdateModalComum" type="button" onClick={handleUpdateSubmit}>Atualizar</button>
-                  <button data-cy="cancelarUpdateModalComum" type="button" onClick={() => {setFormData({}); setShowUpdateModal(false); setUpdateData({ id:'',name:'',default:''});}}>Cancelar</button>
+                  <button className={styles.button} data-cy="atualizarUpdateModalComum" type="button" onClick={handleUpdateSubmit}>Atualizar</button>
+                  <button className={styles.button} data-cy="cancelarUpdateModalComum" type="button" onClick={() => {setFormData({}); setShowUpdateModal(false); setUpdateData({ id:'',name:'',default:''});}}>Cancelar</button>
                   </div>
                 </form>
               </div>
               </div>
             )}
-
     </div>
+    
   );
 };
 

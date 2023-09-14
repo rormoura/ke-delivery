@@ -3,6 +3,7 @@ import styles from './carrinho.module.css';
 import CarrinhoItem from '../CarrinhoItem';
 import PedidosContext from '../../../../app/home/context/PedidosContext/PedidosContext.js';
 import formatCurrency from '../../../../utils/formatCurrency.js';
+import { Link } from 'react-router-dom';
 
 function Carrinho() {
     const { cartItems, isCartVisible, qtdItems, setQtdItems } = useContext(PedidosContext);
@@ -13,6 +14,7 @@ function Carrinho() {
     // Update the qtdItems state in the context whenever the total quantity changes
     useEffect(() => {
         setQtdItems(cartItems.reduce((acc, item) => item.quantity + acc, 0));
+        localStorage.setItem('pedido', JSON.stringify(cartItems));
     }, [cartItems, setQtdItems]);
 
     // Conditionally apply the class based on isCartVisible
@@ -21,6 +23,7 @@ function Carrinho() {
     const handleCheckout = () => {
         const updatedItems = cartItems.filter((item) => item.id !== id);
         setCartItems(updatedItems);
+
     }
 
     return (
@@ -33,14 +36,14 @@ function Carrinho() {
 
             <div className={styles.cartResume}>
                 {formatCurrency(totalValue, 'BRL')}
-                <button
+                <Link
                     className={styles.cartCheckout}
                     type="button"
-                    onClick={handleCheckout}
+                    to="/paymentMethods"
                     data-cy="cartCheckout"
                 >
                     Checkout
-                </button>
+                </Link>
             </div>
         </section>
     );

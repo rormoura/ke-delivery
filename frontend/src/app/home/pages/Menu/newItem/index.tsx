@@ -43,7 +43,7 @@ const addItemMenu = () => {
       const data = await response.json();
       window.history.back();
       alert("Item cadastrado com sucesso!!");
-      window.history.back();
+      window.open("/homeRestaurant", "_self")
     } catch (error) {
       console.log(error);
     }
