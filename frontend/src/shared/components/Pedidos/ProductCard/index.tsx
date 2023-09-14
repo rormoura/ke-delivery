@@ -7,28 +7,16 @@ import PedidosContext from "../../../../app/home/context/PedidosContext/PedidosC
 
 function ProductCard({ data }) {
 
-    const { id, name, restaurantId, price } = data;
+    const { id, name, restaurantId, price, image } = data;
     const { cartItems, setCartItems } = useContext(PedidosContext);
 
     const handleAddCart = () => setCartItems([...cartItems, data]);
 
-    const handleExcluir = async (event, id) => {
-        const response = await fetch('http://localhost:5001/api/menu/'+id, {
-            method: 'DELETE',
-            headers: {
-              'Content-Type': 'application/json',
-            }
-          });
-          const data = await response.json();
-          window.open(`/NovoPedido`, '_self');
-      }
-
     return (
         <div className={styles['menu-item']} key={id}>
-                <img src={`src/shared/assets/images/${name}.png`} alt={name} />
+                <img src={image} alt={name} />
                 <p className={styles['menu-item-name']}>{name}</p>
                 <p className={styles['menu-item-price']}>{formatCurrency(price, 'BRL')}</p>
-                <button onClick={(event) => handleExcluir(event, id)} className={styles['delete-button']}>Excluir</button>
                 <button
                     type="button"
                     className={styles['add-to-cart-button']}
