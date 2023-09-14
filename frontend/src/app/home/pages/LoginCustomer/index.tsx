@@ -38,7 +38,7 @@ const LoginCustomer = () => {
         const data = await response.json();
         localStorage.setItem('cliente', JSON.stringify(data.data[0]));
 
-        window.open(`/cadastro-customer`, '_self');
+        window.open(`/novoPedido`, '_self');
       } else {
         // Login falhou, mostrar pop-up de erro
         setShowPopup(true);
