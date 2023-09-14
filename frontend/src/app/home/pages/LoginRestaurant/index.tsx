@@ -63,6 +63,7 @@ const LoginRestaurant = () => {
           <div className={styles.inputDiv}>
             <label>Email:</label>
             <input 
+              data-cy= "email"
               type="text" 
               name="email" 
               placeholder="Digite aqui seu melhor email"
@@ -75,6 +76,7 @@ const LoginRestaurant = () => {
           <div className={styles.inputDiv}>
             <label>Senha:</label>
             <input 
+              data-cy= "password"
               type="password" 
               name="password"
               placeholder="Digite sua senha"
@@ -87,11 +89,17 @@ const LoginRestaurant = () => {
           {showPopup && (
             <p className={styles.error}>O login não foi bem-sucedido. Verifique suas credenciais.</p>
           )}
-          <button className={styles.button} type="submit">Entrar</button>
+          <button 
+            className={styles.button} 
+            type="submit" 
+            data-cy="login"
+          >
+            Entrar
+          </button>
         </form>
         <div className={styles.register}>
           <p>Ainda não tem conta?</p>
-          <a href="/typesRegisters">
+          <a href="/typesRegisters" data-cy="goToRegister">
             <h2 className={styles.link}>Cadastre-se</h2>
           </a>
         </div>

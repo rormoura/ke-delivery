@@ -15,8 +15,12 @@ function ProductCard({ data }) {
     const { title, thumbnail, price } = data;
 =======
 
+<<<<<<< HEAD
     const { id, name, restaurantId, price } = data;
 >>>>>>> 1cf9afc1020ce3dd0f3c209d915ddfd50eec3b56
+=======
+    const { id, name, restaurantId, price, image } = data;
+>>>>>>> dae10c5f3d6c8b67c68913bbac827c9758c4be52
     const { cartItems, setCartItems } = useContext(PedidosContext);
 
     const handleAddCart = () => {
@@ -34,17 +38,6 @@ function ProductCard({ data }) {
             setCartItems([...cartItems, { ...data, quantity: 1 }]);
         }
     }
-
-    const handleExcluir = async (event, id) => {
-        const response = await fetch('http://localhost:5001/api/menu/'+id, {
-            method: 'DELETE',
-            headers: {
-              'Content-Type': 'application/json',
-            }
-          });
-          const data = await response.json();
-          window.open(`/NovoPedido`, '_self');
-      }
 
     return (
 <<<<<<< HEAD
@@ -70,10 +63,9 @@ function ProductCard({ data }) {
         </section>
 =======
         <div className={styles['menu-item']} key={id}>
-                <img src={`src/shared/assets/images/${name}.png`} alt={name} />
+                <img src={image} alt={name} />
                 <p className={styles['menu-item-name']}>{name}</p>
                 <p className={styles['menu-item-price']}>{formatCurrency(price, 'BRL')}</p>
-                <button onClick={(event) => handleExcluir(event, id)} className={styles['delete-button']}>Excluir</button>
                 <button
                     type="button"
                     className={styles['add-to-cart-button']}
