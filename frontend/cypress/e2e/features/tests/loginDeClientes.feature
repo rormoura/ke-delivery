@@ -8,7 +8,7 @@ Feature: Login de clientes
 
         Given eu estou na tela de "login-customer"
         When Eu coloco no campo "emailLogin" com "mmln@cin.com.br",o campo "passwordLogin" com "sudoku123!" e clico no botão "botonLogin"
-        Then Eu vou para a tela "cadastro-customer"
+        Then Eu vou para a tela "novoPedido"
 
     Scenario: Login de cliente com o email errado
 

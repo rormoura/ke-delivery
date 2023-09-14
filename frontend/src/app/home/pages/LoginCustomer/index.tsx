@@ -34,7 +34,11 @@ const LoginCustomer = () => {
       });
       if (response.status === 200) {
         // Login bem-sucedido, redirecionar ou fazer algo aqui
-        window.open(`/cadastro-customer`, '_self');
+        const response = await fetch('http://localhost:5001/api/customers');
+        const data = await response.json();
+        localStorage.setItem('cliente', JSON.stringify(data.data[0]));
+
+        window.open(`/novoPedido`, '_self');
       } else {
         // Login falhou, mostrar pop-up de erro
         setShowPopup(true);
