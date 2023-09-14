@@ -2,6 +2,7 @@ import styles from "./header.module.css"
 import logo from "../../../../shared/assets/logoZe.jpg"
 import SearchBar from "../SearchBar";
 import CartButton from "../CartButton";
+import { Link } from "react-router-dom";
 
 const Header = () => {
     return (
@@ -14,7 +15,8 @@ const Header = () => {
             
             <div className={styles.container}>
                 <CartButton/>
-                <button className={styles.buttonLogin}>Entrar</button>
+                <Link to="/home" data-cy="Sair"  className={styles.buttonLogin}>Sair</Link>
+
             </div>
         </header>
     )
