@@ -49,6 +49,7 @@ const addDeliveryman = () => {
           <div className={styles.inputContainer}>
             <label>Nome</label>
             <input 
+              data-cy="name"
               name="name"
               placeholder="Digite o nome do entregador"
               className={styles.input}
@@ -60,6 +61,7 @@ const addDeliveryman = () => {
           <div className={styles.inputContainer}>
             <label>E-mail</label>
             <input 
+              data-cy="email"
               name="restaurantId"
               placeholder="Digite o email do entregador"
               className={styles.input}
@@ -71,6 +73,7 @@ const addDeliveryman = () => {
           <div className={styles.inputContainer}>
             <label>Pedidos</label>
             <input 
+            data-cy="numOrders"
               name="numOrders"
               placeholder="Digite o número de pedidos realizados pelo entregador"
               className={styles.input}
@@ -79,7 +82,7 @@ const addDeliveryman = () => {
               onChange={(event) => handleInputChange(event, 'numOrders')}
             />
           </div>
-        <button className={styles.button} type = "submit">Cadastrar</button>
+        <button data-cy="cadastro" className={styles.button} type = "submit">Cadastrar</button>
         </form>
       </div>
     </section>
