@@ -13,7 +13,6 @@ const CadastroCustomer = () => {
     password: '',
   });
   const [showPopup, setShowPopup] = useState(false);
-
   const handleInputChange = (event, name) => {
     setFormData({ 
       ...formData, 
