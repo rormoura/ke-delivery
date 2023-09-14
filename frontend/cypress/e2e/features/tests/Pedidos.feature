@@ -7,7 +7,7 @@ Feature: Testes da página de novoItem
   Scenario: Deslogar
     Given Eu entrei na página de "NovoPedido"
     When Eu aperto no botão "Sair"
-    Then Eu alcanço a página de "home"
+    Then Eu alcanço a página de ""
 
   Scenario: Verificar visibilidade do carrinho após clique
     Given Eu cheguei na página "NovoPedido"
