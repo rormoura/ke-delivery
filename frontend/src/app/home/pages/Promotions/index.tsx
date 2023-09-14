@@ -87,6 +87,10 @@ const Promotions: React.FC = () => {
       })
   };
 
+  const handleVoltar = () => {
+    window.open(`/home`, '_self');
+  }
+
   const handleDeletePromotion = (name: string) => {
     axios.delete(`http://localhost:5001/api/promotions/${name}`)
       .then(() => {
@@ -118,6 +122,10 @@ const Promotions: React.FC = () => {
       <div className={styles.addPromotion}>
         <h2>Adicionar promoção</h2>
         <button data-cy="adicionarPromocao" onClick={() => handleAddPromotion()}>Adicionar promoção</button>
+      </div>
+
+      <div>
+      <button data-cy="voltar" onClick={() => handleVoltar()}>Voltar</button>
       </div>
 
       {showModal && (

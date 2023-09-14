@@ -4,6 +4,7 @@ import { useState } from "react";
 
 const Form = () => {
   const [formData, setFormData] = useState({
+    id:'',
     typeBusiness:'',
     responsibleName: '',
     responsibleCPF: '',
@@ -123,6 +124,17 @@ const Form = () => {
           </div> */}
         <h2 className={styles.subtitle}>Dados do restaurante</h2>
         <div className={styles.formInputs}>
+        <div className={styles.inputContainer}>
+            <label>ID</label>
+            <input 
+              name="id"
+              placeholder="Digite o ID do restaurante"
+              className={styles.input}
+              required
+              value = {formData.id}
+              onChange={(event) => handleInputChange(event, 'id')}
+            />
+          </div>
           <div className={styles.inputContainer}>
             <label>Nome do restaurante</label>
             <input 
