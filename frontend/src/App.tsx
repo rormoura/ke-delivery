@@ -17,6 +17,7 @@ import TypesLogin from "./app/home/pages/TypesLogin";
 import MenuRestaurant from "./app/home/pages/MenuRestaurant";
 import CadastroCustomer from "./app/home/pages/CadastroCustomer";
 import PainelCustomer from "./app/home/pages/PainelCustomer";
+import Promotions from "./app/home/pages/Promotions";
 
 const router = createBrowserRouter([
   {
@@ -95,6 +96,10 @@ const router = createBrowserRouter([
     path: "/painel-customer",
     Component: PainelCustomer,
   },
+  {
+    path: "/promotions",
+    Component: Promotions,
+  }
 ]);
 
 export default function App() {

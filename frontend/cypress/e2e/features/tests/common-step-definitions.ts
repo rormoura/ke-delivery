@@ -11,3 +11,11 @@ Given('a usuária {string} está na página de {string}', (usuario: string, pagi
 Then('a usuária {string} permanece na página de {string}', (usuario, pagina) => {
   cy.url().should("include", pagina);
 });
+
+Given('o restaurante {string} está na página de {string}', (restaurante: string, pagina: string) => {
+  cy.visit(pagina);
+});
+
+Then('o restaurante {string} permanece na página de {string}', (restaurante: string, pagina: string) => {
+  cy.url().should("include", pagina);
+});
