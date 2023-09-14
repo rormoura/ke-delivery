@@ -24,7 +24,6 @@ const Form = () => {
       [name]: event.target.value 
     });
   }
-  const [showPopup, setShowPopup] = useState(false);
 
   const handleForm = async (event) => {
     try {
@@ -37,9 +36,8 @@ const Form = () => {
         }
       });
       const data = await response.json();
-      window.open(`/login`, '_self');
+      window.open(`/loginRestaurant`, '_self');
       alert("Cadastro realizado com sucesso!! Faça seu login");
-      // setShowPopup(true);
     } catch (error) {
       console.log(error);
     }
@@ -181,7 +179,13 @@ const Form = () => {
             />
           </div>
         </div>
-        <button className={styles.button} type = "submit">Cadastrar</button>
+        <button 
+          className={styles.button} 
+          type = "submit" 
+          data-cy="register"
+        >
+          Cadastrar
+        </button>
         </form>
       </div>
     </section>
