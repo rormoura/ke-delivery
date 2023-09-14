@@ -22,8 +22,11 @@ interface GooglePayPaymentMethod extends CommonPaymentMethod {}
   
 type PaymentMethod = CashPaymentMethod | CreditCardPaymentMethod | PixPaymentMethod | GooglePayPaymentMethod;
 
+type Promotion = {id: string, name: string, discount: string}
+
 const PaymentMethods: React.FC = () => {
   const [paymentMethods, setPaymentMethods] = useState<PaymentMethod[]>([]);
+  const [promotions, setPromotions] = useState<Promotion[]>([]);
   const [defaultPaymentMethod, setDefaultPaymentMethod] = useState('');
   const [showModal, setShowModal] = useState(false);
   const [showCreditCardModal, setShowCreditCardModal] = useState(false);
@@ -32,8 +35,13 @@ const PaymentMethods: React.FC = () => {
   const [formData, setFormData] = useState<any>({id:'',name:'',default:'',cardHolderName:'',cardNumber:'',expirationDate:'',cvv:''});
   const [updateData, setUpdateData] = useState({ id:'',name:'',default:''});
   const [updateCreditCardData, setUpdateCreditCardData] = useState({ id:'',name:'', cardHolderName:'',cardNumber:'',expirationDate:'',cvv:'',default:''});
+  const [chosenPaymentMethod, setChosenPaymentMethod] = useState<any>({name:''});
+  const [chosenPromotion, setChosenPromotion] = useState<any>({id:'', name:'', discount: ''});
 
   useEffect(() => {
+
+    localStorage.setItem('pedido', JSON.stringify({cartItems:[{idRestaurant:"12"},{idRestaurant:"14"}]}))
+
     axios.get(`http://localhost:5001/api/paymentMethods`)
       .then((response) => {
         setPaymentMethods(response.data.data);
@@ -41,6 +49,25 @@ const PaymentMethods: React.FC = () => {
       .catch((error) => {
         alert(`Não foi possível carregar os métodos de pagamento disponíveis: `+error);
       });
+    const pedido = localStorage.getItem('pedido');
+    if(pedido != null){
+      const items = JSON.parse(pedido).cartItems;
+      const idRestaurantsSet = new Set<string>();
+      items.forEach((item: any) => {
+        idRestaurantsSet.add(item.idRestaurant);
+      })
+      axios.get(`http://localhost:5001/api/promotions`)
+      .then((response) => {
+        const arrayPromotions = response.data.data;
+        const promoçõesFiltradas = arrayPromotions.filter((promoção) =>
+          idRestaurantsSet.has(promoção.id)
+        );
+        setPromotions(promoçõesFiltradas);
+      })
+      .catch((error) => {
+        alert(`Não foi possível carregar as promoções disponíveis: `+error);
+      });
+    }
   }, []);
 
   const handleAddPaymentMethod = (type: string) => {
@@ -224,6 +251,16 @@ const PaymentMethods: React.FC = () => {
       });
   };
 
+  const handleAvancar = () => {
+    localStorage.setItem('paymentMethod', JSON.stringify(chosenPaymentMethod));
+    localStorage.setItem('promotion', JSON.stringify(chosenPromotion));
+    window.open(`/home`, '_self');
+  }
+
+  const handleVoltar = () => {
+    window.open(`/novoPedido`, '_self');
+  }
+
   return (
     <div className={styles.container}>
       <h1>Métodos de Pagamento</h1>
@@ -236,6 +273,7 @@ const PaymentMethods: React.FC = () => {
               {method.name} (Padrão: {method.name === defaultPaymentMethod ? 'Sim' : 'Não'})
               <button data-cy={"atualizar"+method.name} onClick={() => handleUpdatePaymentMethod(method.name)}>Atualizar</button>
               <button data-cy={"remover"+method.name} onClick={() => handleDeletePaymentMethod(method.name)}>Remover</button>
+              <button data-cy={"escolher"+method.name} onClick={() => setChosenPaymentMethod(method.name)}>Escolher</button>
               {!(method.default === "yes") && (
                 <button data-cy={"definirPadrao"+method.name} onClick={() => handleSetDefaultPaymentMethod(method.name)}>Definir como padrão</button>
               )}
@@ -250,6 +288,27 @@ const PaymentMethods: React.FC = () => {
         <button data-cy="adicionarCartao" onClick={() => handleAddPaymentMethod('creditCard')}>Adicionar cartão de crédito</button>
         <button data-cy="adicionarPix" onClick={() => handleAddPaymentMethod('pix')}>Adicionar pix</button>
         <button data-cy="adicionarGooglePay" onClick={() => handleAddPaymentMethod('googlePay')}>Adicionar google pay</button>
+      </div>
+
+      <div className={styles.paymentMethods}>
+        <h2>Promoções disponíveis</h2>
+        <ul>
+          {promotions.map((method: Promotion) => (
+            <li key={method.name} data-cy="promocoesDisponiveis">
+              {method.name} (Desconto: {method.discount})
+              {!(method == chosenPromotion) && (
+              <button data-cy={"escolher"+method.name} onClick={() => setChosenPromotion(method)}>Escolher</button>)}
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div>
+        <button data-cy="voltar" onClick={() => handleVoltar()}>Voltar</button>
+      </div>
+
+      <div>
+        <button data-cy="avancar" onClick={() => handleAvancar()}>Avançar</button>
       </div>
 
       {showModal && (
