@@ -1,6 +1,8 @@
 import styles from "./index.module.css";
 import Menu from "../../components/Restaurants/Menu";
 import { useState, useEffect } from "react";
+import Carte from "../Menu";
+
 
 const HomeRestaurant = () => {
   const [formData, setFormData] = useState({
@@ -46,6 +48,7 @@ const HomeRestaurant = () => {
       <div className={styles.body}>
         <h1 className={styles.title}>Olá, Nome do Restaurante</h1>
         <div className={styles.box}></div>
+        <Carte />
         <div className={styles.boxes}>
           <div className={styles.boxSmall}></div>
           <div className={styles.boxSmall}></div>
