@@ -1,32 +1,19 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import styles from './carrinho.module.css';
 import CarrinhoItem from '../CarrinhoItem';
 import PedidosContext from '../../../../app/home/context/PedidosContext/PedidosContext.js';
 import formatCurrency from '../../../../utils/formatCurrency.js';
 
 function Carrinho() {
-    const { cartItems, isCartVisible, setCartItems, setQtdItems } = useContext(PedidosContext);
+    const { cartItems, isCartVisible, qtdItems, setQtdItems } = useContext(PedidosContext);
 
-    // Função para agrupar itens pelo ID
-    const groupedCartItems = cartItems.reduce((groups, item) => {
-        const existingGroup = groups.find((group) => group.id === item.id);
-
-        if (existingGroup) {
-            existingGroup.quantity += 1;
-        } else {
-            groups.push({ ...item, quantity: 1 });
-        }
-
-        return groups;
-    }, []);
-
-    // Calculate the total quantity of items in the cart
-    const totalQuantity = groupedCartItems.reduce((acc, item) => acc + item.quantity, 0);
+    // Calculate the total value of items in the cart
+    const totalValue = cartItems.reduce((acc, item) => item.price * item.quantity + acc, 0);
 
     // Update the qtdItems state in the context whenever the total quantity changes
     useEffect(() => {
-        setQtdItems(totalQuantity);
-    }, [totalQuantity, setQtdItems]);
+        setQtdItems(cartItems.reduce((acc, item) => item.quantity + acc, 0));
+    }, [cartItems, setQtdItems]);
 
     // Conditionally apply the class based on isCartVisible
     const cartClass = isCartVisible ? styles.cartActive : styles.cart;
@@ -39,16 +26,13 @@ function Carrinho() {
     return (
         <section className={cartClass}>
             <div className={styles.cartItens}>
-                {groupedCartItems.map((cartItem) => (
+                {cartItems.map((cartItem) => (
                     <CarrinhoItem key={cartItem.id} data={cartItem} />
                 ))}
             </div>
 
             <div className={styles.cartResume}>
-                {formatCurrency(
-                    groupedCartItems.reduce((acc, item) => item.price * item.quantity + acc, 0),
-                    'BRL'
-                )}
+                {formatCurrency(totalValue, 'BRL')}
                 <button
                     className={styles.cartCheckout}
                     type="button"
