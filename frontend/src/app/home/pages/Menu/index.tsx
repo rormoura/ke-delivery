@@ -78,7 +78,7 @@ const Menu: React.FC = () => {
             <h1>{place.restaurantName}</h1>
           </div>
           <div>
-            <Link to={"/novoItem"}>
+            <Link to={`/novoItem?id=${place.id}`}>
             <button className={styles['discreet-button']}>Adicionar novo item</button>
             </Link>
           </div>
@@ -88,7 +88,7 @@ const Menu: React.FC = () => {
               <div> 
                 { item.restaurantId == place.id && 
                   <div className={styles['menu-item']} key={item.id}>
-                    <img src={`src/shared/assets/images/${item.name}.png`} alt={item.name} />
+                    <img src={item.image} alt={item.name} />
                     <p className={styles['menu-item-name']}>{item.name}</p>
                     <p className={styles['menu-item-price']}>{item.price}</p>
                     <Link to={`/cart/${item.id}`}>

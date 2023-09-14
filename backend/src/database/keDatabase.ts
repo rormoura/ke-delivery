@@ -72,7 +72,8 @@ export default class Database {
           id: '1',
           name: 'Berinjela ao forno',
           price: 32.69,
-          restaurantId: '123'
+          restaurantId: '123',
+          image: "https://catracalivre.com.br/wp-content/uploads/2021/01/berinjela-de-forno.jpg"
         })
       ],
     };
