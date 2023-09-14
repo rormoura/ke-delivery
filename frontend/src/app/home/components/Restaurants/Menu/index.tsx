@@ -4,6 +4,7 @@ import HomeIcon from "../../../../../shared/assets/homeIcon.svg";
 import RequestIcon from "../../../../../shared/assets/pedidosIcon.svg";
 import MenuIcon from "../../../../../shared/assets/cardapioIcon.svg";
 import ProfileIcon from "../../../../../shared/assets/profileIcon.svg";
+import LogoutIcon from "../../../../../shared/assets/logoutIcon.svg";
 
 const Menu = () => {
   return(
@@ -25,6 +26,10 @@ const Menu = () => {
         <a href="/profile/id" className={styles.link}>
           <img src={ProfileIcon} className={styles.icon}/>
           <h3>Conta</h3>
+        </a>
+        <a href="/" className={styles.link} id={styles.logout}>
+          <img src={LogoutIcon} className={styles.icon}/>
+          <h3>Sair</h3>
         </a>
       <h1 id={styles.name}>Ké Delivery</h1>
       </div>
