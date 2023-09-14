@@ -1,4 +1,4 @@
-import Database from '../database';
+import Database from '../database/keDatabase';
 import BaseEntity from '../entities/base.entity';
 import { HttpInternalServerError } from '../utils/errors/http.error';
 import { v4 as uuidv4 } from 'uuid';
@@ -19,12 +19,23 @@ export default class BaseRepository<T extends BaseEntity> {
       if (!this.db.data[this.prefix]) {
         this.db.data[this.prefix] = [];
       }
-      const newItem = {
-        ...data,
-        id: uuidv4(),
-      };
-      this.db.data[this.prefix].push(newItem);
-      return newItem;
+      if(!data.id){
+        const newItem = {
+          ...data,
+          id: uuidv4(),
+        };
+        this.db.data[this.prefix].push(newItem);
+        return newItem;
+      }else{
+        const newItem = {
+          ...data,
+          id: data.id,
+        };
+        this.db.data[this.prefix].push(newItem);
+        return newItem;
+      }
+      
+      
     } catch (e) {
       throw new HttpInternalServerError();
     }

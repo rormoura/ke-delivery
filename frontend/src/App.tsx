@@ -1,23 +1,32 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import CreateTest from "./app/home/pages/CreateTest";
-import ListTests from "./app/home/pages/ListTests";
+import LoginRestaurant from "./app/home/pages/LoginRestaurant";
+import Home from "./app/home/pages/Home";
 import Footer from "./app/home/pages/Footer";
 import LoginCustomer from "./app/home/pages/LoginCustomer";
+import PaymentMethods from "./app/home/pages/PaymentMethods";
+import Menu from "./app/home/pages/Menu";
+import Pedidos from "./app/home/pages/NovoPedido";
+import addItemMenu from "./app/home/pages/Menu/newItem";
+import Deliverymans from "./app/home/pages/Deliverymans";
+import addDeliveryman from "./app/home/pages/Deliverymans/newDeliv";
+import Navbar from "./app/home/pages/Navbar";
+import RegisterRestaurant from "./app/home/pages/RegisterRestaurant";
+import HomeRestaurant from "./app/home/pages/HomeRestaurant";
+import TypesRegisters from "./app/home/pages/TypesRegisters";
+import TypesLogin from "./app/home/pages/TypesLogin";
+import MenuRestaurant from "./app/home/pages/MenuRestaurant";
 import CadastroCustomer from "./app/home/pages/CadastroCustomer";
 import PainelCustomer from "./app/home/pages/PainelCustomer";
+import Promotions from "./app/home/pages/Promotions";
 
 const router = createBrowserRouter([
   {
-    path: "*",
-    Component: CreateTest,
+    path: "/",
+    Component: Home,
   },
   {
-    path: "/create-test",
-    Component: CreateTest,
-  },
-  {
-    path: "/tests",
-    Component: ListTests,
+    path: "/home",
+    Component: Home,
   },
   {
     path: "/footer",
@@ -28,6 +37,58 @@ const router = createBrowserRouter([
     Component: LoginCustomer,
   },
   {
+    path: "/paymentMethods",
+    Component: PaymentMethods,
+  },
+  {
+    path: "/menu",
+    Component: Menu,
+  },
+  {
+    path: "/NovoPedido",
+    Component: Pedidos,
+  },
+  {
+    path: "/novoItem",
+    Component: addItemMenu,
+  },
+  {
+    path: "/entregadores",
+    Component: Deliverymans,
+  },
+  {
+    path: "/novoEntregador",
+    Component: addDeliveryman,
+  },
+  {
+    path: "/loginRestaurant",
+    Component: LoginRestaurant,
+  },
+  {
+    path: "/navbar",
+    Component: Navbar,
+  },
+  {
+    path: "/registerRestaurant",
+    Component: RegisterRestaurant,
+  },
+  {
+    path: "/homeRestaurant",
+    Component: HomeRestaurant,
+  },
+  {
+    path: "/typesRegisters",
+    Component: TypesRegisters,
+  },
+  {
+    path: "/typesLogin",
+    Component: TypesLogin,
+  },
+  {
+    path: "/menuRestaurant",
+    Component: MenuRestaurant,
+  },
+  {
     path: "/cadastro-customer",
     Component: CadastroCustomer,
   },
@@ -35,6 +96,10 @@ const router = createBrowserRouter([
     path: "/painel-customer",
     Component: PainelCustomer,
   },
+  {
+    path: "/promotions",
+    Component: Promotions,
+  }
 ]);
 
 export default function App() {

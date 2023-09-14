@@ -4,7 +4,8 @@ Feature: Criar e visualizar tests
   so that eu possa ter um histórico de tests.
 
 Scenario: Criar um test
-  Given o usuário está na página "create-test"
+  Given 
+  o usuário está na página "create-test"
   When o usuário preenche o campo "input-name" com "Teste 1" e clica no botão "create"
   Then o usuário deve ver a mensagem "Teste criado com sucesso!"
 
