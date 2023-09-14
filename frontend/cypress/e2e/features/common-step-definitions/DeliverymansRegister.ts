@@ -1,6 +1,6 @@
 import { Given, When, Then } from "@badeball/cypress-cucumber-preprocessor";
 
-// Scenario: Cadastro de cliente com sucesso
+// Scenario: Cadastro de entregador com sucesso
 //Given: common-step-definitions.ts
 
   Given("Eu me encontro na página {string}", (page: string) => {
@@ -18,7 +18,7 @@ import { Given, When, Then } from "@badeball/cypress-cucumber-preprocessor";
     cy.url().should("include", page);
   });
 
-// Scenario: Cadastro de cliente faltando campos
+// Scenario: Cadastro de entregador faltando campos
 
   Given("Estou na página {string}", (page: string) => {
     cy.visit(page);
@@ -30,7 +30,7 @@ import { Given, When, Then } from "@badeball/cypress-cucumber-preprocessor";
     cy.getDataCy(button).click();
   });
 
-  Then("Eu permaneço na página de {string}", (page: string) => {
+  Then("Permaneço na página {string}", (page: string) => {
     cy.url().should("include", page);
   });
 
