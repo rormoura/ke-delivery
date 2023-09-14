@@ -59,6 +59,7 @@ function CarrinhoItem({ data }) {
                     type="button"
                     className={styles.buttonRemoveItem}
                     onClick={handleRemoveItem}
+                    data-cy="buttonRemoveItem"
                 >
                     <BsCartX />
                 </button>
@@ -67,6 +68,7 @@ function CarrinhoItem({ data }) {
                     type="button"
                     className={styles.buttonDecreaseItem}
                     onClick={handleDecreaseItem}
+                    data-cy="buttonDecreaseItem"
                 >
                     <BsCartDash />
                 </button>
@@ -75,6 +77,7 @@ function CarrinhoItem({ data }) {
                     type="button"
                     className={styles.buttonIncreaseItem}
                     onClick={handleIncreaseItem}
+                    data-cy="buttonIncreaseItem"
                 >
                     <BsCartPlus />
                 </button>

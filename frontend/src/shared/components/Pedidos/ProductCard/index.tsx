@@ -26,7 +26,9 @@ function ProductCard({ data }) {
     }
 
     return (
-        <section className={styles.productCard}>
+        <section
+            data-cy="productCard"
+            className={styles.productCard}>
             <img
                 src={image}
                 alt={name}
@@ -40,6 +42,7 @@ function ProductCard({ data }) {
 
             <button
                 type="button"
+                data-cy="buttonAddCart"
                 className={styles.buttonAddCart}
                 onClick={handleAddCart}
             >

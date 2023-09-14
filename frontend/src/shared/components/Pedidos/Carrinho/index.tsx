@@ -37,6 +37,7 @@ function Carrinho() {
                     className={styles.cartCheckout}
                     type="button"
                     onClick={handleCheckout}
+                    data-cy="cartCheckout"
                 >
                     Checkout
                 </button>
